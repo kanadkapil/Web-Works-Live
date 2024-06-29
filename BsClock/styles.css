@@ -1,0 +1,73 @@
+body{
+    background: linear-gradient(#000, #999999);
+}
+
+/* Common styles */
+.clock-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.digital-clock {
+    font-size: 2rem;
+    margin: 20px;
+    padding: 10px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Analog Clock */
+.analog-clock {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: 10px solid #000;
+    border-radius: 50%;
+    margin: 20px;
+}
+
+.analog-clock .hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    transform: rotate(90deg);
+}
+
+.analog-clock .hour {
+    width: 6px;
+    height: 50px;
+    background: #000;
+}
+
+.analog-clock .minute {
+    width: 4px;
+    height: 70px;
+    background: #000;
+}
+
+.analog-clock .second {
+    width: 2px;
+    height: 90px;
+    background: red;
+}
+
+.analog-clock span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(calc(30deg * var(--i)));
+}
+
+.analog-clock span b {
+    display: inline-block;
+    transform: rotate(calc(-30deg * var(--i)));
+    font-size: 20px;
+}
