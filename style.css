@@ -1,10 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Tiny5&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap'); */
+/* font-family: "Shadows Into Light", cursive; */
+
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Shadows+Into+Light&display=swap');
+
 
 *{
     margin: 0;
     padding: 0 ;
     box-sizing: border-box;
-    font-family: "Tiny5", sans-serif;
+    font-family: "Permanent Marker", cursive;
 
 }
 
@@ -14,15 +18,15 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(45deg,#000000, #3a4452);
+    background: linear-gradient(60deg,#1d1c1c, #3c639d);
 }
 
 .calculator{
-    border: 1px solid #ffffff;
+    border: 1px solid #19118b;
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 30px;
     background: transparent;
-    box-shadow:  5px 5px 50px #fff;
+    box-shadow:  5px 5px 24px #5cf079;
 }
 
 input{
@@ -31,10 +35,11 @@ input{
     padding: 24px;
     margin: 10px;
     background: transparent;
-    box-shadow: 0px 3px 15px #ffffff 0.1;
+    /* box-shadow: 0px 3px 15px #7b6767 0.1; */
     font-size: 40px;
     text-align: right;
     cursor: pointer;
+    color: #fff;
 }
 
 input::placeholder{
@@ -48,13 +53,26 @@ button{
     width: 60px;
     height: 60px;
     margin: 12px;
+    padding: 5px;
     border-radius: 50%;
     font-size: 30px;
-    box-shadow:-4px -8px 20px #3a4452 ;
+    box-shadow: 2px 2px 16px #a39f9f  ;
     cursor:pointer ;
     
 }
 
+button:hover {
+    -ms-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.25);
+}
+
 .equalBtn{
-    background: #545f6d;
+    color: #000000;
+    background: #f5f5f5;
+}
+
+.opt{
+    color: #363631;
+    background: #ffd665;
 }
