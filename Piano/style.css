@@ -1,0 +1,105 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body{
+    background-color: #dfdfdf;
+}
+
+#piano {
+    background-color: #908e8e;
+    width: 992px;
+    height: 290px;
+    margin: 25vh auto;
+    padding: 90px 20px 0 20px;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 5px 5px 50px #191919;
+}
+
+.keys {
+    background-color: #191919;
+    width: 949px;
+    height: 180px;
+    padding-left: 2px;
+    overflow: hidden;
+}
+
+.key {
+    background-color: #ffffff;
+    position: relative;
+    width: 41px;
+    height: 175px;
+    margin: 2px;
+    float: left;
+    border-radius: 0 0 3px 3px;
+}
+
+/* .keys:hover {
+    background-color: #ababab;
+    cursor: default;
+} */
+
+.key:hover {
+    background-color: #c5c5c5;
+    /* Darken the background slightly on hover */
+    cursor: default;
+    /* Optional: Set the cursor to default */
+}
+
+.key:active {
+    background-color: #e0e0e0;
+    /* Lighten the background on press */
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.2);
+    /* Add a subtle inset shadow */
+}
+
+
+
+.key.black--key::after {
+    background-color: #1d1e22;
+    content: "";
+    position: absolute;
+    left: -18px;
+    width: 32px;
+    height: 100px;
+    border-radius: 0 0 3px 3px;
+}
+
+
+.logo {
+    width: 200px;
+    position: absolute;
+    top: 10px;
+    color: #ffffff;
+}
+
+@media (max-width: 768px) {
+    #piano {
+        width: 358px;
+    }
+
+    .keys {
+        width: 318px;
+    }
+
+    .logo {
+        width: 150px;
+    }
+}
+
+@media (min-width: 1199px) and (max-width: 769px) {
+    #piano {
+        width: 675px;
+    }
+
+    .keys {
+        width: 633px;
+    }
+}
