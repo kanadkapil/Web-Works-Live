@@ -1,5 +1,7 @@
+/* Base styles */
 body {
-    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+    background-color: #565656;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,10 +11,18 @@ body {
 
 .container {
     text-align: center;
+    max-width: 600px; 
+    width: 90%; 
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgb(236, 252, 145);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
 .game {
     display: flex;
+    flex-wrap: wrap; 
     justify-content: space-around;
     align-items: center;
     margin-bottom: 20px;
@@ -20,6 +30,7 @@ body {
 
 .player, .opponent {
     flex: 1;
+    margin-bottom: 20px;
 }
 
 .choices {
@@ -31,18 +42,40 @@ body {
 .choice {
     margin: 0 10px;
     cursor: pointer;
+    /* box-shadow:5px 5px  10px #565656; */
 }
 
 .choice img {
     width: 150px; 
     height: 150px;
-    border-radius: 50%; 
+    border-radius: 50%;
 }
 
 .choice.active {
-    border: 2px solid #007bff; 
+    border: 2px solid rgb(236, 252, 145);
 }
 
 .result, .score {
     margin-top: 20px;
 }
+
+.choice {
+    margin: 0 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out; 
+}
+
+.choice img {
+    width: 150px; 
+    height: 150px; 
+    border-radius: 50%;
+}
+
+.choice:hover {
+    transform: scale(1.15); 
+}
+
+.choice.active {
+    border: 2px solid rgb(236, 252, 145);
+}
+
