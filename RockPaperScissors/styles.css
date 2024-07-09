@@ -1,0 +1,16 @@
+.opponent-response {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.opponent-response .choice {
+    margin: 0 10px;
+}
+
+.opponent-response .opponent-img {
+    display: none;
+    width: 150px; /* Adjust size as needed */
+    height: 150px; /* Adjust size as needed */
+    border-radius: 50%; /* Makes the images circular */
+}

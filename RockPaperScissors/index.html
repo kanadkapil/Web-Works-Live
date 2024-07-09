@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center my-4">Rock Paper Scissors</h1>
+
+        <!-- Player's choices -->
+        <div class="choices">
+            <div class="choice" data-choice="rock" onclick="playerChoice('rock')">
+                <img src="assets/rock1.jpeg" alt="Rock">
+            </div>
+            <div class="choice" data-choice="paper" onclick="playerChoice('paper')">
+                <img src="assets/paper.jpeg" alt="Paper">
+            </div>
+            <div class="choice" data-choice="scissors" onclick="playerChoice('scissors')">
+                <img src="assets/scissor.jpeg" alt="Scissors">
+            </div>
+        </div>
+
+        <!-- Opponent's response -->
+        <div class="opponent-response">
+            <h2>Opponent's Choice</h2>
+            <div class="choice" data-choice="rock">
+                <img class="opponent-img" src="assets/rock1.jpeg" alt="Rock">
+            </div>
+            <div class="choice" data-choice="paper">
+                <img class="opponent-img" src="assets/paper.jpeg" alt="Paper">
+            </div>
+            <div class="choice" data-choice="scissors">
+                <img class="opponent-img" src="assets/scissor.jpeg" alt="Scissors">
+            </div>
+        </div>
+
+        <!-- Result display -->
+        <div class="result text-center mt-4">
+            <h2>Result: <span id="result">Make your choice!</span></h2>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
