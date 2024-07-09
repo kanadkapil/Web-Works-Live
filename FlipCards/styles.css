@@ -1,26 +1,36 @@
 body {
-    background-color: #f8f9fa;
+    background-color: #383838;
+    display: flex;
+    justify-content: center;
+    color: antiquewhite;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    grid-template-columns: repeat(6, 1fr);
     gap: 10px;
 }
 
 .card {
-    background-color: #007bff;
+    background-color: #ff8080;
     border-radius: 5px;
     height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
-    color: white;
+    color: rgb(0, 0, 0);
     cursor: pointer;
     user-select: none;
 }
 
 .card.flip {
-    background-color: #28a745;
+    background-color: #4ef6ff;
 }
