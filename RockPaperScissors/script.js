@@ -1,14 +1,25 @@
 let score = 0;
+let currentPlayerChoice = null; // Track current player choice
 
 function playerChoice(playerSelection) {
-    const choices = ['rock', 'paper', 'scissors'];
-    const computerSelection = choices[Math.floor(Math.random() * choices.length)];
-
-    // Display player's choice
-    const playerChoiceImg = document.createElement('img');
-    playerChoiceImg.src = `assets/${playerSelection}.jpeg`;
-    playerChoiceImg.alt = playerSelection;
-    updateChoiceDisplay(playerSelection, playerChoiceImg);
+    if (currentPlayerChoice === playerSelection) {
+        return; // Prevent selecting the same choice twice in a row
+    }
+    
+    const choicesContainer = document.querySelector('.player .choices');
+    const choiceElements = choicesContainer.querySelectorAll('.choice');
+    
+    // Remove active class from all choices
+    choiceElements.forEach(elem => {
+        elem.classList.remove('active');
+    });
+    
+    // Add active class to the selected choice
+    const selectedChoiceElement = choicesContainer.querySelector(`.choice[data-choice="${playerSelection}"]`);
+    selectedChoiceElement.classList.add('active');
+    
+    // Update current player choice
+    currentPlayerChoice = playerSelection;
 
     // Display opponent's "awaiting" message initially
     const opponentChoiceImg = document.getElementById('opponentChoice');
@@ -17,28 +28,15 @@ function playerChoice(playerSelection) {
 
     // Simulate opponent's choice after a delay
     setTimeout(() => {
+        const choices = ['rock', 'paper', 'scissors'];
+        const computerSelection = choices[Math.floor(Math.random() * choices.length)];
+        
         opponentChoiceImg.src = `assets/${computerSelection}_opponent.jpeg`;
         opponentChoiceImg.alt = computerSelection;
-
+        
         const result = getResult(playerSelection, computerSelection);
         displayResult(result);
     }, 1000); // Delay opponent's response for 1 second
-}
-
-function updateChoiceDisplay(choice, imgElement) {
-    const choicesContainer = document.querySelector('.player .choices');
-    const choiceElements = choicesContainer.querySelectorAll('.choice');
-    
-    // Remove previous active class if exists
-    choiceElements.forEach(elem => {
-        elem.classList.remove('active');
-        elem.innerHTML = ''; // Clear previous content
-    });
-
-    // Find the selected choice element and append the image
-    const selectedChoiceElement = choicesContainer.querySelector(`.choice[data-choice="${choice}"]`);
-    selectedChoiceElement.classList.add('active');
-    selectedChoiceElement.appendChild(imgElement);
 }
 
 function getResult(player, computer) {
