@@ -1,3 +1,5 @@
+let score = 0;
+
 function playerChoice(playerSelection) {
     const choices = ['rock', 'paper', 'scissors'];
     const computerSelection = choices[Math.floor(Math.random() * choices.length)];
@@ -8,20 +10,23 @@ function playerChoice(playerSelection) {
     playerChoiceImg.alt = playerSelection;
     updateChoiceDisplay(playerSelection, playerChoiceImg);
 
-    // Display opponent's choice
-    const opponentChoiceImgs = document.querySelectorAll('.opponent-response .choice .opponent-img');
-    opponentChoiceImgs.forEach(img => {
-        img.style.display = 'none'; // Hide all opponent images
-    });
-    const opponentChoiceImg = document.querySelector(`.opponent-response .choice[data-choice="${computerSelection}"] .opponent-img`);
-    opponentChoiceImg.style.display = 'block'; // Show the selected opponent image
+    // Display opponent's "awaiting" message initially
+    const opponentChoiceImg = document.getElementById('opponentChoice');
+    opponentChoiceImg.src = 'assets/awaiting.jpeg';
+    opponentChoiceImg.alt = 'Awaiting';
 
-    const result = getResult(playerSelection, computerSelection);
-    displayResult(result);
+    // Simulate opponent's choice after a delay
+    setTimeout(() => {
+        opponentChoiceImg.src = `assets/${computerSelection}_opponent.jpeg`;
+        opponentChoiceImg.alt = computerSelection;
+
+        const result = getResult(playerSelection, computerSelection);
+        displayResult(result);
+    }, 1000); // Delay opponent's response for 1 second
 }
 
 function updateChoiceDisplay(choice, imgElement) {
-    const choicesContainer = document.querySelector('.choices');
+    const choicesContainer = document.querySelector('.player .choices');
     const choiceElements = choicesContainer.querySelectorAll('.choice');
     
     // Remove previous active class if exists
@@ -42,8 +47,10 @@ function getResult(player, computer) {
     } else if ((player === 'rock' && computer === 'scissors') ||
                (player === 'paper' && computer === 'rock') ||
                (player === 'scissors' && computer === 'paper')) {
+        score++;
         return 'You win!';
     } else {
+        score--;
         return 'You lose!';
     }
 }
@@ -51,4 +58,7 @@ function getResult(player, computer) {
 function displayResult(result) {
     const resultElement = document.getElementById('result');
     resultElement.textContent = result;
+
+    const scoreElement = document.getElementById('score');
+    scoreElement.textContent = score;
 }
