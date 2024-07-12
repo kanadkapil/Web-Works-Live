@@ -10,9 +10,16 @@ let food = {
   y: Math.floor(Math.random() * 19 + 1) * box
 };
 
-let score = 0;
+let bonusFood = {
+  x: Math.floor(Math.random() * 19 + 1) * box,
+  y: Math.floor(Math.random() * 19 + 1) * box
+};
 
+let score = 0;
+let gameSpeed = 200; // initial speed in milliseconds
+let speedIncrement = 10; // speed increase in milliseconds
 let d;
+let snakeColor = 'green'; // default snake color
 
 document.addEventListener('keydown', direction);
 
@@ -41,7 +48,7 @@ function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   for (let i = 0; i < snake.length; i++) {
-    ctx.fillStyle = (i == 0) ? 'green' : 'white';
+    ctx.fillStyle = (i == 0) ? snakeColor : 'white';
     ctx.fillRect(snake[i].x, snake[i].y, box, box);
     ctx.strokeStyle = 'red';
     ctx.strokeRect(snake[i].x, snake[i].y, box, box);
@@ -49,6 +56,9 @@ function draw() {
 
   ctx.fillStyle = 'red';
   ctx.fillRect(food.x, food.y, box, box);
+
+  ctx.fillStyle = 'orange'; // bonus food color
+  ctx.fillRect(bonusFood.x, bonusFood.y, box, box);
 
   let snakeX = snake[0].x;
   let snakeY = snake[0].y;
@@ -58,9 +68,10 @@ function draw() {
   if (d == 'RIGHT') snakeX += box;
   if (d == 'DOWN') snakeY += box;
 
-  if (snakeX == food.x && snakeY == food.y) {
-    score++;
-    food = {
+  // Check collision with bonus food
+  if (snakeX == bonusFood.x && snakeY == bonusFood.y) {
+    score += 5;
+    bonusFood = {
       x: Math.floor(Math.random() * 19 + 1) * box,
       y: Math.floor(Math.random() * 19 + 1) * box
     };
@@ -68,20 +79,46 @@ function draw() {
     snake.pop();
   }
 
+  // Check collision with regular food
+  if (snakeX == food.x && snakeY == food.y) {
+    score++;
+    food = {
+      x: Math.floor(Math.random() * 19 + 1) * box,
+      y: Math.floor(Math.random() * 19 + 1) * box
+    };
+  }
+
   let newHead = {
     x: snakeX,
     y: snakeY
   };
 
+  // Game over conditions
   if (snakeX < 0 || snakeY < 0 || snakeX >= canvas.width || snakeY >= canvas.height || collision(newHead, snake)) {
     clearInterval(game);
+    alert("GAME OVER.....🐸");
   }
 
   snake.unshift(newHead);
 
   ctx.fillStyle = 'white';
   ctx.font = '45px Changa one';
-  ctx.fillText(score, 2 * box, 1.6 * box);
+  ctx.fillText("Score: " + score, 2 * box, 1.6 * box);
 }
 
-let game = setInterval(draw, 100);
+// Start game
+let game = setInterval(draw, gameSpeed);
+
+// Increase speed gradually
+function increaseSpeed() {
+  gameSpeed -= speedIncrement;
+  clearInterval(game);
+  game = setInterval(draw, gameSpeed);
+}
+setInterval(increaseSpeed, 5000); // increase speed every 5 seconds
+
+// Change snake color function
+function changeSnakeColor() {
+  let randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16); // generate random hex color
+  snakeColor = randomColor;
+}
