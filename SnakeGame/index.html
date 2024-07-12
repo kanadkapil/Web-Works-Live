@@ -12,14 +12,41 @@
       height: 100vh;
       margin: 0;
       background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
     }
     canvas {
       background-color: #000;
+      margin-top: 20px; /* Adjust margin for canvas */
+    }
+    h1 {
+      text-align: center;
+    }
+    #scoreBoard {
+      text-align: center;
+      margin-top: 10px; /* Adjust margin for score board */
+    }
+    button {
+      margin-top: 10px; /* Adjust margin for button */
+    }
+    @media screen and (max-width: 600px) {
+      canvas {
+        width: 350px !important; /* Adjust width for mobile */
+        height: 600px !important; /* Adjust height for mobile */
+      }
+    }
+    @media screen and (min-width: 601px) {
+      canvas {
+        width: 1000px !important; /* Adjust width for desktop */
+        height: 800px !important; /* Adjust height for desktop */
+      }
     }
   </style>
 </head>
 <body>
+  <h1>Snake Game</h1>
   <canvas id="gameCanvas" width="1000" height="800"></canvas>
+  <div id="scoreBoard">Score: 0</div>
+  <button onclick="changeSnakeColor()">Change Snake Color</button>
   <script src="snake.js"></script>
 </body>
 </html>
