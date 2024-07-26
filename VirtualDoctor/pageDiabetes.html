@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fever Checker</title>
+    <title>Diabetes Glucose Level Checker</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
     <style>
@@ -21,7 +21,7 @@
             font-style: normal;
         }
     </style>
-    <script src="docFever.js" defer></script>
+    <script src="docDiabetes.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js" defer></script>
 
 </head>
@@ -81,28 +81,21 @@
         </div>
     </header>
 
-    <!-- fever card in/output  -->
+    <!-- glucose card in/output  -->
     <div class="container mx-auto my-10 mt-20 ">
-        <div class="card shadow-xl rounded-lg p-6">
-            <h2 class="text-2xl font-bold my-4">Enter Your Temperature</h2>
-            <form id="feverForm" class="my-4">
-                <div class="flex mb-4">
-                    <input type="radio" name="tempUnit" value="F" id="tempF" class="radio radio-primary" checked>
-                    <label for="tempF" class="ml-2">Fahrenheit (°F)</label>
-                </div>
-                <div class="flex mb-4">
-                    <input type="radio" name="tempUnit" value="C" id="tempC" class="radio radio-primary">
-                    <label for="tempC" class="ml-2">Celsius (°C)</label>
-                </div>
-                <input type="text" id="tempInput" class="input input-bordered w-full my-4"
-                    placeholder="Enter temperature" maxlength="5" required>
-                <button type="submit" class="btn btn-primary w-full">Check</button>
+        <div class="card bg-gray-200 shadow-xl rounded-lg p-6">
+            <h2 class="text-2xl font-bold mt-4">Enter Your Glucose Level</h2>
+            <form id="glucoseForm" class="my-4">
+                <input type="text" id="glucoseInput" class="input input-bordered w-full my-4"
+                    placeholder="Enter glucose level " maxlength="4" required>
+                <button type="submit" class="btn btn-primary my-3 w-full">Check</button>
             </form>
-            <div id="resultCard" class="hidden card bg-white shadow-xl rounded-lg p-6 my-4">
-                <h3 class="text-xl font-bold mb-2">Your Temperature Result</h3>
+            <div id="resultCard" class="hidden card shadow-xl rounded-lg p-6 my-4">
+                <h3 class="text-xl font-bold mb-2">Your Glucose Level Result</h3>
                 <p id="resultRange" class="ranged font-bold text-black"></p>
                 <p id="resultDescription" class="mb-2"></p>
                 <p id="resultStatus" class="mb-2"></p>
+                <p id="resultSteps" class="mb-2"></p>
                 <div id="resultDiet" class="mb-2">
                     <p class="font-bold">Diet to Eat:</p>
                     <p id="resultBreakfast" class="ml-4"></p>
@@ -110,7 +103,7 @@
                     <p id="resultSnacks" class="ml-4"></p>
                     <p id="resultDinner" class="ml-4"></p>
                 </div>
-                <p id="resultMedication" class="mb-2"></p>
+                <p id="resultCheatMeal" class="mb-2"></p>
                 <p id="resultAvoid" class="mb-2"></p>
                 <p id="resultConsult" class="mb-2"></p>
                 <button id="downloadBtn" class="btn btn-secondary mt-4">Download Prescription</button>
@@ -120,14 +113,14 @@
 
     <!-- divider  -->
     <div class="container mx-auto my-10">
-        <div class="diff aspect-[16/9] rounded-lg shadow-lg h-36">
+        <div class="diff aspect-[16/9] rounded-lg shadow-xl h-36">
             <div class="diff-item-1">
                 <div class="bg-primary text-primary-content grid place-content-center text-6xl font-black">
-                    Fever
+                    Diabetes
                 </div>
             </div>
             <div class="diff-item-2">
-                <div class="bg-base-200 grid place-content-center text-6xl font-black">Checker</div>
+                <div class="bg-base-200 grid place-content-center text-6xl font-black">Glucose</div>
             </div>
             <div class="diff-resizer"></div>
         </div>

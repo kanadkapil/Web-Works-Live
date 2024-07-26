@@ -113,3 +113,14 @@ document.addEventListener('DOMContentLoaded', function () {
         resultCard.classList.remove('hidden');
     });
 });
+
+// Function to download prescription as PDF
+document.getElementById('downloadBtn').addEventListener('click', function () {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const resultCard = document.getElementById('resultCard');
+    const text = resultCard.innerText; // Get text content for PDF
+
+    doc.text(text, 10, 10);
+    doc.save('Fever_Prescription.pdf');
+});

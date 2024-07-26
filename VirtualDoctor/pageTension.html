@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fever Checker</title>
+    <title>Hypertension Checker</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
     <style>
@@ -21,9 +21,8 @@
             font-style: normal;
         }
     </style>
-    <script src="docFever.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js" defer></script>
-
+    <script src="docTension.js" defer></script>
 </head>
 
 <body class="p-4">
@@ -81,25 +80,19 @@
         </div>
     </header>
 
-    <!-- fever card in/output  -->
+    <!-- hypertension card in/output  -->
     <div class="container mx-auto my-10 mt-20 ">
         <div class="card shadow-xl rounded-lg p-6">
-            <h2 class="text-2xl font-bold my-4">Enter Your Temperature</h2>
-            <form id="feverForm" class="my-4">
-                <div class="flex mb-4">
-                    <input type="radio" name="tempUnit" value="F" id="tempF" class="radio radio-primary" checked>
-                    <label for="tempF" class="ml-2">Fahrenheit (°F)</label>
-                </div>
-                <div class="flex mb-4">
-                    <input type="radio" name="tempUnit" value="C" id="tempC" class="radio radio-primary">
-                    <label for="tempC" class="ml-2">Celsius (°C)</label>
-                </div>
-                <input type="text" id="tempInput" class="input input-bordered w-full my-4"
-                    placeholder="Enter temperature" maxlength="5" required>
+            <h2 class="text-2xl font-bold my-4">Enter Your Blood Pressure</h2>
+            <form id="hypertensionForm" class="my-4">
+                <input type="text" id="systolicInput" class="input input-bordered w-full my-4"
+                    placeholder="Enter systolic pressure (mmHg)" maxlength="3" required>
+                <input type="text" id="diastolicInput" class="input input-bordered w-full my-4"
+                    placeholder="Enter diastolic pressure (mmHg)" maxlength="3" required>
                 <button type="submit" class="btn btn-primary w-full">Check</button>
             </form>
             <div id="resultCard" class="hidden card bg-white shadow-xl rounded-lg p-6 my-4">
-                <h3 class="text-xl font-bold mb-2">Your Temperature Result</h3>
+                <h3 class="text-xl font-bold mb-2">Your Blood Pressure Result</h3>
                 <p id="resultRange" class="ranged font-bold text-black"></p>
                 <p id="resultDescription" class="mb-2"></p>
                 <p id="resultStatus" class="mb-2"></p>
@@ -123,7 +116,7 @@
         <div class="diff aspect-[16/9] rounded-lg shadow-lg h-36">
             <div class="diff-item-1">
                 <div class="bg-primary text-primary-content grid place-content-center text-6xl font-black">
-                    Fever
+                    Hypertension
                 </div>
             </div>
             <div class="diff-item-2">
@@ -140,6 +133,7 @@
             <p>Copyright © - All right reserved by Tup</p>
         </aside>
     </footer>
+
 
 </body>
 

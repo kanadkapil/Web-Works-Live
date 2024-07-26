@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diabetes Glucose Level Checker</title>
+    <title>Virtual Doctor</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
     <style>
@@ -21,11 +21,14 @@
             font-style: normal;
         }
     </style>
-    <script src="app.js" defer></script>
+    <script src="docDiabetes.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js" defer></script>
+
 </head>
 
 <body class="p-4">
 
+    <!-- navbar  -->
     <header>
         <div class="navbar bg-base-300 rounded-box fixed top-0 left-0 w-full z-50">
             <div class="container mx-auto">
@@ -35,7 +38,7 @@
                 <div class="flex flex-1 justify-end px-2">
                     <div class="flex items-stretch">
 
-                        <details class="dropdown">
+                        <details class="dropdown mx-1">
                             <summary class="btn">Theme</summary>
                             <ul class="menu dropdown-content bg-base-100 rounded-box z-50  p-2 shadow">
                                 <li>
@@ -56,7 +59,20 @@
                             </ul>
                         </details>
 
-                        <a class="btn btn-ghost rounded-btn">Button</a>
+                        <div class="dropdown">
+                            <div tabindex="0" role="button" class="btn btn-ghost">Doctors</div>
+                            <ul tabindex="0"
+                                class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="bmi.html">BMI Calculator</a></li>
+                                <li><a href="pageDiabetes.html">Diabetes</a></li>
+                                <li><a href="pageFever.html">Fever</a></li>
+                                <li><a href="pageTension.html">Blood Pressure</a></li>
+                                <li><a href="checkup.html">Check Up</a></li>
+
+                            </ul>
+                        </div>
 
 
                     </div>
@@ -65,58 +81,13 @@
         </div>
     </header>
 
-    <!-- glucose card in/output  -->
-    <div class="container mx-auto my-10 mt-20 ">
-        <div class="card shadow-xl rounded-lg p-6">
-            <h2 class="text-2xl font-bold my-4">Enter Your Glucose Level</h2>
-            <form id="glucoseForm" class="my-4">
-                <input type="text" id="glucoseInput" class="input input-bordered w-full my-4"
-                    placeholder="Enter glucose level" maxlength="4" required>
-                <button type="submit" class="btn btn-primary w-full">Check</button>
-            </form>
-            <div id="resultCard" class="hidden card bg-white shadow-xl rounded-lg p-6 my-4">
-                <h3 class="text-xl font-bold mb-2">Your Glucose Level Result</h3>
-                <p id="resultRange" class="ranged font-bold text-black"></p>
-                <p id="resultDescription" class="mb-2"></p>
-                <p id="resultStatus" class="mb-2"></p>
-                <p id="resultSteps" class="mb-2"></p>
-                <div id="resultDiet" class="mb-2">
-                    <p class="font-bold">Diet to Eat:</p>
-                    <p id="resultBreakfast" class="ml-4"></p>
-                    <p id="resultLunch" class="ml-4"></p>
-                    <p id="resultSnacks" class="ml-4"></p>
-                    <p id="resultDinner" class="ml-4"></p>
-                </div>
-                <p id="resultCheatMeal" class="mb-2"></p>
-                <p id="resultAvoid" class="mb-2"></p>
-                <p id="resultConsult" class="mb-2"></p>
-                <button id="downloadBtn" class="btn btn-secondary mt-4">Download Prescription</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- divider  -->
-    <div class="container mx-auto my-10">
-        <div class="diff aspect-[16/9] rounded-lg shadow-lg h-36">
-            <div class="diff-item-1">
-                <div class="bg-primary text-primary-content grid place-content-center text-6xl font-black">
-                    Diabetes
-                </div>
-            </div>
-            <div class="diff-item-2">
-                <div class="bg-base-200 grid place-content-center text-6xl font-black">Glucose</div>
-            </div>
-            <div class="diff-resizer"></div>
-        </div>
-    </div>
 
     <!-- footer  -->
-
     <footer class="footer footer-center py-5 bg-base-300 text-base-content p-4 rounded-xl shadow-xl">
         <aside>
-          <p>Copyright © - All right reserved by Tup</p>
+            <p>Copyright © - All right reserved by Tup</p>
         </aside>
-      </footer>
+    </footer>
 
 </body>
 
