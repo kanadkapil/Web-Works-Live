@@ -1,0 +1,166 @@
+{
+    "categories": {
+        "fruits": [
+            "Apples",
+            "Bananas",
+            "Oranges",
+            "Berries",
+            "Grapes",
+            "Pineapples",
+            "Kiwis",
+            "Mangoes",
+            "Pomegranates",
+            "Papayas"
+        ],
+        "vegetables": [
+            "Spinach",
+            "Kale",
+            "Broccoli",
+            "Carrots",
+            "Sweet potatoes",
+            "Bell peppers",
+            "Brussels sprouts",
+            "Cauliflower",
+            "Tomatoes",
+            "Asparagus"
+        ],
+        "nuts": [
+            "Almonds",
+            "Walnuts",
+            "Cashews",
+            "Pecans",
+            "Pistachios",
+            "Hazelnuts",
+            "Macadamia nuts",
+            "Brazil nuts",
+            "Pine nuts",
+            "Peanuts"
+        ],
+        "oils": [
+            "Olive oil",
+            "Coconut oil",
+            "Avocado oil",
+            "Flaxseed oil",
+            "Canola oil",
+            "Sunflower oil",
+            "Grapeseed oil",
+            "Sesame oil",
+            "Walnut oil",
+            "Peanut oil"
+        ],
+        "non-veg": [
+            "Chicken",
+            "Mutton",
+            "Beef",
+            "Pork",
+            "Hilsha Fish",
+            "Tuna fish",
+            "Salmon fish"
+        ],
+        "fat": [
+            "Cheese",
+            "Milk",
+            "Curd",
+            "Ghee"
+        ]
+    },
+    "fruits": {
+        "Apples": {
+            "description": "Apples are a popular fruit known for their crisp texture and sweet flavor. They are rich in nutrients and provide numerous health benefits.",
+            "benefits": [
+                "Heart health: High in fiber and antioxidants, which may help lower blood pressure and cholesterol levels.",
+                "Digestive health: Good source of dietary fiber, which promotes healthy digestion.",
+                "Weight management: Low in calories and high in fiber, helping you feel full and satisfied.",
+                "Immune support: Rich in vitamin C, which supports the immune system."
+            ],
+            "nutritionalValue": {
+                "Calories": "95",
+                "Total Fat": "0.3g",
+                "Sodium": "2mg",
+                "Protein": "0.5g",
+                "Carbohydrates": "25g",
+                "Fiber": "4g",
+                "Vitamin C": "14% of the Daily Value (DV)"
+            },
+            "benefitsOfConsuming": [
+                "Reduced risk of heart disease",
+                "Improved digestive health",
+                "Support for weight management",
+                "Enhanced immune function"
+            ],
+            "taste": "Apples have a crisp texture and a sweet to tart flavor, depending on the variety.",
+            "incorporatingIntoDiet": [
+                "As a snack on their own",
+                "In salads and smoothies",
+                "In baking recipes like pies and cakes",
+                "Chopped and added to oatmeal or yogurt"
+            ]
+        },
+        "Bananas": {
+            "description": "Bananas are a tropical fruit known for their sweet taste and soft texture. They are an excellent source of several essential nutrients.",
+            "benefits": [
+                "Heart health: High in potassium, which helps regulate blood pressure and heart function.",
+                "Digestive health: Contains dietary fiber that aids in digestion and prevents constipation.",
+                "Energy boost: Natural sugars provide a quick source of energy.",
+                "Bone health: Contains small amounts of calcium and magnesium that support bone health."
+            ],
+            "nutritionalValue": {
+                "Calories": "105",
+                "Total Fat": "0.3g",
+                "Sodium": "1mg",
+                "Protein": "1.3g",
+                "Carbohydrates": "27g",
+                "Fiber": "3g",
+                "Potassium": "12% of the Daily Value (DV)"
+            },
+            "benefitsOfConsuming": [
+                "Reduced risk of heart disease",
+                "Improved digestive health",
+                "Quick energy boost",
+                "Support for bone health"
+            ],
+            "taste": "Bananas have a sweet, creamy flavor and a soft texture.",
+            "incorporatingIntoDiet": [
+                "As a snack on their own",
+                "In smoothies and milkshakes",
+                "Used in baking, such as banana bread",
+                "Sliced and added to cereals or yogurt"
+            ]
+        }
+    },
+    "vegetables": {
+        "Spinach": {
+            "description": "Spinach is a leafy green vegetable known for its rich nutrient content and versatility in cooking. It is packed with vitamins and minerals.",
+            "benefits": [
+                "Bone health: High in vitamin K, which is essential for bone health.",
+                "Eye health: Contains lutein and zeaxanthin, which support eye health and may reduce the risk of age-related macular degeneration.",
+                "Heart health: Rich in nitrates, which may help lower blood pressure.",
+                "Digestive health: Good source of dietary fiber, which aids in digestion and prevents constipation."
+            ],
+            "nutritionalValue": {
+                "Calories": "23",
+                "Total Fat": "0.4g",
+                "Sodium": "24mg",
+                "Protein": "2.9g",
+                "Carbohydrates": "3.6g",
+                "Fiber": "2.2g",
+                "Vitamin A": "56% of the Daily Value (DV)",
+                "Vitamin C": "47% of the DV",
+                "Vitamin K": "460% of the DV"
+            },
+            "benefitsOfConsuming": [
+                "Improved bone health",
+                "Support for eye health",
+                "Reduced risk of heart disease",
+                "Better digestive health"
+            ],
+            "taste": "Spinach has a mild, slightly earthy flavor with a tender texture when cooked.",
+            "incorporatingIntoDiet": [
+                "In salads and smoothies",
+                "In soups and stews",
+                "As a side dish, sautéed with garlic",
+                "In omelets and quiches"
+            ]
+        }
+    }
+}
