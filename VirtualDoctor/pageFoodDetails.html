@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="retro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+    <script src="foodData.js" defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        body, p, h1, h2, h3, h4, span {
+            font-family: "Poppins", sans-serif;
+        }
+    </style>
+</head>
+
+<body class="p-4">
+
+    <!-- Navbar -->
+    <header class="bg-base-300 rounded-box fixed top-0 left-0 w-full z-50 p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a class="text-lg font-bold">Food Details</a>
+            <div class="flex gap-4">
+                <select id="category" class="select select-bordered">
+                    <option value="">--Select a Category--</option>
+                    <!-- Options will be populated by JS -->
+                </select>
+                <select id="item" class="select select-bordered" disabled>
+                    <option value="">--Select an Item--</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mt-24 mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-4">Food Details</h1>
+        <div id="details" class="hidden">
+            <h2 id="item-name" class="text-xl font-semibold mb-2"></h2>
+            <p id="item-description" class="mb-4"></p>
+            <h3 class="text-lg font-semibold mb-2">Benefits:</h3>
+            <ul id="item-benefits" class="list-disc ml-6 mb-4"></ul>
+            <h3 class="text-lg font-semibold mb-2">Nutritional Value:</h3>
+            <ul id="item-nutritional" class="list-disc ml-6"></ul>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer footer-center py-5 bg-base-300 text-base-content p-4 rounded-xl shadow-xl mt-10">
+        <aside>
+            <p>Copyright © - All rights reserved by Tup</p>
+        </aside>
+    </footer>
+
+    <!-- Theme Selector -->
+    <div class="fixed bottom-0 left-0 p-4 w-full bg-base-300 flex justify-center gap-2">
+        <button class="btn btn-sm btn-primary theme-controller" value="retro">Retro Theme</button>
+        <button class="btn btn-sm btn-accent theme-controller" value="light">Light Theme</button>
+        <button class="btn btn-sm btn-secondary theme-controller" value="dark">Dark Theme</button>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Function to fetch and process JSON data
+        async function fetchData() {
+            try {
+                const response = await fetch('foodData.json');
+                const data = await response.json();
+                
+                // Populate category dropdown
+                const categorySelect = document.getElementById('category');
+                Object.keys(data.categories).forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                    categorySelect.appendChild(option);
+                });
+                
+                // Handle category change
+                categorySelect.addEventListener('change', function() {
+                    const category = this.value;
+                    const itemSelect = document.getElementById('item');
+                    itemSelect.innerHTML = '<option value="">--Select an Item--</option>';
+                    if (category) {
+                        itemSelect.disabled = false;
+                        data.categories[category].forEach(item => {
+                            const option = document.createElement('option');
+                            option.value = item;
+                            option.textContent = item;
+                            itemSelect.appendChild(option);
+                        });
+                    } else {
+                        itemSelect.disabled = true;
+                    }
+                    document.getElementById('details').classList.add('hidden');
+                });
+                
+                // Handle item change
+                document.getElementById('item').addEventListener('change', function() {
+                    const item = this.value;
+                    if (item) {
+                        const itemData = data[item];
+                        if (itemData) {
+                            document.getElementById('item-name').textContent = item;
+                            document.getElementById('item-description').textContent = itemData.description;
+                            document.getElementById('item-benefits').innerHTML = itemData.benefits.map(benefit => `<li>${benefit}</li>`).join('');
+                            document.getElementById('item-nutritional').innerHTML = Object.entries(itemData.nutritionalValue).map(([key, value]) => `<li>${key}: ${value}</li>`).join('');
+                            document.getElementById('details').classList.remove('hidden');
+                        }
+                    } else {
+                        document.getElementById('details').classList.add('hidden');
+                    }
+                });
+                
+                // Handle theme selection
+                document.querySelectorAll('.theme-controller').forEach(button => {
+                    button.addEventListener('click', function() {
+                        document.documentElement.setAttribute('data-theme', this.value);
+                    });
+                });
+
+            } catch (error) {
+                console.error('Error fetching JSON data:', error);
+            }
+        }
+
+        // Fetch data on page load
+        fetchData();
+    </script>
+
+</body>
+
+</html>
