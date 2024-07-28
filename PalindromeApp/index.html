@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindrome Checker</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- <style>
+        :root {
+            --daisy-primary: #ff9d00;
+            --daisy-secondary: #b9d100;
+            --daisy-accent: #00f100;
+            --daisy-neutral: #33211b;
+            --daisy-base-100: #2a2a35;
+            --daisy-info: #00cfff;
+            --daisy-success: #00c843;
+            --daisy-warning: #f96700;
+            --daisy-error: #ff0069;
+        }
+    </style> -->
+</head>
+
+<body class="bg-base-100 text-neutral">
+
+    <main>
+        <!-- form box  -->
+        <div class="container mx-auto my-20">
+            <div class="card bg-neutral shadow-xl rounded-xl p-6">
+                <!-- card header  -->
+                <h1 class="text-3xl font-bold my-3 text-primary">
+                    Is this word palindrome?
+                </h1>
+                <!-- card form  -->
+                <div>
+                    <label for="text-input" class="text-secondary text-xl" >Enter word</label>
+                    <input type="text" class="input input-bordered w-full my-4 text-accent" placeholder="Type inside me...!" id="text-input">
+                    <button class="btn btn-primary my-4 w-full" id="check-btn">Check</button>
+                    <div id="result" class="hidden mt-4 text-base-100"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QnA box  -->
+        <div class="container mx-auto flex justify-center text-2xl">
+            <div class="card bg-neutral text-primary p-8 shadow-xl rounded-xl">
+                <p class="font-bold">
+                    What is Palindrome....?
+                </p>
+                <p class="text-secondary">
+                    A <i><b>palindrome</b></i> is a word or sentence that's spelled the same way both forward and backward, ignoring punctuation, case, and spacing.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script defer>
+        document.getElementById('check-btn').addEventListener('click', function () {
+            checkPalindrome();
+        });
+
+        document.getElementById('text-input').addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();  // Prevent form submission
+                checkPalindrome();
+            }
+        });
+
+        function checkPalindrome() {
+            const inputText = document.getElementById('text-input').value;
+            const resultDiv = document.getElementById('result');
+            if (inputText) {
+                const isPalindrome = isPalindromeCheck(inputText);
+                resultDiv.textContent = isPalindrome ? `"${inputText}" is a palindrome!` : `"${inputText}" is not a palindrome.`;
+                resultDiv.classList.remove('hidden');
+                resultDiv.classList.remove('alert-success', 'alert-error', 'alert-warning');
+                resultDiv.classList.add('alert', isPalindrome ? 'alert-success' : 'alert-error');
+            } else {
+                resultDiv.textContent = "Please enter a word.";
+                resultDiv.classList.remove('hidden');
+                resultDiv.classList.remove('alert-success', 'alert-error', 'alert-warning');
+                resultDiv.classList.add('alert', 'alert-warning');
+            }
+        }
+
+        function isPalindromeCheck(str) {
+            const cleanedStr = str.replace(/[^A-Za-z0-9]/g, '').toLowerCase();
+            const reversedStr = cleanedStr.split('').reverse().join('');
+            return cleanedStr === reversedStr;
+        }
+    </script>
+</body>
+
+</html>
