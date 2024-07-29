@@ -1,167 +1,193 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en" data-theme="coffee">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body,
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        span {
+            font-family: "Poppins", sans-serif;
+        }
+    </style>
     <title>Index</title>
-    <!-- css, bootstrap, font awesome  -->
-    <link rel="stylesheet" href="style.css">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity=""
-        crossorigin="">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity=""
-        crossorigin="" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css"
-        integrity="" crossorigin="" referrerpolicy="no-referrer" />
-
-
 </head>
 
-<body class="my-background-gradient">
-    <!-- navbar  -->
-    <section>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Eighth navbar example">
-            <div class="container">
-                <a class="navbar-brand zoom pe-5" href="#">
-                    <h1>Hi it's Me</h1>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<body>
 
-                <div class="collapse navbar-collapse" id="navbarsExample07">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link mx-5" href="index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mx-5" href="https://kanadkapil.github.io/Folio-live/">Portfolio</a>
-                        </li>
-                        <li class="nav-item mx-5">
-                            <a href="https://github.com/kanadkapil" style="margin: 4px;"><i
-                                    class="fa-brands fa-github fa-shake fa-2x mx-1 zoom"
-                                    style="color: #ffffff;"></i></a>
-                        </li>
-                        <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                aria-expanded="false">Dropdown</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li> -->
-                    </ul>
-                    <form role="search">
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                    </form>
-                </div>
-            </div>
-        </nav>
-    </section>
-    <!-- navbar*  -->
-
-    <!-- main  -->
-    <section>
-
-        <div class="container my-5">
-            <div class="row">
-                <div class="col-md-4 my-5">
-                    <a href="Calc2/index.html" class="card-button box">
-                        <div class="card ">
-                            <img src="assets/contentCard/calc20.png" alt="Avatar">
-                            <div class="container my-4 px-4">
-                                <h4 class="card-title py-2"><b>Page 1</b></h4>
-                                <p class="card-text">Description for Page 1.</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4 my-5">
-                    <a href="Calc1/index.html" class="card-button box">
-                        <div class="card ">
-                            <img src="assets/contentCard/calc10.png" alt="Avatar">
-                            <div class="container my-4 px-4">
-                                <h4 class="card-title py-2"><b>Page 1</b></h4>
-                                <p class="card-text">Description for Page 1.</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4 my-5">
-                    <a href="BsClock/index.html" class="card-button box">
-                        <div class="card ">
-                            <img src="assets/contentCard/clockApp.png" alt="Avatar">
-                            <div class="container my-4 px-4">
-                                <h4 class="card-title py-2"><b>Page 1</b></h4>
-                                <p class="card-text">Description for Page 1.</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
+    <!-- Navbar -->
+    <header class="bg-base-300 rounded-box fixed top-0 left-0 w-full z-50 p-4">
+        <div class="container mx-auto flex justify-between">
+            <a class="text-lg font-bold">My Projects</a>
         </div>
+    </header>
 
-    </section>
-    <!-- main*  -->
+    <!-- Main Content -->
+    <main>
 
-    <!-- footer -->
-     <section>
-          <!-- footer section  -->
-    <section>
-        <footer style="background-color: rgb(65, 65, 65); color: white; padding: 20px; text-align: center; box-shadow: 12px 12px 25px #000000;"
-            class="m-4 rounded-2 ">
-            <div class="container">
-                <div class="row">
-                    <!-- box 1 -->
-                    <div class="col-md-4 my-3">
-                        <div class="">
-                            <h4 class="font1">Lorem</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, reiciendis.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- box 2  -->
-                    <div class="col-md-4 col-sm-12 my-3">
-                        <h4 class="text-uppercase mb-4 font1">Around the Web</h4>
-                        <a href="" style="margin: 4px;"><i class="fa-brands fa-google fa-2x mx-1 zoom"
-                                style="color: #ffffff;"></i></a>
-                        <a href="" style="margin: 4px;"><i class="fa-brands fa-instagram fa-2x mx-1 zoom"
-                                style="color: #ffffff;"></i></a>
-                        <a href="" style="margin: 4px;"><i class="fa-brands fa-linkedin fa-2x mx-1 zoom"
-                                style="color: #ffffff;"></i></a>
-                        <a href="" style="margin: 4px;"><i class="fa-brands fa-facebook-f fa-2x mx-1 zoom"
-                                style="color: #ffffff;"></i></a>
-                        <a href="" style="margin: 4px;"><i class="fa-brands fa-github fa-2x mx-1 zoom"
-                                style="color: #ffffff;"></i></a>
-                    </div>
-                    <!-- box 3 -->
-                    <div class="col-md-4 col-sm-12 my-3 ">
-                        <h4 class="font1">Hobbies</h4>
-                        <p>
-                            Reading Books <br>
-                            Writing <br>
-                            Coding
-                        </p>
-                    </div>
+        <!-- portfolios  -->
+        <div class="container mt-20 mb-10 mx-auto bg-white p-6 rounded-lg shadow-md">
+            <h1 class="text-2xl font-bold mb-4">Projects Table</h1>
+            <table class="table-auto w-full border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="px-4 py-2 border"></th>
+                        <th class="px-4 py-2 border">Project Name</th>
+                        <th class="px-4 py-2 border">Description</th>
+                        <th class="px-4 py-2 border">Tools</th>
+                        <th class="px-4 py-2 border">Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example Row -->
+                    <tr>
+                        <td class="px-4 py-5  flex justify-center">1</td>
+                        <td class="px-4 py-2 border">Portfolio</td>
+                        <td class="px-4 py-2 border">A Psersonal portfolio</td>
+                        <td class="px-4 py-2 border">HTML, BS5, CSS</td>
+                        <td class="px-4 py-2 flex justify-center">
+                            <a href="https://github.com/your-username/project1" class="btn btn-primary">View Project</a>
+                        </td>
+                    </tr>
 
-                </div>
-            </div>
-        </footer>
-    </section>
-    <!-- footer section*  -->
-     </section>
-    <!-- footer* -->
+                    <tr>
+                        <td class="px-4 py-5  flex justify-center">2</td>
+                        <td class="px-4 py-2 border">Portfolio Terminal (Working)</td>
+                        <td class="px-4 py-2 border">A Psersonal terminal alike portfolio</td>
+                        <td class="px-4 py-2 border">HTML, JS, CSS</td>
+                        <td class="px-4 py-2 flex justify-center">
+                            <a href="https://github.com/your-username/project1" class="btn btn-primary">View Project</a>
+                        </td>
+                    </tr>
 
-    <!-- script part  -->
-    <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity=""
-        crossorigin=""></script>
+                    <tr>
+                        <td class="px-4 py-5  flex justify-center">3</td>
+                        <td class="px-4 py-2 border">Portfolio Daisy UI</td>
+                        <td class="px-4 py-2 border">A Psersonal Daisy UI portfolio template</td>
+                        <td class="px-4 py-2 border">HTML, JS, CSS</td>
+                        <td class="px-4 py-2 flex justify-center">
+                            <a href="https://github.com/your-username/project1" class="btn btn-primary">View Project</a>
+                        </td>
+                    </tr>
 
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+
+    <!-- Personal works  -->
+    <div class="container mt-20 mb-10 mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-4">Personal Projects for Fun </h1>
+        <table class="table-auto w-full border border-gray-300">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="px-4 py-2 border"></th>
+                    <th class="px-4 py-2 border">Project Name</th>
+                    <th class="px-4 py-2 border">Description</th>
+                    <th class="px-4 py-2 border">Tools</th>
+                    <th class="px-4 py-2 border">Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example Row -->
+                <tr>
+                    <td class="px-4 py-5  flex justify-center">1</td>
+                    <td class="px-4 py-2 border">Virtual Doctor</td>
+                    <td class="px-4 py-2 border">An online Doctor App</td>
+                    <td class="px-4 py-2 border">HTML, DaisyUI, JS</td>
+                    <td class="px-4 py-2 flex justify-center">
+                        <a href="https://github.com/your-username/project1" class="btn btn-primary">View Project</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="px-4 py-5  flex justify-center">2</td>
+                    <td class="px-4 py-2 border">Morse Code App</td>
+                    <td class="px-4 py-2 border">Here you can Encrypt na Decrypt texts</td>
+                    <td class="px-4 py-2 border">HTML, JS, CSS, C++, Python</td>
+                    <td class="px-4 py-2 flex justify-center">
+                        <a href="https://kanadkapil.github.io/MorseCode-WebApp/" class="btn btn-primary">View
+                            Project</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="px-4 py-5  flex justify-center">3</td>
+                    <td class="px-4 py-2 border">Flip Cards Game</td>
+                    <td class="px-4 py-2 border">A flipping card game</td>
+                    <td class="px-4 py-2 border">HTML, JS, CSS</td>
+                    <td class="px-4 py-2 flex justify-center">
+                        <a href="https://github.com/your-username/project1" class="btn btn-primary">View Project</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="px-4 py-5  flex justify-center">4</td>
+                    <td class="px-4 py-2 border">Rock Paper Scissors Game (working)</td>
+                    <td class="px-4 py-2 border">Our childhood game</td>
+                    <td class="px-4 py-2 border">HTML, JS, CSS</td>
+                    <td class="px-4 py-2 flex justify-center">
+                        <a href="https://github.com/your-username/project1" class="btn btn-primary">View Project</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-5  flex justify-center">5</td>
+                    <td class="px-4 py-2 border">Snake Game</td>
+                    <td class="px-4 py-2 border">Remember Nokia 3310?</td>
+                    <td class="px-4 py-2 border">HTML, JS, CSS</td>
+                    <td class="px-4 py-2 flex justify-center">
+                        <a href="https://github.com/your-username/project1" class="btn btn-primary">View Project</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-5  flex justify-center">6</td>
+                    <td class="px-4 py-2 border">Magazine</td>
+                    <td class="px-4 py-2 border">A magazine template</td>
+                    <td class="px-4 py-2 border">HTML, DaisyUI</td>
+                    <td class="px-4 py-2 flex justify-center">
+                        <a href="https://github.com/your-username/project1" class="btn btn-primary">View Project</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-5  flex justify-center">7</td>
+                    <td class="px-4 py-2 border">Palindrome Checker</td>
+                    <td class="px-4 py-2 border">An app to check the word is palindrome or not</td>
+                    <td class="px-4 py-2 border">HTML, JS, DaisyUI</td>
+                    <td class="px-4 py-2 flex justify-center">
+                        <a href="https://github.com/your-username/project1" class="btn btn-primary">View Project</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-5  flex justify-center">8</td>
+                    <td class="px-4 py-2 border">Snake Game</td>
+                    <td class="px-4 py-2 border">Remember Nokia 3310?</td>
+                    <td class="px-4 py-2 border">HTML, JS, CSS</td>
+                    <td class="px-4 py-2 flex justify-center">
+                        <a href="https://github.com/your-username/project1" class="btn btn-primary">View Project</a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- footer  -->
+    <footer>
+        <aside>
+            <p>Copyright © - All rights reserved by Tup</p>
+        </aside>
+    </footer>
 </body>
 
 </html>
