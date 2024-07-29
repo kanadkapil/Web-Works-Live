@@ -19,6 +19,10 @@
         span {
             font-family: "Poppins", sans-serif;
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
     <title>Index</title>
 </head>
@@ -65,100 +69,92 @@
 
     <div class="navbar bg-base-100">
         <div class="navbar-start">
-          <div class="dropdown">
-            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h8m-8 6h16" />
-              </svg>
-            </div>
-            <ul
-              tabindex="0"
-              class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <details class="dropdown mx-5">
-                <summary class="btn">Theme</summary>
-                <ul class="menu dropdown-content bg-base-100 rounded-box z-50  p-2 shadow">
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Coffee"
-                            value="default" />
-                    </li>
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="retro"
-                            value="retro" />
-                    </li>
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Cyberpunk"
-                            value="cyberpunk" />
-                    </li>
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Valentine"
-                            value="valentine" />
-                    </li>
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="cupcake"
-                            value="cupcake" />
-                    </li>
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h8m-8 6h16" />
+                    </svg>
+                </div>
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                    <details class="dropdown mx-5">
+                        <summary class="btn">Theme</summary>
+                        <ul class="menu dropdown-content bg-base-100 rounded-box z-50  p-2 shadow">
+                            <li>
+                                <input type="radio" name="theme-dropdown"
+                                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                                    aria-label="Coffee" value="default" />
+                            </li>
+                            <li>
+                                <input type="radio" name="theme-dropdown"
+                                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                                    aria-label="retro" value="retro" />
+                            </li>
+                            <li>
+                                <input type="radio" name="theme-dropdown"
+                                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                                    aria-label="Cyberpunk" value="cyberpunk" />
+                            </li>
+                            <li>
+                                <input type="radio" name="theme-dropdown"
+                                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                                    aria-label="Valentine" value="valentine" />
+                            </li>
+                            <li>
+                                <input type="radio" name="theme-dropdown"
+                                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                                    aria-label="cupcake" value="cupcake" />
+                            </li>
+                        </ul>
+                    </details>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#others">Others</a></li>
                 </ul>
-            </details>
-              <li><a>Portfolio</a></li>
-              <li><a>Projects</a></li>
-              <li><a>Others</a></li>
-            </ul>
-          </div>
-          <a class="btn btn-ghost text-xl">Project Index</a>
+            </div>
+            <a class="btn btn-ghost text-xl">Project Index</a>
         </div>
         <div class="navbar-center hidden lg:flex">
-          <ul class="menu menu-horizontal px-1">
-            <details class="dropdown mx-5">
-                <summary class="btn">Theme</summary>
-                <ul class="menu dropdown-content bg-base-100 rounded-box z-50  p-2 shadow">
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Coffee"
-                            value="default" />
-                    </li>
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="retro"
-                            value="retro" />
-                    </li>
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Cyberpunk"
-                            value="cyberpunk" />
-                    </li>
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Valentine"
-                            value="valentine" />
-                    </li>
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="cupcake"
-                            value="cupcake" />
-                    </li>
-                </ul>
-            </details>
-            <li><a>Portfolio</a></li>
-            <li><a>Projects</a></li>
-            <li><a>Others</a></li>
-          </ul>
+            <ul class="menu menu-horizontal px-1">
+                <details class="dropdown mx-5">
+                    <summary class="btn">Theme</summary>
+                    <ul class="menu dropdown-content bg-base-100 rounded-box z-50  p-2 shadow">
+                        <li>
+                            <input type="radio" name="theme-dropdown"
+                                class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                                aria-label="Coffee" value="default" />
+                        </li>
+                        <li>
+                            <input type="radio" name="theme-dropdown"
+                                class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="retro"
+                                value="retro" />
+                        </li>
+                        <li>
+                            <input type="radio" name="theme-dropdown"
+                                class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                                aria-label="Cyberpunk" value="cyberpunk" />
+                        </li>
+                        <li>
+                            <input type="radio" name="theme-dropdown"
+                                class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                                aria-label="Valentine" value="valentine" />
+                        </li>
+                        <li>
+                            <input type="radio" name="theme-dropdown"
+                                class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                                aria-label="cupcake" value="cupcake" />
+                        </li>
+                    </ul>
+                </details>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#others">Others</a></li>
+            </ul>
         </div>
         <div class="navbar-end">
-          <a class="btn">Button</a>
+            <a class="btn">Button</a>
         </div>
     </div>
 
@@ -167,256 +163,267 @@
     <main>
 
         <!-- portfolios  -->
-        <div class="container mt-24 mb-10 mx-auto bg-white p-6 rounded-lg shadow-md">
-            <h1 class="text-2xl font-bold mb-4">Projects Table</h1>
-            <table class="table-auto w-full border border-gray-300">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="px-4 py-2 border"></th>
-                        <th class="px-4 py-2 border">Project Name</th>
-                        <th class="px-4 py-2 border">Description</th>
-                        <th class="px-4 py-2 border">Tools</th>
-                        <th class="px-4 py-2 border">Link</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">1</td>
-                        <td class="px-4 py-2 border">Portfolio</td>
-                        <td class="px-4 py-2 border">A Psersonal portfolio</td>
-                        <td class="px-4 py-2 border">HTML, BS5, CSS</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/Folio-live/" class="btn btn-primary">View Project</a>
-                        </td>
-                    </tr>
+        <section id="portfolio">
+            <div class="container mt-24 mb-10 mx-auto bg-white p-6 rounded-lg shadow-md">
+                <h1 class="text-2xl font-bold mb-4">Projects Table</h1>
+                <table class="table-auto w-full border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="px-4 py-2 border"></th>
+                            <th class="px-4 py-2 border">Project Name</th>
+                            <th class="px-4 py-2 border">Description</th>
+                            <th class="px-4 py-2 border">Tools</th>
+                            <th class="px-4 py-2 border">Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">1</td>
+                            <td class="px-4 py-2 border">Portfolio</td>
+                            <td class="px-4 py-2 border">A Psersonal portfolio</td>
+                            <td class="px-4 py-2 border">HTML, BS5, CSS</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/Folio-live/" class="btn btn-primary">View
+                                    Project</a>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">2</td>
-                        <td class="px-4 py-2 border">Portfolio Terminal (Working)</td>
-                        <td class="px-4 py-2 border">A Psersonal terminal alike portfolio</td>
-                        <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/Portfolio_terminal/" class="btn btn-primary">View
-                                Project</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">2</td>
+                            <td class="px-4 py-2 border">Portfolio Terminal (Working)</td>
+                            <td class="px-4 py-2 border">A Psersonal terminal alike portfolio</td>
+                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/Portfolio_terminal/" class="btn btn-primary">View
+                                    Project</a>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">3</td>
-                        <td class="px-4 py-2 border">Portfolio Daisy UI</td>
-                        <td class="px-4 py-2 border">A Psersonal Daisy UI portfolio template</td>
-                        <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/DaisyUI.me/portfolio.html"
-                                class="btn btn-primary">View Project</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">3</td>
+                            <td class="px-4 py-2 border">Portfolio Daisy UI</td>
+                            <td class="px-4 py-2 border">A Psersonal Daisy UI portfolio template</td>
+                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/DaisyUI.me/portfolio.html"
+                                    class="btn btn-primary">View Project</a>
+                            </td>
+                        </tr>
 
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
         <!-- Personal works  -->
-        <div class="container mt-20 mb-10 mx-auto bg-white p-6 rounded-lg shadow-md">
-            <h1 class="text-2xl font-bold mb-4">Personal Projects for Fun </h1>
-            <table class="table-auto w-full border border-gray-300">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="px-4 py-2 border"></th>
-                        <th class="px-4 py-2 border">Project Name</th>
-                        <th class="px-4 py-2 border">Description</th>
-                        <th class="px-4 py-2 border">Tools</th>
-                        <th class="px-4 py-2 border">Link</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Example Row -->
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">1</td>
-                        <td class="px-4 py-2 border">Virtual Doctor</td>
-                        <td class="px-4 py-2 border">An online Doctor App</td>
-                        <td class="px-4 py-2 border">HTML, DaisyUI, JS</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/Web-Works-Live/VirtualDoctor/"
-                                class="btn btn-primary">View Project</a>
-                        </td>
-                    </tr>
+        <section id="Projects">
+            <div class="container mt-20 mb-10 mx-auto bg-white p-6 rounded-lg shadow-md">
+                <h1 class="text-2xl font-bold mb-4">Personal Projects for Fun </h1>
+                <table class="table-auto w-full border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="px-4 py-2 border"></th>
+                            <th class="px-4 py-2 border">Project Name</th>
+                            <th class="px-4 py-2 border">Description</th>
+                            <th class="px-4 py-2 border">Tools</th>
+                            <th class="px-4 py-2 border">Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example Row -->
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">1</td>
+                            <td class="px-4 py-2 border">Virtual Doctor</td>
+                            <td class="px-4 py-2 border">An online Doctor App</td>
+                            <td class="px-4 py-2 border">HTML, DaisyUI, JS</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/Web-Works-Live/VirtualDoctor/"
+                                    class="btn btn-primary">View Project</a>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">2</td>
-                        <td class="px-4 py-2 border">Morse Code App</td>
-                        <td class="px-4 py-2 border">Here you can Encrypt na Decrypt texts</td>
-                        <td class="px-4 py-2 border">HTML, JS, CSS, C++, Python</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/MorseCode-WebApp/" class="btn btn-primary">View
-                                Project</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">2</td>
+                            <td class="px-4 py-2 border">Morse Code App</td>
+                            <td class="px-4 py-2 border">Here you can Encrypt na Decrypt texts</td>
+                            <td class="px-4 py-2 border">HTML, JS, CSS, C++, Python</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/MorseCode-WebApp/" class="btn btn-primary">View
+                                    Project</a>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">3</td>
-                        <td class="px-4 py-2 border">Flip Cards Game</td>
-                        <td class="px-4 py-2 border">A flipping card game</td>
-                        <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/Web-Works-Live/FlipCards/"
-                                class="btn btn-primary">View Project</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">3</td>
+                            <td class="px-4 py-2 border">Flip Cards Game</td>
+                            <td class="px-4 py-2 border">A flipping card game</td>
+                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/Web-Works-Live/FlipCards/"
+                                    class="btn btn-primary">View Project</a>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">4</td>
-                        <td class="px-4 py-2 border">Rock Paper Scissors Game (working)</td>
-                        <td class="px-4 py-2 border">Our childhood game</td>
-                        <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/Web-Works-Live/RockPaperScissors/"
-                                class="btn btn-primary">View Project</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">5</td>
-                        <td class="px-4 py-2 border">Snake Game (Working)</td>
-                        <td class="px-4 py-2 border">Remember Nokia 3310?</td>
-                        <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/Web-Works-Live/SnakeGame/"
-                                class="btn btn-primary">View Project</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">6</td>
-                        <td class="px-4 py-2 border">Magazine</td>
-                        <td class="px-4 py-2 border">A magazine template</td>
-                        <td class="px-4 py-2 border">HTML, DaisyUI</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/Web-Works-Live/Magazine/" class="btn btn-primary">View
-                                Project</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">7</td>
-                        <td class="px-4 py-2 border">Palindrome Checker</td>
-                        <td class="px-4 py-2 border">An app to check the word is palindrome or not</td>
-                        <td class="px-4 py-2 border">HTML, JS, DaisyUI</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/Web-Works-Live/PalindromeApp/"
-                                class="btn btn-primary">View Project</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">8</td>
-                        <td class="px-4 py-2 border">Calculator</td>
-                        <td class="px-4 py-2 border">Normal Calculator</td>
-                        <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/Web-Works-Live/Calc2/" class="btn btn-primary">View
-                                Project</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">9</td>
-                        <td class="px-4 py-2 border">IPL Win Predictor </td>
-                        <td class="px-4 py-2 border">Waste</td>
-                        <td class="px-4 py-2 border">Python</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://github.com/kanadkapil/IPL-Final-predictor" class="btn btn-primary">View
-                                Project</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">10</td>
-                        <td class="px-4 py-2 border">Wallpaper App</td>
-                        <td class="px-4 py-2 border">Find something for you</td>
-                        <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/Web-Works-Live/WallpaperApp/"
-                                class="btn btn-primary">View Project</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">11</td>
-                        <td class="px-4 py-2 border">Flutter App (Working)</td>
-                        <td class="px-4 py-2 border">Still Getting Used to with the language</td>
-                        <td class="px-4 py-2 border">Flutter, Dart</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://github.com/kanadkapil/MyFirstAndroidAppFlutter"
-                                class="btn btn-primary">View Project</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">4</td>
+                            <td class="px-4 py-2 border">Rock Paper Scissors Game (working)</td>
+                            <td class="px-4 py-2 border">Our childhood game</td>
+                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/Web-Works-Live/RockPaperScissors/"
+                                    class="btn btn-primary">View Project</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">5</td>
+                            <td class="px-4 py-2 border">Snake Game (Working)</td>
+                            <td class="px-4 py-2 border">Remember Nokia 3310?</td>
+                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/Web-Works-Live/SnakeGame/"
+                                    class="btn btn-primary">View Project</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">6</td>
+                            <td class="px-4 py-2 border">Magazine</td>
+                            <td class="px-4 py-2 border">A magazine template</td>
+                            <td class="px-4 py-2 border">HTML, DaisyUI</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/Web-Works-Live/Magazine/"
+                                    class="btn btn-primary">View
+                                    Project</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">7</td>
+                            <td class="px-4 py-2 border">Palindrome Checker</td>
+                            <td class="px-4 py-2 border">An app to check the word is palindrome or not</td>
+                            <td class="px-4 py-2 border">HTML, JS, DaisyUI</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/Web-Works-Live/PalindromeApp/"
+                                    class="btn btn-primary">View Project</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">8</td>
+                            <td class="px-4 py-2 border">Calculator</td>
+                            <td class="px-4 py-2 border">Normal Calculator</td>
+                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/Web-Works-Live/Calc2/"
+                                    class="btn btn-primary">View
+                                    Project</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">9</td>
+                            <td class="px-4 py-2 border">IPL Win Predictor </td>
+                            <td class="px-4 py-2 border">Waste</td>
+                            <td class="px-4 py-2 border">Python</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://github.com/kanadkapil/IPL-Final-predictor" class="btn btn-primary">View
+                                    Project</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">10</td>
+                            <td class="px-4 py-2 border">Wallpaper App</td>
+                            <td class="px-4 py-2 border">Find something for you</td>
+                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/Web-Works-Live/WallpaperApp/"
+                                    class="btn btn-primary">View Project</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">11</td>
+                            <td class="px-4 py-2 border">Flutter App (Working)</td>
+                            <td class="px-4 py-2 border">Still Getting Used to with the language</td>
+                            <td class="px-4 py-2 border">Flutter, Dart</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://github.com/kanadkapil/MyFirstAndroidAppFlutter"
+                                    class="btn btn-primary">View Project</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
         <!-- other Projects  -->
-        <div class="container mt-20 mb-10 mx-auto bg-white p-6 rounded-lg shadow-md">
-            <h1 class="text-2xl font-bold mb-4">Other Project Table</h1>
-            <table class="table-auto w-full border border-gray-300">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="px-4 py-2 border"></th>
-                        <th class="px-4 py-2 border">Project Name</th>
-                        <th class="px-4 py-2 border">Description</th>
-                        <th class="px-4 py-2 border">Tools</th>
-                        <th class="px-4 py-2 border">Link</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">1</td>
-                        <td class="px-4 py-2 border">My C++ Works</td>
-                        <td class="px-4 py-2 border">Study Materials 🙈🐸💀</td>
-                        <td class="px-4 py-2 border">C++, DSA, OOP, STL</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://github.com/kanadkapil/myCppWorks" class="btn btn-primary">View Project</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">2</td>
-                        <td class="px-4 py-2 border">Stack Queue Manager App</td>
-                        <td class="px-4 py-2 border">Study Materials 😐</td>
-                        <td class="px-4 py-2 border">C++, DSA, STL</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://github.com/kanadkapil/StackQueueManager" class="btn btn-primary">View
-                                Project</a>
-                        </td>
-                    </tr>
+        <section id="others">
+            <div class="container mt-20 mb-10 mx-auto bg-white p-6 rounded-lg shadow-md">
+                <h1 class="text-2xl font-bold mb-4">Other Project Table</h1>
+                <table class="table-auto w-full border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="px-4 py-2 border"></th>
+                            <th class="px-4 py-2 border">Project Name</th>
+                            <th class="px-4 py-2 border">Description</th>
+                            <th class="px-4 py-2 border">Tools</th>
+                            <th class="px-4 py-2 border">Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">1</td>
+                            <td class="px-4 py-2 border">My C++ Works</td>
+                            <td class="px-4 py-2 border">Study Materials 🙈🐸💀</td>
+                            <td class="px-4 py-2 border">C++, DSA, OOP, STL</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://github.com/kanadkapil/myCppWorks" class="btn btn-primary">View
+                                    Project</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">2</td>
+                            <td class="px-4 py-2 border">Stack Queue Manager App</td>
+                            <td class="px-4 py-2 border">Study Materials 😐</td>
+                            <td class="px-4 py-2 border">C++, DSA, STL</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://github.com/kanadkapil/StackQueueManager" class="btn btn-primary">View
+                                    Project</a>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">3</td>
-                        <td class="px-4 py-2 border">Rudra Aksha E-Commerce Wbsite (optimized)</td>
-                        <td class="px-4 py-2 border">An E-commerce Website</td>
-                        <td class="px-4 py-2 border">HTML, JS, CSS, BS5</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/Rudra-Aksha/" class="btn btn-primary">View Project</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">3</td>
+                            <td class="px-4 py-2 border">Rudra Aksha E-Commerce Wbsite (optimized)</td>
+                            <td class="px-4 py-2 border">An E-commerce Website</td>
+                            <td class="px-4 py-2 border">HTML, JS, CSS, BS5</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/Rudra-Aksha/" class="btn btn-primary">View
+                                    Project</a>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">4</td>
-                        <td class="px-4 py-2 border">Resort 19 April</td>
-                        <td class="px-4 py-2 border">Resort Business website</td>
-                        <td class="px-4 py-2 border">HTML, JS, CSS, BS5</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/Resort-19-April/" class="btn btn-primary">View
-                                Project</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">4</td>
+                            <td class="px-4 py-2 border">Resort 19 April</td>
+                            <td class="px-4 py-2 border">Resort Business website</td>
+                            <td class="px-4 py-2 border">HTML, JS, CSS, BS5</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/Resort-19-April/" class="btn btn-primary">View
+                                    Project</a>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td class="px-4 py-5  flex justify-center">5</td>
-                        <td class="px-4 py-2 border">E-commerce Website Template</td>
-                        <td class="px-4 py-2 border">Noob E-commerce Template</td>
-                        <td class="px-4 py-2 border">HTML, JS, CSS, BS5</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="https://kanadkapil.github.io/E-Commerce-Website-Template/"
-                                class="btn btn-primary">View Project</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="px-4 py-5  flex justify-center">5</td>
+                            <td class="px-4 py-2 border">E-commerce Website Template</td>
+                            <td class="px-4 py-2 border">Noob E-commerce Template</td>
+                            <td class="px-4 py-2 border">HTML, JS, CSS, BS5</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="https://kanadkapil.github.io/E-Commerce-Website-Template/"
+                                    class="btn btn-primary">View Project</a>
+                            </td>
+                        </tr>
 
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
 
     <!-- footer  -->
