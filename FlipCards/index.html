@@ -4,22 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Game</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+    <script src="script.js" defer></script>
 </head>
-<body>
-    <div class="container">
-        <h1 class="text-center my-4">Memory Game</h1>
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-8">
-                <div class="grid"></div>
-            </div>
+<body class="bg-gray-800 text-white flex items-center justify-center h-screen m-0">
+    <div class="text-center">
+        <h1 class="text-4xl font-bold mb-4">Memory Game</h1>
+        <div class="grid grid-cols-6 gap-2 mx-auto mb-4 max-w-lg">
+            <!-- Cards will be dynamically inserted here -->
         </div>
-        <div class="text-center mt-4">
-            <p style="font-size: 30px; font-weight: bold;">Score: <span id="score">0</span></p>
-        </div>
-        
+        <p class="text-4xl font-semibold">Score : <span id="score">0</span></p>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
