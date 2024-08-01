@@ -1,53 +1,52 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid');
-    const emojis = ['😈', '😐', '👍', '🙈', '🐸', '💀', '🤣', '🥺', '🧬', '🦚', '🍇', '🍉'];
-    const cardArray = [...emojis, ...emojis]; // Duplicate emojis for pairs
+    const scoreDisplay = document.getElementById('score');
+    const pairSelect = document.getElementById('pair-select');
+    const startButton = document.getElementById('start-button');
 
-    cardArray.sort(() => 0.5 - Math.random());
-
+    let cardArray = [];
     let cardsChosen = [];
     let cardsChosenId = [];
     let cardsWon = [];
     let score = 0;
-    const scoreDisplay = document.getElementById('score');
 
     function createBoard() {
+        grid.innerHTML = ''; // Clear the grid
+        const pairs = parseInt(pairSelect.value);
+        const emojis = ['😈', '😐', '🙈', '🐸', '💀', '🥺', '🧬', '🍇', '🍉']; // Adjust if needed
+        cardArray = [...emojis.slice(0, pairs), ...emojis.slice(0, pairs)]; // Use only the required number of emojis
+
+        cardArray.sort(() => 0.5 - Math.random());
+
         cardArray.forEach((emoji, index) => {
             const card = document.createElement('div');
             card.classList.add('card', 'bg-lime-400', 'rounded-2xl', 'flex', 'items-center', 'justify-center', 'text-4xl', 'cursor-pointer', 'transition-transform', 'duration-300', 'w-14', 'h-14', 'sm:w-20', 'sm:h-24');
             card.dataset.id = index;
-            card.textContent = ''; // Initially no text shown
             card.style.transform = 'rotate(180deg)'; // Hide cards initially
             card.addEventListener('click', flipCard);
             grid.appendChild(card);
         });
 
-        // Show cards for 3 seconds
         setTimeout(() => {
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                card.style.transform = 'rotate(0deg)'; // Show cards
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.transform = 'rotate(0deg)'; // Show all cards for 3 seconds
                 card.textContent = cardArray[card.dataset.id]; // Show emoji
             });
-
-            // Hide cards after 3 seconds
             setTimeout(() => {
-                cards.forEach(card => {
+                document.querySelectorAll('.card').forEach(card => {
                     card.style.transform = 'rotate(180deg)'; // Hide cards again
-                    card.textContent = ''; // Clear emoji
+                    card.textContent = ''; // Remove emoji
                 });
-            }, 3000);
-        }, 500); // Short delay for better UX
+            }, 3000); // Hide after 3 seconds
+        }, 500); // Initial delay to allow DOM updates
     }
 
     function flipCard() {
         const cardId = this.dataset.id;
-        if (cardsChosen.length === 2 || this.style.transform === 'rotate(0deg)') return; // Prevent action if already flipped or two cards are open
-
         cardsChosen.push(cardArray[cardId]);
         cardsChosenId.push(cardId);
         this.style.transform = 'rotate(0deg)'; // Show the card
-        this.textContent = cardArray[cardId]; // Show the emoji on the card
+        this.textContent = cardArray[cardId]; // Show the emoji
 
         if (cardsChosen.length === 2) {
             setTimeout(checkForMatch, 500);
@@ -79,5 +78,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    createBoard();
+    startButton.addEventListener('click', createBoard);
 });
