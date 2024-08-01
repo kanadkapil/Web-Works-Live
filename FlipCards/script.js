@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid');
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWX'.split('').slice(0, 18); // Use first 18 letters for pairs
-    const cardArray = [...letters, ...letters]; // 18 unique letters duplicated to create pairs
+    // Use emojis directly as a string instead of using split() method
+    const emojis = ['😀', '😃', '😄', '😁', '😆', '😅', '🤣', '😂', '😊', '😎', '😍', '😘', '😜', '😝', '😛', '😋', '🤩']; 
+    const cardArray = [...emojis, ...emojis]; // Duplicate emojis for pairs
 
     cardArray.sort(() => 0.5 - Math.random());
 
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scoreDisplay = document.getElementById('score');
 
     function createBoard() {
-        cardArray.forEach((letter, index) => {
+        cardArray.forEach((emoji, index) => {
             const card = document.createElement('div');
             card.classList.add('card', 'bg-red-400', 'rounded', 'flex', 'items-center', 'justify-center', 'text-4xl', 'cursor-pointer', 'transition-transform', 'duration-300', 'w-14', 'h-14', 'sm:w-20', 'sm:h-24');
             card.dataset.id = index;
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cardsChosen.push(cardArray[cardId]);
         cardsChosenId.push(cardId);
         this.classList.add('transform', 'rotate-180');
-        this.textContent = cardArray[cardId]; // Show the letter on the card
+        this.textContent = cardArray[cardId]; // Show the emoji on the card
 
         if (cardsChosen.length === 2) {
             setTimeout(checkForMatch, 500);
