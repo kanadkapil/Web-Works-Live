@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid');
     // Use emojis directly as a string instead of using split() method
-    const emojis = ['⭐','😐','👍','🙈','🐸','💀','🤣','🥺','😒','🦚','🍇','🍉',]; 
+    const emojis = ['😈','😐','👍','🙈','🐸','💀','🤣','🥺','🧬','🦚','🍇','🍉',]; 
     const cardArray = [...emojis, ...emojis]; // Duplicate emojis for pairs
 
     cardArray.sort(() => 0.5 - Math.random());
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createBoard() {
         cardArray.forEach((emoji, index) => {
             const card = document.createElement('div');
-            card.classList.add('card', 'bg-red-400', 'rounded', 'flex', 'items-center', 'justify-center', 'text-4xl', 'cursor-pointer', 'transition-transform', 'duration-300', 'w-14', 'h-14', 'sm:w-20', 'sm:h-24');
+            card.classList.add('card', 'bg-lime-400', 'rounded-2xl', 'flex', 'items-center', 'justify-center', 'text-4xl', 'cursor-pointer', 'transition-transform', 'duration-300', 'w-14', 'h-14', 'sm:w-20', 'sm:h-24');
             card.dataset.id = index;
             card.textContent = ''; // Initially no text shown
             card.addEventListener('click', flipCard);
