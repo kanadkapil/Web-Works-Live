@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid');
     // Use emojis directly as a string instead of using split() method
-    const emojis = ['😀', '😃', '😄', '😁', '😆', '😅', '🤣', '😂', '😊', '😎', '😍', '😘', '😜', '😝', '😛', '😋', '🤩']; 
+    const emojis = ['⭐','😐','👍','🙈','🐸','💀','🤣','🥺','😒','🦚','🍇','🍉',]; 
     const cardArray = [...emojis, ...emojis]; // Duplicate emojis for pairs
 
     cardArray.sort(() => 0.5 - Math.random());
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cardId = this.dataset.id;
         cardsChosen.push(cardArray[cardId]);
         cardsChosenId.push(cardId);
-        this.classList.add('transform', 'rotate-180');
+        this.classList.add('transform', 'rotate-45');
         this.textContent = cardArray[cardId]; // Show the emoji on the card
 
         if (cardsChosen.length === 2) {
@@ -46,8 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
             score++;
             scoreDisplay.textContent = score;
         } else {
-            cards[id1].classList.remove('transform', 'rotate-180'); // Flip unmatched cards back
-            cards[id2].classList.remove('transform', 'rotate-180');
+            cards[id1].classList.remove('transform', 'rotate-45'); // Flip unmatched cards back
+            cards[id2].classList.remove('transform', 'rotate-45');
             cards[id1].textContent = ''; // Reset text content
             cards[id2].textContent = '';
         }
