@@ -13,14 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function createBoard() {
         grid.innerHTML = ''; // Clear the grid
         const pairs = parseInt(pairSelect.value);
-        const emojis = ['😈', '😐', '🙈', '🐸', '💀', '🥺', '🧬', '🍇', '🍉']; // Adjust if needed
+        const emojis = ['😈', '😐', '🙈', '🐸', '💀', '🥺', '🧬', '🍇', '🍉', '🍕', '🐧', '🥃', '💩', '💘']; // Adjust if needed
         cardArray = [...emojis.slice(0, pairs), ...emojis.slice(0, pairs)]; // Use only the required number of emojis
 
         cardArray.sort(() => 0.5 - Math.random());
 
         cardArray.forEach((emoji, index) => {
             const card = document.createElement('div');
-            card.classList.add('card', 'bg-lime-400', 'rounded-2xl', 'flex', 'items-center', 'justify-center', 'text-4xl', 'cursor-pointer', 'transition-transform', 'duration-300', 'w-14', 'h-14', 'sm:w-20', 'sm:h-24');
+            card.classList.add('card', 'bg-lime-400', 'rounded-2xl', 'flex', 'items-center', 'justify-center', 'text-4xl', 'cursor-pointer', 'transition-transform', 'duration-300', 'w-14', 'h-14','sm:w-20', 'sm:h-28');
             card.dataset.id = index;
             card.style.transform = 'rotate(180deg)'; // Hide cards initially
             card.addEventListener('click', flipCard);
