@@ -21,10 +21,29 @@ document.addEventListener('DOMContentLoaded', () => {
             card.addEventListener('click', flipCard);
             grid.appendChild(card);
         });
+
+        // Show cards for 3 seconds
+        setTimeout(() => {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.style.transform = 'rotate(0deg)'; // Show cards
+                card.textContent = cardArray[card.dataset.id]; // Show emoji
+            });
+
+            // Hide cards after 3 seconds
+            setTimeout(() => {
+                cards.forEach(card => {
+                    card.style.transform = 'rotate(180deg)'; // Hide cards again
+                    card.textContent = ''; // Clear emoji
+                });
+            }, 3000);
+        }, 500); // Short delay for better UX
     }
 
     function flipCard() {
         const cardId = this.dataset.id;
+        if (cardsChosen.length === 2 || this.style.transform === 'rotate(0deg)') return; // Prevent action if already flipped or two cards are open
+
         cardsChosen.push(cardArray[cardId]);
         cardsChosenId.push(cardId);
         this.style.transform = 'rotate(0deg)'; // Show the card
