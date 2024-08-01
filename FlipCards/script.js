@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createBoard() {
         grid.innerHTML = ''; // Clear the grid
         const pairs = parseInt(pairSelect.value);
-        const emojis = ['😈', '😐', '🙈', '🐸', '💀', '🥺', '🧬', '🍇', '🍉', '🍕', '🐧', '🥃', '💩', '💘']; // Adjust if needed
+        const emojis = ['😈', '😐', '🙈', '🐸', '💀', '🥺', '🧬', '🍇', '🍉', '🍕', '🐧', '🥃', '💩', '💘', '🕶️']; 
         cardArray = [...emojis.slice(0, pairs), ...emojis.slice(0, pairs)]; // Use only the required number of emojis
 
         cardArray.sort(() => 0.5 - Math.random());
