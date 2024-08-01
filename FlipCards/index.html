@@ -8,10 +8,31 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
     <script src="script.js" defer></script>
     <script src="https://cdn.tailwindcss.com" defer></script>
+    <style>
+        /* Add any additional styling here */
+    </style>
 </head>
 <body class="bg-base-400 text-white flex items-center justify-center h-screen m-0">
     <div class="text-center">
         <h1 class="text-4xl font-bold my-5">Memory Game</h1>
+        
+        <!-- Dropdown to select number of pairs -->
+        <div class="mb-4">
+            <label for="pair-select" class="text-xl font-semibold">Select number of pairs:</label>
+            <select id="pair-select" class="ml-2 p-2 rounded bg-gray-600 text-white">
+                <option value="6">6 pairs</option>
+                <option value="8">8 pairs</option>
+                <option value="10">10 pairs</option>
+                <option value="12">12 pairs</option>
+                <option value="14">14 pairs</option>
+                <option value="16">16 pairs</option>
+                <option value="18">18 pairs</option>
+                <option value="20">20 pairs</option>
+            </select>
+            <button id="start-button" class="ml-4 px-4 py-2 bg-cyan-500 text-black hover:bg-purple-600 rounded">Start Game</button>
+        </div>
+
+        <!-- Cards grid and score display -->
         <div class="grid grid-cols-6 gap-2 mx-auto max-w-lg">
             <!-- Cards will be dynamically inserted here -->
         </div>
