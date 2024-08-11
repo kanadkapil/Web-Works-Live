@@ -8,7 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.2.7/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@1.22.0/dist/full.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com" defer></script>
-
     <style>
         canvas {
             border: 1px solid #000;
@@ -20,16 +19,15 @@
     </style>
 </head>
 
-<!-- bonus
-multicolor block,
-hard block to hit multiple time. 
--->
-
 <body class="flex items-center justify-center h-screen bg-gray-200">
     <div class="text-center">
         <h1 class="text-3xl font-bold mb-4">DX Ball Game</h1>
         <canvas class="rounded-lg" id="gameCanvas" width="1080" height="720"></canvas>
-        <button id="startButton" class="btn btn-primary mt-4">Start Game</button>
+        <div class="mt-4">
+            <button id="startButton" class="btn btn-primary">Start Game</button>
+            <button id="restartButton" class="btn btn-secondary hidden mt-4">Restart Game</button>
+        </div>
+        <p id="score" class="mt-4 text-xl">Score: 0</p>
     </div>
     <script>
         const canvas = document.getElementById('gameCanvas');
@@ -51,6 +49,9 @@ hard block to hit multiple time.
         let rightPressed = false;
         let leftPressed = false;
 
+        // Score
+        let score = 0;
+
         // Bricks properties
         const brickRowCount = 6; // Customize number of brick rows here
         const brickColumnCount = 9; // Customize number of brick columns here
@@ -60,21 +61,51 @@ hard block to hit multiple time.
         const brickOffsetTop = 30; // Customize vertical offset of bricks here
         const brickOffsetLeft = 30; // Customize horizontal offset of bricks here
         const bricks = [];
+        
+        const colors = {
+            1: '#00FF00', // Lime
+            2: '#FFA500', // Orange
+            3: '#FF0000'  // Red
+        };
 
-        for (let c = 0; c < brickColumnCount; c++) {
-            bricks[c] = [];
-            for (let r = 0; r < brickRowCount; r++) {
-                bricks[c][r] = { x: 0, y: 0, status: 1 };
+        // Function to initialize bricks with patterns and shuffling
+        function initBricks() {
+            bricks.length = 0; // Clear existing bricks
+            for (let c = 0; c < brickColumnCount; c++) {
+                bricks[c] = [];
+                for (let r = 0; r < brickRowCount; r++) {
+                    let hitCount = Math.floor(Math.random() * 3) + 1; // Hit count between 1 and 3
+                    bricks[c][r] = { x: 0, y: 0, status: hitCount };
+                }
             }
         }
+
+        initBricks();
 
         // Event listeners
         document.addEventListener('keydown', keyDownHandler);
         document.addEventListener('keyup', keyUpHandler);
-        document.getElementById('startButton').addEventListener('click', () => {
+        document.getElementById('startButton').addEventListener('click', startGame);
+        document.getElementById('restartButton').addEventListener('click', restartGame);
+
+        function startGame() {
             document.getElementById('startButton').disabled = true;
+            document.getElementById('restartButton').classList.remove('hidden');
             setInterval(draw, 10); // Customize game speed here (interval in milliseconds)
-        });
+        }
+
+        function restartGame() {
+            score = 0;
+            document.getElementById('score').textContent = `Score: ${score}`;
+            x = canvas.width / 2;
+            y = canvas.height - 30;
+            dx = 5;
+            dy = -5;
+            paddleX = (canvas.width - paddleWidth) / 2;
+            initBricks();
+            document.getElementById('startButton').disabled = false;
+            document.getElementById('restartButton').classList.add('hidden');
+        }
 
         function keyDownHandler(e) {
             if (e.key === 'Right' || e.key === 'ArrowRight') {
@@ -95,7 +126,7 @@ hard block to hit multiple time.
         function drawBall() {
             ctx.beginPath();
             ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-            ctx.fillStyle = '#797986'; //ball color
+            ctx.fillStyle = '#797986'; // Ball color
             ctx.fill();
             ctx.closePath();
         }
@@ -103,7 +134,7 @@ hard block to hit multiple time.
         function drawPaddle() {
             ctx.beginPath();
             ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-            ctx.fillStyle = '#777777'; // paddle color
+            ctx.fillStyle = '#777777'; // Paddle color
             ctx.fill();
             ctx.closePath();
         }
@@ -111,14 +142,14 @@ hard block to hit multiple time.
         function drawBricks() {
             for (let c = 0; c < brickColumnCount; c++) {
                 for (let r = 0; r < brickRowCount; r++) {
-                    if (bricks[c][r].status === 1) {
+                    if (bricks[c][r].status > 0) {
                         const brickX = brickOffsetLeft + c * (brickWidth + brickPadding);
                         const brickY = brickOffsetTop + r * (brickHeight + brickPadding);
                         bricks[c][r].x = brickX;
                         bricks[c][r].y = brickY;
                         ctx.beginPath();
                         ctx.rect(brickX, brickY, brickWidth, brickHeight);
-                        ctx.fillStyle = '#000000'; //brick color
+                        ctx.fillStyle = colors[bricks[c][r].status]; // Brick color based on hit count
                         ctx.fill();
                         ctx.closePath();
                     }
@@ -130,10 +161,17 @@ hard block to hit multiple time.
             for (let c = 0; c < brickColumnCount; c++) {
                 for (let r = 0; r < brickRowCount; r++) {
                     const brick = bricks[c][r];
-                    if (brick.status === 1) {
+                    if (brick.status > 0) {
                         if (x > brick.x && x < brick.x + brickWidth && y > brick.y && y < brick.y + brickHeight) {
                             dy = -dy;
-                            brick.status = 0;
+                            brick.status--;
+                            score += 10; // Increment score
+                            document.getElementById('score').textContent = `Score: ${score}`;
+                            if (score >= brickRowCount * brickColumnCount * 10) {
+                                document.getElementById('startButton').disabled = false;
+                                document.getElementById('startButton').textContent = 'You Win!';
+                                return;
+                            }
                         }
                     }
                 }
