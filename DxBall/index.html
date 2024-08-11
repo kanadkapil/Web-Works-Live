@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,20 +12,73 @@
         canvas {
             display: block;
             margin: 0 auto;
-            background: #000000; /* Default background */
+            background: #000000;
+            /* Default background */
         }
     </style>
 </head>
+
 <body class="flex items-center justify-center h-screen bg-grey-900">
     <div class="text-center">
-        <h1 class="text-3xl font-bold mb-4">DX Ball Clone?</h1>
+        <h1 class="text-3xl font-bold mb-4">DX Ball Clone?
+        </h1>
         <canvas id="gameCanvas" class="bg-gray-900 rounded-lg" width="1080" height="720"></canvas>
         <div class="mt-4">
             <button id="startButton" class="btn btn-primary rounded-lg px-6 py-3 text-lg">Start Game</button>
-            <button id="restartButton" class="btn btn-secondary rounded-lg px-6 py-3 text-lg hidden mt-4">Restart Game</button>
+            <button id="restartButton" class="btn btn-secondary rounded-lg px-6 py-3 text-lg hidden mt-4">Restart
+                Game</button>
         </div>
         <p id="score" class="mt-4 text-black text-xl">Score: 0</p>
+
+
+        <!-- okay  -->
+        <div>
+            <!-- Modal Button -->
+            <button id="openModalButton" class="btn btn-primary lowerclass my-5">i</button>
+
+            <!-- Modal Background -->
+            <div id="modalBackground" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+                <!-- Modal Container -->
+                <div class="fixed inset-1/4 bg-white p-6 rounded-lg shadow-lg w-1/2 mx-auto">
+                    <!-- Modal Header -->
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold text-black">Instructions</h2>
+                        <button id="closeModalButton" class="text-gray-500 hover:text-gray-800">
+                            &times;
+                        </button>
+                    </div>
+                    <!-- Modal Body -->
+                    <div class="mb-4 text-black">
+                        <ul>
+                            <li>Enjoy</li>
+                            <li>Hi</li>
+                            <li>Ok?</li>
+                            <li>Done !</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- okay  -->
+
     </div>
+
+
     <script src="game.js"></script>
+
+    <script>
+        // Open Modal
+        document.getElementById('openModalButton').addEventListener('click', () => {
+            document.getElementById('modalBackground').classList.remove('hidden');
+        });
+
+        // Close Modal
+        document.getElementById('closeModalButton').addEventListener('click', () => {
+            document.getElementById('modalBackground').classList.add('hidden');
+        });
+    </script>
 </body>
+
 </html>
