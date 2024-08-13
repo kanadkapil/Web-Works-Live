@@ -7,18 +7,29 @@
     <title>Match Fixture App</title>
     <script src="https://cdn.tailwindcss.com" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet"></head>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+</head>
 
 <body class="flex items-center justify-center h-screen ">
-    <div class="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
-        <h1 class="text-2xl font-bold mb-4">Match Fixture Generator</h1>
-        <div class="mb-4">
-            <label for="teamCount" class="block text-lg font-medium mb-2">Enter number of teams:</label>
-            <input type="number" id="teamCount" class="input input-bordered w-full" min="2" />
+    <div class="card w-full max-w-4xl p-6 bg-white rounded-lg shadow-lg">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Input Section -->
+            <div class="p-4">
+                <h1 class="text-2xl font-bold mb-4">Match Fixture Generator</h1>
+                <div class="mb-4">
+                    <label for="teamCount" class="block text-lg font-medium mb-2">Enter number of teams:</label>
+                    <input type="number" id="teamCount" class="input input-bordered w-full" min="2" />
+                </div>
+                <div id="teamInputs" class="mb-4"></div>
+                <button id="generateButton" class="btn btn-primary w-full">Generate Matches</button>
+            </div>
+
+            <!-- Output Section -->
+            <div class="p-4 text-4xl  border-l border-gray-200 md:border-l-0 md:border-t md:border-gray-200">
+                <h2 class="text-xl font-bold mb-2"></h2>
+                <div id="matches" class="mt-4"></div>
+            </div>
         </div>
-        <div id="teamInputs" class="mb-4"></div>
-        <button id="generateButton" class="btn btn-primary w-full">Generate Matches</button>
-        <div id="matches" class="mt-4"></div>
     </div>
 
     <script src="app.js"></script>
