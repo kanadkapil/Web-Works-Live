@@ -52,9 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        matchesContainer.innerHTML = '<h2 class="text-xl font-bold mb-2">Match Fixtures:</h2>';
+        matchesContainer.innerHTML = '<h2 class="text-4xl font-bold mb-10">Match Fixtures:</h2>';
         matches.forEach((match, index) => {
-            matchesContainer.innerHTML += `<p>Match ${index + 1}: ${match}</p>`;
+            matchesContainer.innerHTML += `<p class="text-3xl text-gray-600">Match ${index + 1} : <span class="text-3xl font-bold text-primary"> ${match}</span> </p>`;
         });
     }
 });
