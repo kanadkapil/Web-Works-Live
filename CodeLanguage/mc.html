@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="coffee">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Encoder/Decoder</title>
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+</head>
+
+<body class="flex items-center justify-center h-screen bg-black">
+
+    <div class="max-w-6xl w-full p-6 bg-gray-200 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold my-10 text-center">Emoji Encoder/Decoder</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Encoder Section -->
+            <div class="p-4 bg-sky-200 rounded-lg shadow-2xl">
+                <h2 class="text-xl font-semibold mb-2">Text to Emoji</h2>
+                <textarea id="textInput" class="textarea text-3xl textarea-bordered w-full h-48 mb-4" placeholder="Enter text here"></textarea>
+                <button id="encodeButton" class="btn btn-primary w-full">Encode to Emoji</button>
+                <div id="encodedText" class="mt-4 p-4 text-3xl bg-gray-200 rounded-lg h-48"></div>
+            </div>
+            <!-- Decoder Section -->
+            <div class="p-4 bg-lime-200 rounded-lg shadow-2xl">
+                <h2 class="text-xl font-semibold mb-2">Emoji to Text</h2>
+                <textarea id="emojiInput" class="textarea text-3xl textarea-bordered w-full h-48 mb-4" placeholder="Enter emojis here"></textarea>
+                <button id="decodeButton" class="btn btn-primary w-full">Decode to Text</button>
+                <div id="decodedText" class="mt-4 p-4 text-3xl bg-gray-200 text-black rounded-lg h-48"></div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script src="app.js"></script>
+</body>
+
+</html>
