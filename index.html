@@ -32,44 +32,7 @@
 
 <body>
 
-    <!-- Navbar -->
-    <!-- <header class="bg-base-300 rounded-box fixed top-0 left-0 w-full z-50 p-4">
-        <div class="container mx-auto flex justify-between">
-            <a class="text-lg font-bold">My Projects</a>
-            <details class="dropdown mx-5">
-                <summary class="btn">Theme</summary>
-                <ul class="menu dropdown-content bg-base-100 rounded-box z-50  p-2 shadow">
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Coffee"
-                            value="default" />
-                    </li>
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="retro"
-                            value="retro" />
-                    </li>
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Cyberpunk"
-                            value="cyberpunk" />
-                    </li>
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Valentine"
-                            value="valentine" />
-                    </li>
-                    <li>
-                        <input type="radio" name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="cupcake"
-                            value="cupcake" />
-                    </li>
-                </ul>
-            </details>
-        </div>
-
-    </header> -->
-
+    <!-- * navbar  -->
     <div class="navbar bg-base-100">
         <div class="navbar-start">
             <div class="dropdown">
@@ -84,7 +47,7 @@
                     class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                     <details class="dropdown mx-5">
                         <summary class="btn">Theme</summary>
-                        <ul class="menu dropdown-content bg-base-100 rounded-box z-50  p-2 shadow">
+                        <ul class="menu dropdown-content bg-base-100 rounded-box z-50 p-2 shadow">
                             <li>
                                 <input type="radio" name="theme-dropdown"
                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
@@ -117,13 +80,13 @@
                     <li><a href="#others">Others</a></li>
                 </ul>
             </div>
-            <a class="btn btn-ghost text-xl">Project Index</a>
+            <a class="btn btn-ghost normal-case text-xl">Project Index</a>
         </div>
         <div class="navbar-center hidden lg:flex">
             <ul class="menu menu-horizontal px-1">
                 <details class="dropdown mx-5">
                     <summary class="btn">Theme</summary>
-                    <ul class="menu dropdown-content bg-base-100 rounded-box z-50  p-2 shadow">
+                    <ul class="menu dropdown-content bg-base-100 rounded-box z-50 p-2 shadow">
                         <li>
                             <input type="radio" name="theme-dropdown"
                                 class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
@@ -157,8 +120,8 @@
             </ul>
         </div>
         <div class="navbar-end">
-            <a href="https://github.com/kanadkapil"><i class="fa-brands fa-github fa-bounce text-4xl mr-6"
-                    style="color: #575757;"></i>
+            <a href="https://github.com/kanadkapil" class="mr-2">
+                <i class="fa-brands fa-github fa-bounce text-4xl" style="color: #575757;"></i>
             </a>
         </div>
     </div>
@@ -168,358 +131,345 @@
     <main>
 
         <!-- portfolios  -->
-        <section id="portfolio">
-            <div class="container mt-24 mb-10 mx-auto bg-white p-6 rounded-lg shadow-md">
-                <h1 class="text-2xl font-bold mb-4">Projects Table</h1>
-                <table class="table-auto w-full border border-gray-300">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="px-4 py-2 border"></th>
-                            <th class="px-4 py-2 border">Project Name</th>
-                            <th class="px-4 py-2 border">Description</th>
-                            <th class="px-4 py-2 border">Tools</th>
-                            <th class="px-4 py-2 border">Link</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">1</td>
-                            <td class="px-4 py-2 border">Portfolio</td>
-                            <td class="px-4 py-2 border">A Psersonal portfolio</td>
-                            <td class="px-4 py-2 border">HTML, BS5, CSS</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Folio-live/" class="btn btn-primary">View
-                                    Project</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">2</td>
-                            <td class="px-4 py-2 border">Portfolio Terminal (Working)</td>
-                            <td class="px-4 py-2 border">A Psersonal terminal alike portfolio</td>
-                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Portfolio_terminal/" class="btn btn-primary">View
-                                    Project</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">3</td>
-                            <td class="px-4 py-2 border">Portfolio Daisy UI</td>
-                            <td class="px-4 py-2 border">A Psersonal Daisy UI portfolio template</td>
-                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/DaisyUI.me/portfolio.html"
-                                    class="btn btn-primary">View Project</a>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
+        <section id="portfolio" class="p-4">
+            <div class="container mt-12 mb-8 mx-auto bg-white p-6 rounded-lg shadow-lg">
+                <h1 class="text-xl md:text-2xl font-bold mb-6 text-center md:text-xl">Projects Table</h1>
+                <div class="overflow-x-auto">
+                    <table class="table w-full">
+                        <thead>
+                            <tr class="bg-gray-200">
+                                <th class="text-center md:text-xl">#</th>
+                                <th class="text-left md:text-xl">Project Name</th>
+                                <th class="text-left md:text-xl">Description</th>
+                                <th class="text-left md:text-xl">Tools</th>
+                                <th class="text-center md:text-xl">Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center md:text-xl">1</td>
+                                <td class="md:text-xl">Portfolio</td>
+                                <td class="md:text-xl">A Personal portfolio</td>
+                                <td class="md:text-xl">HTML, BS5, CSS</td>
+                                <td class="text-center md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Folio-live/" class="btn btn-primary">View
+                                        Project</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center md:text-xl">2</td>
+                                <td class="md:text-xl">Portfolio Terminal (Working)</td>
+                                <td class="md:text-xl">A Personal terminal-alike portfolio</td>
+                                <td class="md:text-xl">HTML, JS, CSS</td>
+                                <td class="text-center md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Portfolio_terminal/"
+                                        class="btn btn-primary">View Project</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center md:text-xl">3</td>
+                                <td class="md:text-xl">Portfolio Daisy UI</td>
+                                <td class="md:text-xl">A Personal Daisy UI portfolio template</td>
+                                <td class="md:text-xl">HTML, JS, CSS</td>
+                                <td class="text-center md:text-xl">
+                                    <a href="https://kanadkapil.github.io/DaisyUI.me/portfolio.html"
+                                        class="btn btn-primary">View Project</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
         <!-- Personal works  -->
-        <section id="Projects">
-            <div class="container mt-20 mb-10 mx-auto bg-white p-6 rounded-lg shadow-md">
-                <h1 class="text-2xl font-bold mb-4">Personal Projects for Fun </h1>
-                <table class="table-auto w-full border border-gray-300">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="px-4 py-2 border"></th>
-                            <th class="px-4 py-2 border">Project Name</th>
-                            <th class="px-4 py-2 border">Description</th>
-                            <th class="px-4 py-2 border">Tools</th>
-                            <th class="px-4 py-2 border">Link</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Example Row -->
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">1</td>
-                            <td class="px-4 py-2 border font-bold">Virtual Doctor</td>
-                            <td class="px-4 py-2 border">An online Doctor App</td>
-                            <td class="px-4 py-2 border">HTML, DaisyUI, JS</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Web-Works-Live/VirtualDoctor/"
-                                    class="btn btn-primary">View Project</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">2</td>
-                            <td class="px-4 py-2 border font-bold">Morse Code App</td>
-                            <td class="px-4 py-2 border">Here you can Encrypt na Decrypt texts</td>
-                            <td class="px-4 py-2 border">HTML, JS, CSS, C++, Python</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/MorseCode-WebApp/" class="btn btn-primary">View
-                                    Project</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">3</td>
-                            <td class="px-4 py-2 border font-bold">Flip Cards Game</td>
-                            <td class="px-4 py-2 border">A flipping card game</td>
-                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Web-Works-Live/FlipCards/"
-                                    class="btn btn-primary">View Project</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">4</td>
-                            <td class="px-4 py-2 border font-bold">Tournament Fixture Generator App</td>
-                            <td class="px-4 py-2 border">Input number of teams and their names, and it will reduce your ass pain</td>
-                            <td class="px-4 py-2 border">HTML, JS, DaisyUI</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Web-Works-Live/FixtureApp/"
-                                    class="btn btn-primary">View
-                                    Project</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">5</td>
-                            <td class="px-4 py-2 border font-bold">Password Generator</td>
-                            <td class="px-4 py-2 border">A random Password generator using hexa decimal and some special
-                                character values</td>
-                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Web-Works-Live/PasswordGenerator/"
-                                    class="btn btn-primary">View Project</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">6</td>
-                            <td class="px-4 py-2 border">Rock Paper Scissors Game (working)</td>
-                            <td class="px-4 py-2 border">Our childhood game</td>
-                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Web-Works-Live/RockPaperScissors/"
-                                    class="btn btn-primary">View Project</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">7</td>
-                            <td class="px-4 py-2 border">Snake Game (Working)</td>
-                            <td class="px-4 py-2 border">Remember Nokia 3310?</td>
-                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Web-Works-Live/SnakeGame/"
-                                    class="btn btn-primary">View Project</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">8</td>
-                            <td class="px-4 py-2 border font-bold">Magazine</td>
-                            <td class="px-4 py-2 border">A magazine template</td>
-                            <td class="px-4 py-2 border">HTML, DaisyUI</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Web-Works-Live/Magazine/"
-                                    class="btn btn-primary">View
-                                    Project</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">9</td>
-                            <td class="px-4 py-2 border">Palindrome Checker</td>
-                            <td class="px-4 py-2 border">An app to check the word is palindrome or not</td>
-                            <td class="px-4 py-2 border">HTML, JS, DaisyUI</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Web-Works-Live/PalindromeApp/"
-                                    class="btn btn-primary">View Project</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">10</td>
-                            <td class="px-4 py-2 border">DxBall Game</td>
-                            <td class="px-4 py-2 border">clone of GxBall, a 1996 game</td>
-                            <td class="px-4 py-2 border">HTML, JS, DaisyUI</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Web-Works-Live/DxBall/"
-                                    class="btn btn-primary">View Project</a>
-                            </td>
-                        </tr>
-
-
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">11</td>
-                            <td class="px-4 py-2 border">IPL Win Predictor </td>
-                            <td class="px-4 py-2 border">Waste</td>
-                            <td class="px-4 py-2 border">Python</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://github.com/kanadkapil/IPL-Final-predictor" class="btn btn-primary">View
-                                    Project</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">12</td>
-                            <td class="px-4 py-2 border">Wallpaper App</td>
-                            <td class="px-4 py-2 border">Find something for you</td>
-                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Web-Works-Live/WallpaperApp/"
-                                    class="btn btn-primary">View Project</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">13</td>
-                            <td class="px-4 py-2 border">Flutter App (Working)</td>
-                            <td class="px-4 py-2 border">Still Getting Used to with the language</td>
-                            <td class="px-4 py-2 border">Flutter, Dart</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://github.com/kanadkapil/MyFirstAndroidAppFlutter"
-                                    class="btn btn-primary">View Project</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">14</td>
-                            <td class="px-4 py-2 border">CSS Magazine</td>
-                            <td class="px-4 py-2 border">An idea, but u can still visit my previous Magazine template
-                            </td>
-                            <td class="px-4 py-2 border">HTML, CSS</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://github.com/kanadkapil/CssMagazine" class="btn btn-primary">View
-                                    Project</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">15</td>
-                            <td class="px-4 py-2 border">Calculator</td>
-                            <td class="px-4 py-2 border">Normal Calculator</td>
-                            <td class="px-4 py-2 border">HTML, JS, CSS</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Web-Works-Live/Calc2/"
-                                    class="btn btn-primary">View
-                                    Project</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <section id="Projects" class="p-4">
+            <div class="container mt-16 mb-10 mx-auto bg-white p-6 rounded-lg shadow-lg">
+                <h1 class="text-xl md:text-2xl font-bold mb-6 text-center">Personal Projects for Fun</h1>
+                <div class="overflow-x-auto">
+                    <table class="table-auto w-full border border-gray-300">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="px-4 py-2 border text-sm md:text-xl"></th>
+                                <th class="px-4 py-2 border text-sm md:text-xl">Project Name</th>
+                                <th class="px-4 py-2 border text-sm md:text-xl">Description</th>
+                                <th class="px-4 py-2 border text-sm md:text-xl">Tools</th>
+                                <th class="px-4 py-2 border text-sm md:text-xl">Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">1</td>
+                                <td class="px-4 py-2 border font-bold text-sm md:text-xl">Virtual Doctor</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">An online Doctor App</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, DaisyUI, JS</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Web-Works-Live/VirtualDoctor/"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">2</td>
+                                <td class="px-4 py-2 border font-bold text-sm md:text-xl">Morse Code App</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Here you can Encrypt and Decrypt texts
+                                </td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, JS, CSS, C++, Python</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/MorseCode-WebApp/"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">3</td>
+                                <td class="px-4 py-2 border font-bold text-sm md:text-xl">Flip Cards Game</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">A flipping card game</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, JS, CSS</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Web-Works-Live/FlipCards/"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">4</td>
+                                <td class="px-4 py-2 border font-bold text-sm md:text-xl">Tournament Fixture Generator
+                                    App</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Input number of teams and their names,
+                                    and it will reduce your ass pain</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, JS, DaisyUI</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Web-Works-Live/FixtureApp/"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">5</td>
+                                <td class="px-4 py-2 border font-bold text-sm md:text-xl">Password Generator</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">A random Password generator using hexa
+                                    decimal and some special character values</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, JS, CSS</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Web-Works-Live/PasswordGenerator/"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">6</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Rock Paper Scissors Game (working)</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Our childhood game</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, JS, CSS</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Web-Works-Live/RockPaperScissors/"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">7</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Snake Game (Working)</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Remember Nokia 3310?</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, JS, CSS</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Web-Works-Live/SnakeGame/"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">8</td>
+                                <td class="px-4 py-2 border font-bold text-sm md:text-xl">Magazine</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">A magazine template</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, DaisyUI</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Web-Works-Live/Magazine/"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">9</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Palindrome Checker</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">An app to check if the word is a
+                                    palindrome or not</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, JS, DaisyUI</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Web-Works-Live/PalindromeApp/"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">10</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">DxBall Game</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Clone of GxBall, a 1996 game</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, JS, DaisyUI</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Web-Works-Live/DxBall/"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">11</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">IPL Win Predictor</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Waste</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Python</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://github.com/kanadkapil/IPL-Final-predictor"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">12</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Wallpaper App</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Find something for you</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, JS, CSS</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Web-Works-Live/WallpaperApp/"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">13</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Flutter App (Working)</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Still Getting Used to the language</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Flutter, Dart</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://github.com/kanadkapil/MyFirstAndroidAppFlutter"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">14</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">CSS Magazine</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">An idea, but you can still visit my
+                                    previous Magazine template</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, CSS</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://github.com/kanadkapil/CssMagazine" class="btn btn-primary">View
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">15</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Calculator</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Normal Calculator</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, JS, CSS</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Web-Works-Live/Calc2/"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
-
         </section>
 
         <!-- other Projects  -->
-        <section id="others">
+        <section id="others" class="p-4">
             <div class="container mt-20 mb-10 mx-auto bg-white p-6 rounded-lg shadow-md">
-                <h1 class="text-2xl font-bold mb-4">Other Project Table</h1>
-                <table class="table-auto w-full border border-gray-300">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="px-4 py-2 border"></th>
-                            <th class="px-4 py-2 border">Project Name</th>
-                            <th class="px-4 py-2 border">Description</th>
-                            <th class="px-4 py-2 border">Tools</th>
-                            <th class="px-4 py-2 border">Link</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">1</td>
-                            <td class="px-4 py-2 border">My C++ Works</td>
-                            <td class="px-4 py-2 border">Study Materials 🙈🐸💀</td>
-                            <td class="px-4 py-2 border">C++, DSA, OOP, STL</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://github.com/kanadkapil/myCppWorks" class="btn btn-primary">View
-                                    Project</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">2</td>
-                            <td class="px-4 py-2 border">Stack Queue Manager App</td>
-                            <td class="px-4 py-2 border">Study Materials 😐</td>
-                            <td class="px-4 py-2 border">C++, DSA, STL</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://github.com/kanadkapil/StackQueueManager" class="btn btn-primary">View
-                                    Project</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">3</td>
-                            <td class="px-4 py-2 border">Rudra Aksha E-Commerce Wbsite (optimized)</td>
-                            <td class="px-4 py-2 border">An E-commerce Website</td>
-                            <td class="px-4 py-2 border">HTML, JS, CSS, BS5</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Rudra-Aksha/" class="btn btn-primary">View
-                                    Project</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">4</td>
-                            <td class="px-4 py-2 border">Resort 19 April</td>
-                            <td class="px-4 py-2 border">Resort Business website</td>
-                            <td class="px-4 py-2 border">HTML, JS, CSS, BS5</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/Resort-19-April/" class="btn btn-primary">View
-                                    Project</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">5</td>
-                            <td class="px-4 py-2 border">E-commerce Website Template</td>
-                            <td class="px-4 py-2 border">Noob E-commerce Template</td>
-                            <td class="px-4 py-2 border">HTML, JS, CSS, BS5</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/E-Commerce-Website-Template/"
-                                    class="btn btn-primary">View Project</a>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
+                <h1 class="text-xl md:text-2xl  mb-6 text-center">Other Project Table</h1>
+                <div class="overflow-x-auto">
+                    <table class="table-auto w-full border border-gray-300">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="px-4 py-2 border text-sm md:text-xl"></th>
+                                <th class="px-4 py-2 border text-sm md:text-xl">Project Name</th>
+                                <th class="px-4 py-2 border text-sm md:text-xl">Description</th>
+                                <th class="px-4 py-2 border text-sm md:text-xl">Tools</th>
+                                <th class="px-4 py-2 border text-sm md:text-xl">Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">1</td>
+                                <td class="px-4 py-2 border  text-sm md:text-xl">My C++ Works</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Study Materials 🙈🐸💀</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">C++, DSA, OOP, STL</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://github.com/kanadkapil/myCppWorks" class="btn btn-primary">View
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">2</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Stack Queue Manager App</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Study Materials 😐</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">C++, DSA, STL</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://github.com/kanadkapil/StackQueueManager"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">3</td>
+                                <td class="px-4 py-2 border  text-sm md:text-xl">Rudra Aksha E-Commerce Website
+                                    (optimized)</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">An E-commerce Website</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, JS, CSS, BS5</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Rudra-Aksha/" class="btn btn-primary">View
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">4</td>
+                                <td class="px-4 py-2 border  text-sm md:text-xl">Resort 19 April</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Resort Business website</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, JS, CSS, BS5</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/Resort-19-April/" class="btn btn-primary">View
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">5</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">E-commerce Website Template
+                                </td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">Noob E-commerce Template</td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">HTML, JS, CSS, BS5</td>
+                                <td class="px-4 py-2 flex justify-center text-sm md:text-xl">
+                                    <a href="https://kanadkapil.github.io/E-Commerce-Website-Template/"
+                                        class="btn btn-primary">View </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
-
 
         <!-- other Projects  -->
-        <section id="others">
+        <section id="cheat-sheets" class="p-4">
             <div class="container mt-20 mb-10 mx-auto bg-white p-6 rounded-lg shadow-md">
-                <h1 class="text-2xl font-bold mb-4">Cheat Sheets</h1>
-                <table class="table-auto w-full border border-gray-300">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="px-4 py-2 border"></th>
-                            <th class="px-4 py-2 border">Name</th>
-                            <th class="px-4 py-2 border">Tools</th>
-                            <th class="px-4 py-2 border">Link</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <tr>
-                            <td class="px-4 py-5  flex justify-center">1</td>
-                            <td class="px-4 py-2 border">Tailwind Layouts for me 💩</td>
-                            <td class="px-4 py-2 border">DaisyUi</td>
-                            <td class="px-4 py-2 flex justify-center">
-                                <a href="https://kanadkapil.github.io/DaisyUI.me/" class="btn btn-primary mx-5">Component
-                                    Index
-                                </a> 
-                                <a href="https://kanadkapil.github.io/DaisyUI.me/PageLayout.html"
-                                    class="btn btn-secondary mx-5">Page Layout
-                                </a> 
-                                <a href="https://kanadkapil.github.io/DaisyUI.me/layout.html"
-                                    class="btn btn-accent mx-5">Container Layout
-                                </a>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
+                <h1 class="text-xl md:text-2xl font-bold mb-6 text-center">Cheat Sheets</h1>
+                <div class="overflow-x-auto">
+                    <table class="table-auto w-full border border-gray-300">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="px-4 py-2 border text-sm md:text-xl"></th>
+                                <th class="px-4 py-2 border text-sm md:text-xl">Name</th>
+                                <th class="px-4 py-2 border text-sm md:text-xl">Tools</th>
+                                <th class="px-4 py-2 border text-sm md:text-xl">Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 py-5 flex justify-center text-sm md:text-xl">1</td>
+                                <td class="px-4 py-2 border font-bold text-sm md:text-xl">Tailwind Layouts for me 💩
+                                </td>
+                                <td class="px-4 py-2 border text-sm md:text-xl">DaisyUI</td>
+                                <td
+                                    class="px-4 py-2 flex flex-col md:flex-row justify-center items-center text-sm md:text-xl space-y-2 md:space-y-0 md:space-x-2">
+                                    <a href="https://kanadkapil.github.io/DaisyUI.me/" class="btn btn-primary">Component
+                                        Index</a>
+                                    <a href="https://kanadkapil.github.io/DaisyUI.me/PageLayout.html"
+                                        class="btn btn-secondary">Page Layout</a>
+                                    <a href="https://kanadkapil.github.io/DaisyUI.me/layout.html"
+                                        class="btn btn-accent">Container Layout</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
+
 
     </main>
 
