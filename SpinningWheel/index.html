@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="coffee">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Spinning Wheel App</title>
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+    <style>
+        .wheel {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 10px solid #fff;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .wheel-section {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            clip-path: polygon(100% 100%, 0 100%, 100% 0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        #pointer {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 20px 30px 20px;
+            border-color: transparent transparent red transparent;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center h-screen bg-gray-100">
+
+    <div class="max-w-lg w-full p-6 bg-white rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold mb-4 text-center">Interactive Spinning Wheel App</h1>
+
+        <!-- Input for Number of Partitions -->
+        <div class="mb-4">
+            <label for="partitionCount" class="block text-lg font-medium mb-2">Number of Partitions:</label>
+            <input type="number" id="partitionCount" class="input input-bordered w-full" min="2" value="6" />
+        </div>
+
+        <!-- Input for Partition Notes -->
+        <div id="partitionInputs" class="mb-4"></div>
+
+        <button id="createWheelButton" class="btn btn-primary w-full mb-4">Create Wheel</button>
+
+        <div class="wheel hidden" id="wheel">
+            <div id="pointer"></div>
+            <!-- Wheel sections will be added dynamically using JavaScript -->
+        </div>
+
+        <button id="spinButton" class="btn btn-secondary w-full mt-6 hidden">Spin the Wheel</button>
+        <div id="result" class="mt-4 p-4 text-xl text-center bg-sky-200 rounded-lg"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
