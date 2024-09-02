@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const spinButton = document.getElementById("spinButton");
     const resultDiv = document.getElementById("result");
     const wheel = document.getElementById("wheel");
-    const pointer = document.getElementById("pointer");
 
     let partitionNotes = [];
 
@@ -43,28 +42,16 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Reset wheel
-        wheel.innerHTML = '';
-        wheel.appendChild(pointer);
+        // Generate dynamic conic gradient for partitions
+        const colors = Array.from({ length: partitionCount }, () => getRandomColor());
+        const colorStops = colors.map((color, index) => {
+            const angle = (index * (360 / partitionCount)).toFixed(2);
+            return `${color} ${angle}deg ${(parseFloat(angle) + (360 / partitionCount)).toFixed(2)}deg`;
+        });
+
+        // Apply conic-gradient as the wheel's background
+        wheel.style.background = `conic-gradient(${colorStops.join(', ')})`;
         wheel.style.transform = 'rotate(0deg)';
-
-        // Create wheel sections dynamically
-        for (let i = 0; i < partitionCount; i++) {
-            const section = document.createElement("div");
-            section.className = "wheel-section";
-            section.style.backgroundColor = getRandomColor();
-            section.style.transform = `rotate(${(i * 360) / partitionCount}deg)`;
-            section.style.clipPath = `polygon(100% 100%, 0 100%, 100% 0)`;
-
-            // Set text inside each section
-            const textSpan = document.createElement("span");
-            textSpan.style.transform = `rotate(${(360 / partitionCount) / 2}deg)`;
-            textSpan.textContent = partitionNotes[i];
-
-            section.appendChild(textSpan);
-            wheel.appendChild(section);
-        }
-
         wheel.classList.remove("hidden");
         spinButton.classList.remove("hidden");
     });
