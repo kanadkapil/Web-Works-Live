@@ -13,25 +13,13 @@
             width: 300px;
             height: 300px;
             border-radius: 50%;
-            border: 10px solid #fff;
             margin: 0 auto;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
-        }
-
-        .wheel-section {
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            transform-origin: 100% 100%;
-            clip-path: polygon(100% 100%, 0 100%, 100% 0);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: bold;
+            overflow: hidden;
+            transform: rotate(0deg);
         }
 
         #pointer {
@@ -66,7 +54,6 @@
 
         <div class="wheel hidden" id="wheel">
             <div id="pointer"></div>
-            <!-- Wheel sections will be added dynamically using JavaScript -->
         </div>
 
         <button id="spinButton" class="btn btn-secondary w-full mt-6 hidden">Spin the Wheel</button>
