@@ -33,6 +33,19 @@
             left: 50%;
             transform: translateX(-50%);
         }
+
+        .arrow {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 20px 30px 20px; /* Arrow pointing down */
+            border-color: transparent transparent #ff0000 transparent; /* Red arrow */
+            position: absolute;
+            top: -40px; /* Position the arrow above the wheel */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10; /* Make sure the arrow is above the wheel */
+        }
     </style>
 </head>
 
@@ -52,8 +65,14 @@
 
         <button id="createWheelButton" class="btn btn-primary w-full mb-4">Create Wheel</button>
 
-        <div class="wheel hidden" id="wheel">
-            <div id="pointer"></div>
+        <!-- Wheel Container -->
+        <div class="relative">
+            <!-- Downward Facing Arrow -->
+            <div class="arrow" id="arrow"></div>
+            <!-- Wheel -->
+            <div class="wheel hidden" id="wheel">
+                <div id="pointer"></div>
+            </div>
         </div>
 
         <button id="spinButton" class="btn btn-secondary w-full mt-6 hidden">Spin the Wheel</button>
