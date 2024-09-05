@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock App with Animations</title>
+    <!-- DaisyUI and Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.2.7/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #clock-container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #time {
+            font-size: 6rem;
+            letter-spacing: 0.1rem;
+        }
+
+        .time-segment {
+            margin: 0 0.5rem;
+            display: inline-block;
+            transition: all 0.5s;
+        }
+
+        .btn {
+            margin-top: 1rem;
+        }
+
+        /* Animation Styles */
+        .animation-beat {
+            animation: beat 0.5s ease-in-out;
+        }
+
+        @keyframes beat {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .animation-bounce {
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .animation-flip {
+            animation: flip 0.5s ease;
+        }
+
+        @keyframes flip {
+            0% {
+                transform: rotateX(0);
+            }
+
+            100% {
+                transform: rotateX(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="clock-container" class="text-center shadow-xl p-8 rounded-lg bg-white">
+        <div id="clock" class="text-7xl font-bold mb-4">
+            <span id="hours" class="time-segment">00</span>:<span id="minutes" class="time-segment">00</span>:<span
+                id="seconds" class="time-segment">00</span>
+            <span id="ampm" class="ml-3 text-5xl">AM</span>
+        </div>
+
+        <!-- Dropdown for selecting animations -->
+        <div class="mt-4">
+            <label for="animation-select" class="text-lg font-semibold">Select Animation:</label>
+            <select id="animation-select" class="select select-primary w-full max-w-xs mt-2">
+                <option value="none">None</option>
+                <option value="beat">Beat</option>
+                <option value="bounce">Bounce</option>
+                <option value="flip">Flip</option>
+                <option value="random">Random</option>
+            </select>
+        </div>
+
+        <button id="toggleFormat" class="btn btn-primary mt-4">Switch to 24-Hour</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hoursElem = document.getElementById('hours');
+            const minutesElem = document.getElementById('minutes');
+            const secondsElem = document.getElementById('seconds');
+            const ampmElem = document.getElementById('ampm');
+            const toggleFormatButton = document.getElementById('toggleFormat');
+            const animationSelect = document.getElementById('animation-select');
+
+            let is24HourFormat = false;
+            let currentAnimation = 'none';
+
+            function updateClock() {
+                const now = new Date();
+                let hours = now.getHours();
+                const minutes = now.getMinutes();
+                const seconds = now.getSeconds();
+                let ampm = '';
+
+                if (!is24HourFormat) {
+                    if (hours >= 12) {
+                        ampm = 'PM';
+                        if (hours > 12) hours -= 12;
+                    } else {
+                        ampm = 'AM';
+                        if (hours === 0) hours = 12;
+                    }
+                } else {
+                    ampm = ''; // Clear AM/PM for 24-hour format
+                }
+
+                // Check and update each digit with animation
+                updateDigit(hoursElem, hours);
+                updateDigit(minutesElem, minutes);
+                updateDigit(secondsElem, seconds);
+
+                ampmElem.textContent = is24HourFormat ? '' : ampm; // Show AM/PM for 12-hour format
+            }
+
+            function updateDigit(element, newValue) {
+                const oldValue = element.textContent;
+                if (oldValue !== String(newValue).padStart(2, '0')) {
+                    element.textContent = String(newValue).padStart(2, '0');
+                    animateChange(element);
+                }
+            }
+
+            function animateChange(element) {
+                element.classList.remove('animation-beat', 'animation-bounce', 'animation-flip');
+
+                if (currentAnimation === 'random') {
+                    const animations = ['animation-beat', 'animation-bounce', 'animation-flip'];
+                    element.classList.add(animations[Math.floor(Math.random() * animations.length)]);
+                } else if (currentAnimation !== 'none') {
+                    element.classList.add(`animation-${currentAnimation}`);
+                }
+            }
+
+            function toggleTimeFormat() {
+                is24HourFormat = !is24HourFormat;
+                toggleFormatButton.textContent = is24HourFormat ? 'Switch to 12-Hour' : 'Switch to 24-Hour';
+                updateClock();
+            }
+
+            // Listen for animation selection change
+            animationSelect.addEventListener('change', (e) => {
+                currentAnimation = e.target.value;
+            });
+
+            toggleFormatButton.addEventListener('click', toggleTimeFormat);
+
+            setInterval(updateClock, 1000);
+            updateClock(); // Initial call to set the time immediately
+        });
+    </script>
+</body>
+
+</html>
