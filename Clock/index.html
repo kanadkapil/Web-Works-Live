@@ -26,15 +26,11 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        #time {
-            font-size: 6rem;
-            letter-spacing: 0.1rem;
-        }
-
         .time-segment {
             margin: 0 0.5rem;
             display: inline-block;
             transition: all 0.5s;
+            min-width: 40px;
         }
 
         .btn {
@@ -47,8 +43,7 @@
         }
 
         @keyframes beat {
-            0%,
-            100% {
+            0%, 100% {
                 transform: scale(1);
             }
 
@@ -62,8 +57,7 @@
         }
 
         @keyframes bounce {
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0);
             }
 
@@ -91,8 +85,10 @@
 <body>
     <div id="clock-container" class="text-center shadow-xl p-8 rounded-lg bg-white">
         <div id="clock" class="text-7xl font-bold mb-4">
-            <span id="hours" class="time-segment">00</span>:<span id="minutes" class="time-segment">00</span>:<span
-                id="seconds" class="time-segment">00</span>
+            <!-- Separate spans for each digit to animate individually -->
+            <span id="hours-tens" class="time-segment">0</span><span id="hours-ones" class="time-segment">0</span>:
+            <span id="minutes-tens" class="time-segment">0</span><span id="minutes-ones" class="time-segment">0</span>:
+            <span id="seconds-tens" class="time-segment">0</span><span id="seconds-ones" class="time-segment">0</span>
             <span id="ampm" class="ml-3 text-5xl">AM</span>
         </div>
 
@@ -113,12 +109,17 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const hoursElem = document.getElementById('hours');
-            const minutesElem = document.getElementById('minutes');
-            const secondsElem = document.getElementById('seconds');
-            const ampmElem = document.getElementById('ampm');
-            const toggleFormatButton = document.getElementById('toggleFormat');
-            const animationSelect = document.getElementById('animation-select');
+            const elements = {
+                hoursTens: document.getElementById('hours-tens'),
+                hoursOnes: document.getElementById('hours-ones'),
+                minutesTens: document.getElementById('minutes-tens'),
+                minutesOnes: document.getElementById('minutes-ones'),
+                secondsTens: document.getElementById('seconds-tens'),
+                secondsOnes: document.getElementById('seconds-ones'),
+                ampm: document.getElementById('ampm'),
+                toggleFormatButton: document.getElementById('toggleFormat'),
+                animationSelect: document.getElementById('animation-select')
+            };
 
             let is24HourFormat = false;
             let currentAnimation = 'none';
@@ -142,45 +143,56 @@
                     ampm = ''; // Clear AM/PM for 24-hour format
                 }
 
-                // Check and update each digit with animation
-                updateDigit(hoursElem, hours);
-                updateDigit(minutesElem, minutes);
-                updateDigit(secondsElem, seconds);
+                // Split hours, minutes, and seconds into tens and ones
+                updateDigit(elements.hoursTens, Math.floor(hours / 10));
+                updateDigit(elements.hoursOnes, hours % 10);
+                updateDigit(elements.minutesTens, Math.floor(minutes / 10));
+                updateDigit(elements.minutesOnes, minutes % 10);
+                updateDigit(elements.secondsTens, Math.floor(seconds / 10));
+                updateDigit(elements.secondsOnes, seconds % 10);
 
-                ampmElem.textContent = is24HourFormat ? '' : ampm; // Show AM/PM for 12-hour format
+                elements.ampm.textContent = is24HourFormat ? '' : ampm; // Show AM/PM for 12-hour format
             }
 
             function updateDigit(element, newValue) {
                 const oldValue = element.textContent;
-                if (oldValue !== String(newValue).padStart(2, '0')) {
-                    element.textContent = String(newValue).padStart(2, '0');
+                if (oldValue !== String(newValue)) {
+                    element.textContent = String(newValue);
                     animateChange(element);
                 }
             }
 
             function animateChange(element) {
+                // Remove any previous animation classes
                 element.classList.remove('animation-beat', 'animation-bounce', 'animation-flip');
 
+                // Apply the selected animation
                 if (currentAnimation === 'random') {
                     const animations = ['animation-beat', 'animation-bounce', 'animation-flip'];
-                    element.classList.add(animations[Math.floor(Math.random() * animations.length)]);
+                    const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+                    element.classList.add(randomAnimation);
                 } else if (currentAnimation !== 'none') {
                     element.classList.add(`animation-${currentAnimation}`);
                 }
+
+                // Ensure the animation restarts
+                element.addEventListener('animationend', () => {
+                    element.classList.remove('animation-beat', 'animation-bounce', 'animation-flip');
+                }, { once: true });
             }
 
             function toggleTimeFormat() {
                 is24HourFormat = !is24HourFormat;
-                toggleFormatButton.textContent = is24HourFormat ? 'Switch to 12-Hour' : 'Switch to 24-Hour';
+                elements.toggleFormatButton.textContent = is24HourFormat ? 'Switch to 12-Hour' : 'Switch to 24-Hour';
                 updateClock();
             }
 
             // Listen for animation selection change
-            animationSelect.addEventListener('change', (e) => {
+            elements.animationSelect.addEventListener('change', (e) => {
                 currentAnimation = e.target.value;
             });
 
-            toggleFormatButton.addEventListener('click', toggleTimeFormat);
+            elements.toggleFormatButton.addEventListener('click', toggleTimeFormat);
 
             setInterval(updateClock, 1000);
             updateClock(); // Initial call to set the time immediately
