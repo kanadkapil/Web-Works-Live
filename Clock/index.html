@@ -4,15 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clock App with Animations</title>
+    <title>Clock App with Animations and Theme Selector</title>
     <!-- DaisyUI and Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.2.7/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+    <script>
+        // Initialize DaisyUI themes
+        tailwind.config = {
+            theme: {
+                extend: {},
+            },
+            plugins: [daisyui],
+            daisyui: {
+                themes: ["light", "dark", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula"],
+            },
+        }
+    </script>
 
     <style>
         body {
-            background-color: #f0f0f0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -82,9 +93,9 @@
     </style>
 </head>
 
-<body>
-    <div id="clock-container" class="text-center shadow-xl p-8 rounded-lg bg-white">
-        <div id="clock" class="text-7xl font-bold mb-4">
+<body class="bg-primary">
+    <div id="clock-container" class="text-center shadow-xl p-8 rounded-lg bg-secondary">
+        <div id="clock" class="text-4xl sm:text-9xl font-bold mb-4">
             <!-- Separate spans for each digit to animate individually -->
             <span id="hours-tens" class="time-segment">0</span><span id="hours-ones" class="time-segment">0</span>:
             <span id="minutes-tens" class="time-segment">0</span><span id="minutes-ones" class="time-segment">0</span>:
@@ -104,7 +115,36 @@
             </select>
         </div>
 
-        <button id="toggleFormat" class="btn btn-primary mt-4">Switch to 24-Hour</button>
+        <!-- Dropdown button for selecting DaisyUI theme -->
+        <div class="mt-4">
+            <label for="theme-select" class="text-lg font-semibold">Select Theme:</label>
+            <select id="theme-select" class="select select-primary w-full max-w-xs mt-2">
+                <!-- List of DaisyUI themes -->
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="cupcake">Cupcake</option>
+                <option value="bumblebee">Bumblebee</option>
+                <option value="emerald">Emerald</option>
+                <option value="corporate">Corporate</option>
+                <option value="synthwave">Synthwave</option>
+                <option value="retro">Retro</option>
+                <option value="cyberpunk">Cyberpunk</option>
+                <option value="valentine">Valentine</option>
+                <option value="halloween">Halloween</option>
+                <option value="garden">Garden</option>
+                <option value="forest">Forest</option>
+                <option value="aqua">Aqua</option>
+                <option value="lofi">Lofi</option>
+                <option value="pastel">Pastel</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="wireframe">Wireframe</option>
+                <option value="black">Black</option>
+                <option value="luxury">Luxury</option>
+                <option value="dracula">Dracula</option>
+            </select>
+        </div>
+
+        <button id="toggleFormat" class="btn btn-primary mt-4 btn-secondary">Switch to 24-Hour</button>
     </div>
 
     <script>
@@ -118,7 +158,8 @@
                 secondsOnes: document.getElementById('seconds-ones'),
                 ampm: document.getElementById('ampm'),
                 toggleFormatButton: document.getElementById('toggleFormat'),
-                animationSelect: document.getElementById('animation-select')
+                animationSelect: document.getElementById('animation-select'),
+                themeSelect: document.getElementById('theme-select')
             };
 
             let is24HourFormat = false;
@@ -184,18 +225,22 @@
             function toggleTimeFormat() {
                 is24HourFormat = !is24HourFormat;
                 elements.toggleFormatButton.textContent = is24HourFormat ? 'Switch to 12-Hour' : 'Switch to 24-Hour';
-                updateClock();
+                updateClock(); // Refresh the clock to show the correct format
             }
 
-            // Listen for animation selection change
-            elements.animationSelect.addEventListener('change', (e) => {
-                currentAnimation = e.target.value;
+            elements.toggleFormatButton.addEventListener('click', toggleTimeFormat);
+            elements.animationSelect.addEventListener('change', (event) => {
+                currentAnimation = event.target.value;
             });
 
-            elements.toggleFormatButton.addEventListener('click', toggleTimeFormat);
+            // Change DaisyUI theme dynamically
+            elements.themeSelect.addEventListener('change', (event) => {
+                document.documentElement.setAttribute('data-theme', event.target.value);
+            });
 
-            setInterval(updateClock, 1000);
-            updateClock(); // Initial call to set the time immediately
+            // Initial call
+            updateClock();
+            setInterval(updateClock, 1000); // Update the clock every second
         });
     </script>
 </body>
