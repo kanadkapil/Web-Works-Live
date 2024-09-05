@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-theme="coffee">
+
+
+
+
+
+
+<head>
+
+
+    <meta charset="UTF-8">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>69 Flipper</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+
+
+    <style>
+        body {
+
+
+            height: 100vh;
+
+
+            display: flex;
+
+
+            align-items: center;
+
+
+            justify-content: center;
+
+
+            background-color: #f0f0f0;
+
+
+        }
+
+
+
+
+
+
+        .container {
+
+
+            text-align: center;
+
+
+        }
+
+
+
+
+
+
+        .flipper {
+
+
+            display: flex;
+
+
+            align-items: center;
+
+
+            justify-content: center;
+
+
+            font-size: 10rem;
+
+
+            font-weight: bold;
+
+
+            transition: transform 1s;
+
+
+        }
+
+
+
+
+
+
+        .digit {
+
+
+            display: inline-block;
+
+
+            width: 100px;
+
+
+            text-align: center;
+
+
+            transition: transform 0.5s;
+
+
+        }
+
+
+
+
+
+
+        .flip-6 {
+
+
+            transform: rotateX(180deg);
+
+
+        }
+
+
+
+
+
+
+        .flip-9 {
+
+
+            transform: rotateY(180deg);
+
+
+        }
+
+
+
+
+
+
+        .controls {
+
+
+            margin-top: 20px;
+
+
+        }
+    </style>
+
+
+</head>
+
+
+
+
+
+
+<body>
+
+
+    <div class="container">
+
+
+        <div id="flipper" class="flipper">
+
+
+            <div id="digit6" class="digit six">6</div>
+
+
+            <div id="digit9" class="digit nine">9</div>
+
+
+        </div>
+
+
+
+
+
+
+        <div class="controls">
+
+
+            <button id="startButton" class="btn btn-primary m-2">Start</button>
+
+
+            <button id="stopButton" class="btn btn-secondary m-2">Stop</button>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+    <script>
+
+
+        let flipInterval6;
+
+
+        let flipInterval9;
+
+
+
+
+
+
+        function startFlipping() {
+
+
+            const digit6 = document.getElementById('digit6');
+
+
+            const digit9 = document.getElementById('digit9');
+
+
+
+
+
+
+            // Clear any existing intervals
+
+
+            if (flipInterval6) {
+
+
+                clearInterval(flipInterval6);
+
+
+            }
+
+
+            if (flipInterval9) {
+
+
+                clearInterval(flipInterval9);
+
+
+            }
+
+
+
+
+
+
+            // Start flipping for "6" with a fixed interval of 1.5 seconds
+
+
+            flipInterval6 = setInterval(() => {
+
+
+                digit6.classList.toggle('flip-6');
+
+
+            }, 1500);
+
+
+
+
+
+
+            // Start flipping for "9" with a fixed interval of 2 seconds
+
+
+            flipInterval9 = setInterval(() => {
+
+
+                digit9.classList.toggle('flip-9');
+
+
+            }, 2000);
+
+
+        }
+
+
+
+
+
+
+        function stopFlipping() {
+
+
+            clearInterval(flipInterval6);
+
+
+            clearInterval(flipInterval9);
+
+
+        }
+
+
+
+
+
+
+        // Attach event listeners to the buttons
+
+
+        document.getElementById('startButton').addEventListener('click', startFlipping);
+
+
+        document.getElementById('stopButton').addEventListener('click', stopFlipping);
+
+
+    </script>
+
+
+</body>
+
+
+</html>
