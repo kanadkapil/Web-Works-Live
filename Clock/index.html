@@ -54,7 +54,9 @@
         }
 
         @keyframes beat {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1);
             }
 
@@ -68,7 +70,9 @@
         }
 
         @keyframes bounce {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0);
             }
 
@@ -97,55 +101,60 @@
     <div id="clock-container" class="text-center shadow-xl p-8 rounded-lg bg-secondary">
         <div id="clock" class="text-4xl sm:text-9xl font-bold mb-4">
             <!-- Separate spans for each digit to animate individually -->
-            <span id="hours-tens" class="time-segment">0</span><span id="hours-ones" class="time-segment">0</span>:
-            <span id="minutes-tens" class="time-segment">0</span><span id="minutes-ones" class="time-segment">0</span>:
+            <span id="hours-tens" class="time-segment">0</span><span id="hours-ones" class="time-segment">0</span> :
+            <span id="minutes-tens" class="time-segment">0</span><span id="minutes-ones" class="time-segment">0</span> :
             <span id="seconds-tens" class="time-segment">0</span><span id="seconds-ones" class="time-segment">0</span>
             <span id="ampm" class="ml-3 text-5xl">AM</span>
         </div>
 
-        <!-- Dropdown for selecting animations -->
-        <div class="mt-4">
-            <label for="animation-select" class="text-lg font-semibold">Select Animation:</label>
-            <select id="animation-select" class="select select-primary w-full max-w-xs mt-2">
-                <option value="none">None</option>
-                <option value="beat">Beat</option>
-                <option value="bounce">Bounce</option>
-                <option value="flip">Flip</option>
-                <option value="random">Random</option>
-            </select>
-        </div>
-
-        <!-- Dropdown button for selecting DaisyUI theme -->
-        <div class="mt-4">
-            <label for="theme-select" class="text-lg font-semibold">Select Theme:</label>
-            <select id="theme-select" class="select select-primary w-full max-w-xs mt-2">
-                <!-- List of DaisyUI themes -->
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-                <option value="cupcake">Cupcake</option>
-                <option value="bumblebee">Bumblebee</option>
-                <option value="emerald">Emerald</option>
-                <option value="corporate">Corporate</option>
-                <option value="synthwave">Synthwave</option>
-                <option value="retro">Retro</option>
-                <option value="cyberpunk">Cyberpunk</option>
-                <option value="valentine">Valentine</option>
-                <option value="halloween">Halloween</option>
-                <option value="garden">Garden</option>
-                <option value="forest">Forest</option>
-                <option value="aqua">Aqua</option>
-                <option value="lofi">Lofi</option>
-                <option value="pastel">Pastel</option>
-                <option value="fantasy">Fantasy</option>
-                <option value="wireframe">Wireframe</option>
-                <option value="black">Black</option>
-                <option value="luxury">Luxury</option>
-                <option value="dracula">Dracula</option>
-            </select>
-        </div>
-
         <button id="toggleFormat" class="btn btn-primary mt-4 btn-secondary">Switch to 24-Hour</button>
+
+        <div class="container mx-auto">
+            <!-- Dropdown for selecting animations -->
+            <div class="mt-4">
+                <label for="animation-select" class="text-lg font-semibold">Select Animation:</label>
+                <select id="animation-select" class="select select-primary w-full max-w-xs mt-2">
+                    <option value="none">None</option>
+                    <option value="beat">Beat</option>
+                    <option value="bounce">Bounce</option>
+                    <option value="flip">Flip</option>
+                    <option value="random">Random</option>
+                </select>
+            </div>
+
+            <!-- Dropdown button for selecting DaisyUI theme -->
+            <div class="mt-4">
+                <label for="theme-select" class="text-lg font-semibold">Select Theme:</label>
+                <select id="theme-select" class="select select-primary w-full max-w-xs mt-2">
+                    <!-- List of DaisyUI themes -->
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="cupcake">Cupcake</option>
+                    <option value="bumblebee">Bumblebee</option>
+                    <option value="emerald">Emerald</option>
+                    <option value="corporate">Corporate</option>
+                    <option value="synthwave">Synthwave</option>
+                    <option value="retro">Retro</option>
+                    <option value="cyberpunk">Cyberpunk</option>
+                    <option value="valentine">Valentine</option>
+                    <option value="halloween">Halloween</option>
+                    <option value="garden">Garden</option>
+                    <option value="forest">Forest</option>
+                    <option value="aqua">Aqua</option>
+                    <option value="lofi">Lofi</option>
+                    <option value="pastel">Pastel</option>
+                    <option value="fantasy">Fantasy</option>
+                    <option value="wireframe">Wireframe</option>
+                    <option value="black">Black</option>
+                    <option value="luxury">Luxury</option>
+                    <option value="dracula">Dracula</option>
+                </select>
+            </div>
+        </div>
+
     </div>
+
+
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
