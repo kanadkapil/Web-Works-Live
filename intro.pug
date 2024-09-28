@@ -1,10 +1,67 @@
 doctype html
 html(lang="en")
   head
+    title Pug Elements Example
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    title My Page
   body
+
     .container
       h1 Hello, World!
       p This is an example paragraph.
+
+    h1 Pug Elements Example Page
+
+    //- Table Example
+    h2 Table Example
+    table(border="1")
+      thead
+        tr
+          th Name
+          th Age
+          th City
+      tbody
+        tr
+          td Alice
+          td 25
+          td New York
+        tr
+          td Bob
+          td 30
+          td Los Angeles
+        tr
+          td Charlie
+          td 28
+          td Chicago
+
+    //- Unordered List Example
+    h2 Unordered List Example
+    ul
+      li Item 1
+      li Item 2
+      li Item 3
+
+    //- Ordered List Example
+    h2 Ordered List Example
+    ol
+      li First item
+      li Second item
+      li Third item
+
+    //- Hyperlink Example
+    h2 Hyperlink Example
+    p
+      | Visit 
+      a(href="https://www.example.com" target="_blank") Example Website
+      |  for more information.
+
+    //- Form Example
+    h2 Form Example
+    form(action="/submit" method="POST")
+      label(for="name") Name:
+      input(type="text" id="name" name="name" placeholder="Enter your name")
+      br
+      label(for="email") Email:
+      input(type="email" id="email" name="email" placeholder="Enter your email")
+      br
+      input(type="submit" value="Submit")
