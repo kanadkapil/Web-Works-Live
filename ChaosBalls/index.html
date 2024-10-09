@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="coffee">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,43 +11,56 @@
         #simulation-container {
             position: relative;
             overflow: hidden;
-            background-color: #808080; /* Grey background */
             width: 100%;
-            height: 80vh;
+            height: 70vh;
             margin: 0 auto;
-            border-radius: 10px;
+            border-radius: 14px;
+            border: 2px solid rgb(250, 186, 114);
+
         }
 
         .ball {
             position: absolute;
             border-radius: 50%;
-            background-color: blue;
+            /* background-color: blue; */
             transition: background-color 0.3s;
         }
     </style>
 </head>
-<body class="bg-gray-200">
+<body class="bg-primary-200">
     <div class="container mx-auto p-8">
         <h1 class="text-3xl font-bold mb-6 text-center">Chaotic Balls Simulation</h1>
 
         <div class="flex justify-center gap-4 mb-6">
             <input id="ball-count" type="number" placeholder="Number of Balls" class="input input-bordered input-primary w-full max-w-xs" min="1">
             <input id="ball-radius" type="number" placeholder="Ball Radius" class="input input-bordered input-primary w-full max-w-xs" min="5">
-            <input id="ball-speed" type="number" placeholder="Ball Speed" class="input input-bordered input-primary w-full max-w-xs" min="1" value="3">
+            
+            <div class="flex flex-col items-center">
+                <label for="ball-speed" class="mb-2">Ball Speed</label>
+                <input id="ball-speed" type="range" min="1" max="10" value="3" class="range range-primary w-full max-w-xs">
+            </div>
+
             <button id="start-simulation" class="btn btn-primary">Start Simulation</button>
         </div>
 
-        <div id="simulation-container"></div>
+        <div class="flex justify-center gap-4 mb-6">
+            <button id="play-simulation" class="btn btn-success">Play</button>
+            <button id="pause-simulation" class="btn btn-warning">Pause</button>
+        </div>
+
+        <div class="bg-primary-200" id="simulation-container"></div>
     </div>
 
     <script>
         // Variables
         const container = document.getElementById('simulation-container');
         const startButton = document.getElementById('start-simulation');
+        const playButton = document.getElementById('play-simulation');
+        const pauseButton = document.getElementById('pause-simulation');
         const ballCountInput = document.getElementById('ball-count');
         const ballRadiusInput = document.getElementById('ball-radius');
         const ballSpeedInput = document.getElementById('ball-speed');
-        const colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange'];
+        const colors = ['#257180', '#F2E5BF', '#FD8B51', '#EDDFE0', '#C96868', '#BEC6A0'];
 
         // Ball class to represent each ball
         class Ball {
@@ -96,6 +109,8 @@
 
         // Array to store ball objects
         let balls = [];
+        let animationFrameId;
+        let isPaused = false;
 
         // Function to start the simulation
         function startSimulation() {
@@ -113,18 +128,47 @@
                 balls.push(ball);
             }
 
-            // Run the animation
+            // Start the animation loop
+            isPaused = false;
             animateBalls();
         }
 
         // Function to animate balls
         function animateBalls() {
-            balls.forEach(ball => ball.move());
-            requestAnimationFrame(animateBalls);
+            if (!isPaused) {
+                balls.forEach(ball => ball.move());
+                animationFrameId = requestAnimationFrame(animateBalls);
+            }
+        }
+
+        // Play the simulation
+        function playSimulation() {
+            if (isPaused) {
+                isPaused = false;
+                animateBalls();
+            }
+        }
+
+        // Pause the simulation
+        function pauseSimulation() {
+            isPaused = true;
+            cancelAnimationFrame(animationFrameId);
         }
 
         // Start simulation on button click
         startButton.addEventListener('click', startSimulation);
+        playButton.addEventListener('click', playSimulation);
+        pauseButton.addEventListener('click', pauseSimulation);
+
+        // Update ball speed dynamically using the speed slider
+        ballSpeedInput.addEventListener('input', (e) => {
+            const newSpeed = parseInt(e.target.value);
+            balls.forEach(ball => {
+                ball.vx = (Math.random() - 0.5) * newSpeed * 2;
+                ball.vy = (Math.random() - 0.5) * newSpeed * 2;
+                ball.speed = newSpeed;
+            });
+        });
     </script>
 </body>
 </html>
