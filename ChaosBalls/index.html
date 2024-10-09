@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaotic Balls Simulation</title>
+    <!-- Tailwind CSS and DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #simulation-container {
+            position: relative;
+            overflow: hidden;
+            background-color: #808080; /* Grey background */
+            width: 100%;
+            height: 80vh;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        .ball {
+            position: absolute;
+            border-radius: 50%;
+            background-color: blue;
+            transition: background-color 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-gray-200">
+    <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-bold mb-6 text-center">Chaotic Balls Simulation</h1>
+
+        <div class="flex justify-center gap-4 mb-6">
+            <input id="ball-count" type="number" placeholder="Number of Balls" class="input input-bordered input-primary w-full max-w-xs" min="1">
+            <input id="ball-radius" type="number" placeholder="Ball Radius" class="input input-bordered input-primary w-full max-w-xs" min="5">
+            <input id="ball-speed" type="number" placeholder="Ball Speed" class="input input-bordered input-primary w-full max-w-xs" min="1" value="3">
+            <button id="start-simulation" class="btn btn-primary">Start Simulation</button>
+        </div>
+
+        <div id="simulation-container"></div>
+    </div>
+
+    <script>
+        // Variables
+        const container = document.getElementById('simulation-container');
+        const startButton = document.getElementById('start-simulation');
+        const ballCountInput = document.getElementById('ball-count');
+        const ballRadiusInput = document.getElementById('ball-radius');
+        const ballSpeedInput = document.getElementById('ball-speed');
+        const colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange'];
+
+        // Ball class to represent each ball
+        class Ball {
+            constructor(radius, speed) {
+                this.radius = radius;
+                this.speed = speed;
+                this.x = Math.random() * (container.clientWidth - 2 * radius);
+                this.y = Math.random() * (container.clientHeight - 2 * radius);
+                this.vx = (Math.random() - 0.5) * this.speed * 2; // Random velocity X scaled by speed
+                this.vy = (Math.random() - 0.5) * this.speed * 2; // Random velocity Y scaled by speed
+                this.element = document.createElement('div');
+                this.element.className = 'ball';
+                this.element.style.width = `${2 * radius}px`;
+                this.element.style.height = `${2 * radius}px`;
+                this.element.style.top = `${this.y}px`;
+                this.element.style.left = `${this.x}px`;
+                container.appendChild(this.element);
+            }
+
+            move() {
+                // Update ball position based on velocity
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Check for collisions with walls and reverse direction
+                if (this.x <= 0 || this.x >= container.clientWidth - 2 * this.radius) {
+                    this.vx *= -1;
+                    this.changeColor();
+                }
+                if (this.y <= 0 || this.y >= container.clientHeight - 2 * this.radius) {
+                    this.vy *= -1;
+                    this.changeColor();
+                }
+
+                // Update ball element position
+                this.element.style.left = `${this.x}px`;
+                this.element.style.top = `${this.y}px`;
+            }
+
+            changeColor() {
+                // Change the ball color to a random one from the colors array
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                this.element.style.backgroundColor = randomColor;
+            }
+        }
+
+        // Array to store ball objects
+        let balls = [];
+
+        // Function to start the simulation
+        function startSimulation() {
+            const ballCount = parseInt(ballCountInput.value) || 0;
+            const ballRadius = parseInt(ballRadiusInput.value) || 10;
+            const ballSpeed = parseInt(ballSpeedInput.value) || 3;
+
+            // Clear previous balls from the container
+            container.innerHTML = '';
+            balls = [];
+
+            // Create and add balls to the simulation
+            for (let i = 0; i < ballCount; i++) {
+                const ball = new Ball(ballRadius, ballSpeed);
+                balls.push(ball);
+            }
+
+            // Run the animation
+            animateBalls();
+        }
+
+        // Function to animate balls
+        function animateBalls() {
+            balls.forEach(ball => ball.move());
+            requestAnimationFrame(animateBalls);
+        }
+
+        // Start simulation on button click
+        startButton.addEventListener('click', startSimulation);
+    </script>
+</body>
+</html>
