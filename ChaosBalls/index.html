@@ -16,31 +16,70 @@
             margin: 0 auto;
             border-radius: 14px;
             border: 2px solid rgb(250, 186, 114);
-
         }
 
-        .ball {
+        .shape {
             position: absolute;
-            border-radius: 50%;
-            /* background-color: blue; */
             transition: background-color 0.3s;
+        }
+
+        /* Styles for different shapes */
+        .circle {
+            border-radius: 50%;
+        }
+
+        .square {
+            border-radius: 8px; /* Slight border radius */
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 50px solid;
+        }
+
+        .pentagon {
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+            border-radius: 5px;
         }
     </style>
 </head>
 <body class="bg-primary-200">
     <div class="container mx-auto p-8">
-        <h1 class="text-3xl font-bold mb-6 text-center">Chaotic Balls Simulation</h1>
+        <h1 class="text-3xl font-bold mb-6 text-center">Chaotic Shapes Simulation</h1>
 
         <div class="flex justify-center gap-4 mb-6">
-            <input id="ball-count" type="number" placeholder="Number of Balls" class="input input-bordered input-primary w-full max-w-xs" min="1">
-            <input id="ball-radius" type="number" placeholder="Ball Radius" class="input input-bordered input-primary w-full max-w-xs" min="5">
+            <input id="shape-count" type="number" placeholder="Number of Shapes" class="input input-bordered input-primary w-full max-w-xs" min="1">
+            <input id="shape-size" type="number" placeholder="Shape Size" class="input input-bordered input-primary w-full max-w-xs" min="5">
             
             <div class="flex flex-col items-center">
-                <label for="ball-speed" class="mb-2">Ball Speed</label>
-                <input id="ball-speed" type="range" min="1" max="10" value="3" class="range range-primary w-full max-w-xs">
+                <label for="shape-speed" class="mb-2">Shape Speed</label>
+                <input id="shape-speed" type="range" min="1" max="10" value="3" class="range range-primary w-full max-w-xs">
             </div>
 
             <button id="start-simulation" class="btn btn-primary">Start Simulation</button>
+        </div>
+
+        <!-- Shape selection checkboxes -->
+        <div class="flex justify-center gap-4 mb-6">
+            <label class="flex items-center">
+                <input type="checkbox" id="circle-shape" class="checkbox checkbox-primary">
+                <span class="ml-2">Circle</span>
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" id="square-shape" class="checkbox checkbox-primary">
+                <span class="ml-2">Square</span>
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" id="triangle-shape" class="checkbox checkbox-primary">
+                <span class="ml-2">Triangle</span>
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" id="pentagon-shape" class="checkbox checkbox-primary">
+                <span class="ml-2">Pentagon</span>
+            </label>
         </div>
 
         <div class="flex justify-center gap-4 mb-6">
@@ -57,87 +96,102 @@
         const startButton = document.getElementById('start-simulation');
         const playButton = document.getElementById('play-simulation');
         const pauseButton = document.getElementById('pause-simulation');
-        const ballCountInput = document.getElementById('ball-count');
-        const ballRadiusInput = document.getElementById('ball-radius');
-        const ballSpeedInput = document.getElementById('ball-speed');
-        const colors = ['#257180', '#F2E5BF', '#FD8B51', '#EDDFE0', '#C96868', '#BEC6A0','#EE66A6','#8FD14F','#7695FF','#FFEB00'];
+        const shapeCountInput = document.getElementById('shape-count');
+        const shapeSizeInput = document.getElementById('shape-size');
+        const shapeSpeedInput = document.getElementById('shape-speed');
 
-        // Ball class to represent each ball
-        class Ball {
-            constructor(radius, speed) {
-                this.radius = radius;
+        // Shape checkboxes
+        const circleCheckbox = document.getElementById('circle-shape');
+        const squareCheckbox = document.getElementById('square-shape');
+        const triangleCheckbox = document.getElementById('triangle-shape');
+        const pentagonCheckbox = document.getElementById('pentagon-shape');
+
+        const colors = ['#257180', '#F2E5BF', '#FD8B51', '#EDDFE0', '#C96868', '#BEC6A0', '#EE66A6', '#8FD14F', '#7695FF', '#FFEB00'];
+
+        // Shape class to represent each shape
+        class Shape {
+            constructor(size, speed, type) {
+                this.size = size;
                 this.speed = speed;
-                this.x = Math.random() * (container.clientWidth - 2 * radius);
-                this.y = Math.random() * (container.clientHeight - 2 * radius);
+                this.type = type;
+                this.x = Math.random() * (container.clientWidth - size);
+                this.y = Math.random() * (container.clientHeight - size);
                 this.vx = (Math.random() - 0.5) * this.speed * 2; // Random velocity X scaled by speed
                 this.vy = (Math.random() - 0.5) * this.speed * 2; // Random velocity Y scaled by speed
                 this.element = document.createElement('div');
-                this.element.className = 'ball';
-                this.element.style.width = `${2 * radius}px`;
-                this.element.style.height = `${2 * radius}px`;
+                this.element.className = `shape ${this.type}`;
+                if (this.type !== 'triangle') {
+                    this.element.style.width = `${size}px`;
+                    this.element.style.height = `${size}px`;
+                }
                 this.element.style.top = `${this.y}px`;
                 this.element.style.left = `${this.x}px`;
                 container.appendChild(this.element);
             }
 
             move() {
-                // Update ball position based on velocity
+                // Update shape position based on velocity
                 this.x += this.vx;
                 this.y += this.vy;
 
                 // Check for collisions with walls and reverse direction
-                if (this.x <= 0 || this.x >= container.clientWidth - 2 * this.radius) {
+                if (this.x <= 0 || this.x >= container.clientWidth - this.size) {
                     this.vx *= -1;
                     this.changeColor();
                 }
-                if (this.y <= 0 || this.y >= container.clientHeight - 2 * this.radius) {
+                if (this.y <= 0 || this.y >= container.clientHeight - this.size) {
                     this.vy *= -1;
                     this.changeColor();
                 }
 
-                // Update ball element position
+                // Update shape element position
                 this.element.style.left = `${this.x}px`;
                 this.element.style.top = `${this.y}px`;
             }
 
             changeColor() {
-                // Change the ball color to a random one from the colors array
+                // Change the shape color to a random one from the colors array
                 const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                this.element.style.backgroundColor = randomColor;
+                if (this.type === 'triangle') {
+                    this.element.style.borderBottomColor = randomColor; // Color for triangle
+                } else {
+                    this.element.style.backgroundColor = randomColor; // Color for other shapes
+                }
             }
         }
 
-        // Array to store ball objects
-        let balls = [];
+        // Array to store shape objects
+        let shapes = [];
         let animationFrameId;
         let isPaused = false;
 
         // Function to start the simulation
         function startSimulation() {
-            const ballCount = parseInt(ballCountInput.value) || 0;
-            const ballRadius = parseInt(ballRadiusInput.value) || 10;
-            const ballSpeed = parseInt(ballSpeedInput.value) || 3;
+            const shapeCount = parseInt(shapeCountInput.value) || 0;
+            const shapeSize = parseInt(shapeSizeInput.value) || 10;
+            const shapeSpeed = parseInt(shapeSpeedInput.value) || 3;
 
-            // Clear previous balls from the container
+            // Clear previous shapes from the container
             container.innerHTML = '';
-            balls = [];
+            shapes = [];
 
-            // Create and add balls to the simulation
-            for (let i = 0; i < ballCount; i++) {
-                const ball = new Ball(ballRadius, ballSpeed);
-                balls.push(ball);
+            // Create and add shapes to the simulation
+            for (let i = 0; i < shapeCount; i++) {
+                let selectedType = getRandomShapeType();
+                const shape = new Shape(shapeSize, shapeSpeed, selectedType);
+                shapes.push(shape);
             }
 
             // Start the animation loop
             isPaused = false;
-            animateBalls();
+            animateShapes();
         }
 
-        // Function to animate balls
-        function animateBalls() {
+        // Function to animate shapes
+        function animateShapes() {
             if (!isPaused) {
-                balls.forEach(ball => ball.move());
-                animationFrameId = requestAnimationFrame(animateBalls);
+                shapes.forEach(shape => shape.move());
+                animationFrameId = requestAnimationFrame(animateShapes);
             }
         }
 
@@ -145,7 +199,7 @@
         function playSimulation() {
             if (isPaused) {
                 isPaused = false;
-                animateBalls();
+                animateShapes();
             }
         }
 
@@ -155,20 +209,27 @@
             cancelAnimationFrame(animationFrameId);
         }
 
+        // Get random shape type based on selected checkboxes
+        function getRandomShapeType() {
+            const selectedShapes = [];
+            if (circleCheckbox.checked) selectedShapes.push('circle');
+            if (squareCheckbox.checked) selectedShapes.push('square');
+            if (triangleCheckbox.checked) selectedShapes.push('triangle');
+            if (pentagonCheckbox.checked) selectedShapes.push('pentagon');
+
+            // If no shape is selected, default to 'circle'
+            if (selectedShapes.length === 0) {
+                return 'circle';
+            }
+
+            // Return a random selected shape
+            return selectedShapes[Math.floor(Math.random() * selectedShapes.length)];
+        }
+
         // Start simulation on button click
         startButton.addEventListener('click', startSimulation);
         playButton.addEventListener('click', playSimulation);
         pauseButton.addEventListener('click', pauseSimulation);
-
-        // Update ball speed dynamically using the speed slider
-        ballSpeedInput.addEventListener('input', (e) => {
-            const newSpeed = parseInt(e.target.value);
-            balls.forEach(ball => {
-                ball.vx = (Math.random() - 0.5) * newSpeed * 2;
-                ball.vy = (Math.random() - 0.5) * newSpeed * 2;
-                ball.speed = newSpeed;
-            });
-        });
     </script>
 </body>
 </html>
