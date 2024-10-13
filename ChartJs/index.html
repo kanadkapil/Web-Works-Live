@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="coffee">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Chart App</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body class="bg-primary-200">
+    <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-bold mb-6 text-center">Dynamic Chart Generator</h1>
+
+        <!-- Dropdown for selecting chart type -->
+        <div class="mb-4">
+            <label for="chart-type" class="label">Select Chart Type:</label>
+            <select id="chart-type" class="select select-bordered w-full max-w-xs">
+                <option value="bar">Bar Chart</option>
+                <option value="line">Line Chart</option>
+                <option value="donut">Donut Chart</option>
+                <option value="polar">Polar Area Chart</option>
+                <option value="radar">Radar Chart</option>
+            </select>
+        </div>
+
+        <!-- Input field for the number of data sets -->
+        <div class="mb-4">
+            <label for="data-set-count" class="label">Enter Number of Data Sets:</label>
+            <input id="data-set-count" type="number" class="input input-bordered w-full max-w-xs" min="1" max="10" placeholder="Number of Data Sets">
+        </div>
+
+        <!-- Dynamic fields for data input -->
+        <div id="data-input-fields" class="mb-4"></div>
+
+        <!-- Generate Chart Button -->
+        <button id="generate-chart" class="btn btn-primary">Generate Chart</button>
+
+        <!-- Chart Display -->
+        <div class="mt-6">
+            <canvas id="chartCanvas"></canvas>
+        </div>
+    </div>
+
+    <!-- Main JS file -->
+    <script src="js/main.js"></script>
+
+    <!-- Chart-Specific JS files -->
+    <script src="js/barChart.js"></script>
+    <script src="js/lineChart.js"></script>
+    <script src="js/donutChart.js"></script>
+    <script src="js/polarChart.js"></script>
+    <script src="js/radarChart.js"></script>
+</body>
+</html>
