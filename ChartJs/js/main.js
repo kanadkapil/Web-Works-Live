@@ -1,65 +1,78 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const chartTypeSelector = document.getElementById('chart-type');
+document.addEventListener('DOMContentLoaded', () => {
     const dataSetCountInput = document.getElementById('data-set-count');
     const dataInputFieldsContainer = document.getElementById('data-input-fields');
+    const chartTypeSelector = document.getElementById('chart-type');
     const generateChartButton = document.getElementById('generate-chart');
-    let chart;
+    let chartInstance = null;
 
-    // Generate dynamic input fields based on data set count
-    dataSetCountInput.addEventListener('input', () => {
-        const dataSetCount = parseInt(dataSetCountInput.value);
-        dataInputFieldsContainer.innerHTML = ''; // Clear previous inputs
+    // Event listener for number of data sets input
+    dataSetCountInput.addEventListener('change', () => {
+        const numberOfDataSets = parseInt(dataSetCountInput.value) || 1;
+        dataInputFieldsContainer.innerHTML = '';  // Clear previous cards
 
-        for (let i = 0; i < dataSetCount; i++) {
-            const dataField = `
-                <div class="mb-4">
-                    <label class="label">Data Set ${i + 1} Name:</label>
-                    <input type="text" id="data-name-${i}" class="input input-bordered w-full max-w-xs" placeholder="Enter name">
-                    <label class="label">Value:</label>
-                    <input type="number" id="data-value-${i}" class="input input-bordered w-full max-w-xs" placeholder="Enter value">
-                    <label class="label">Color:</label>
-                    <input type="color" id="data-color-${i}" class="input input-bordered w-full max-w-xs">
-                </div>`;
-            dataInputFieldsContainer.insertAdjacentHTML('beforeend', dataField);
+        // Generate cards for each data set
+        for (let i = 0; i < numberOfDataSets; i++) {
+            const card = document.createElement('div');
+            card.classList.add('card', 'bg-base-100', 'shadow-xl', 'p-4');
+
+            card.innerHTML = `
+                <div class="card-body">
+                    <h2 class="card-title">Data Set ${i + 1}</h2>
+                    <label class="label">Data Name:</label>
+                    <input type="text" class="input input-bordered w-full data-name" placeholder="Data Name">
+
+                    <label class="label mt-2">Data Value:</label>
+                    <input type="number" class="input input-bordered w-full data-value" placeholder="Value">
+
+                    <label class="label mt-2">Data Color:</label>
+                    <input type="color" class="input w-full data-color">
+                </div>
+            `;
+
+            dataInputFieldsContainer.appendChild(card);
         }
     });
 
-    // Generate Chart based on selected chart type
+    // Function to generate the chart
+    function generateChart(chartType) {
+        const dataNames = Array.from(document.querySelectorAll('.data-name')).map(input => input.value);
+        const dataValues = Array.from(document.querySelectorAll('.data-value')).map(input => parseFloat(input.value));
+        const dataColors = Array.from(document.querySelectorAll('.data-color')).map(input => input.value);
+
+        const data = {
+            labels: dataNames,
+            datasets: [{
+                label: chartType + ' Data',
+                data: dataValues,
+                backgroundColor: dataColors,
+                borderColor: dataColors,
+                borderWidth: 1
+            }]
+        };
+
+        const config = {
+            type: chartType,
+            data: data,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        const ctx = document.getElementById('chartCanvas').getContext('2d');
+        if (chartInstance) {
+            chartInstance.destroy(); // Destroy previous chart before creating a new one
+        }
+        chartInstance = new Chart(ctx, config);
+    }
+
+    // Event listener for chart generation
     generateChartButton.addEventListener('click', () => {
-        const chartType = chartTypeSelector.value;
-        const dataSetCount = parseInt(dataSetCountInput.value);
-        const data = [];
-        const colors = [];
-
-        for (let i = 0; i < dataSetCount; i++) {
-            const name = document.getElementById(`data-name-${i}`).value;
-            const value = parseInt(document.getElementById(`data-value-${i}`).value);
-            const color = document.getElementById(`data-color-${i}`).value;
-            data.push({ name, value });
-            colors.push(color);
-        }
-
-        if (chart) chart.destroy(); // Destroy previous chart instance
-
-        // Load appropriate chart script based on chart type
-        switch (chartType) {
-            case 'bar':
-                loadBarChart(data, colors);
-                break;
-            case 'line':
-                loadLineChart(data, colors);
-                break;
-            case 'donut':
-                loadDonutChart(data, colors);
-                break;
-            case 'polar':
-                loadPolarChart(data, colors);
-                break;
-            case 'radar':
-                loadRadarChart(data, colors);
-                break;
-            default:
-                break;
-        }
+        const selectedChartType = chartTypeSelector.value;
+        generateChart(selectedChartType);
     });
 });
