@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Generate cards for each data set
         for (let i = 0; i < numberOfDataSets; i++) {
             const card = document.createElement('div');
-            card.classList.add('card', 'bg-base-100', 'shadow-xl', 'p-4');
+            card.classList.add('card', 'bg-accent', 'shadow-xl', 'p-4', 'w-[400px]', 'h-[420px]');
 
             card.innerHTML = `
                 <div class="card-body">
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <input type="number" class="input input-bordered w-full data-value" placeholder="Value">
 
                     <label class="label mt-2">Data Color:</label>
-                    <input type="color" class="input w-full data-color">
+                    <input type="color" class="input w-28 h-8 data-color shadow-xl bg-base-400">
                 </div>
             `;
 
