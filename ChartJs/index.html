@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="forest">
+<html lang="en" data-theme="cmyk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +16,7 @@
 
         <!-- Dropdown for selecting chart type -->
         <div class="mb-4">
-            <label for="chart-type" class="label">Select Chart Type:</label>
+            <label for="chart-type" class="label text-2xl">Select Chart Type:</label>
             <select id="chart-type" class="select select-bordered w-full max-w-xs">
                 <option value="bar">Bar Chart</option>
                 <option value="line">Line Chart</option>
@@ -33,10 +33,10 @@
         </div>
 
         <!-- Dynamic fields for data input -->
-        <div id="data-input-fields" class="mb-4 grid grid-cols-1 gap-4"></div>
+        <div id="data-input-fields" class="mb-4 grid grid-cols-1 md:grid-cols-3 gap-6"></div>
 
         <!-- Generate Chart Button -->
-        <button id="generate-chart" class="btn btn-primary">Generate Chart</button>
+        <button id="generate-chart" class="btn btn-secondary">Generate Chart</button>
 
         <!-- Chart Display -->
         <div class="mt-6">
