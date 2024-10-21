@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" data-theme="coffee">
 <head>
@@ -10,31 +9,28 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
 </head>
 
-<body class="flex items-center justify-center h-screen bg-black">
+<body class="flex items-center justify-center min-h-screen bg-black p-4">
 
     <div class="max-w-6xl w-full p-6 bg-gray-200 rounded-lg shadow-lg">
         <h1 class="text-3xl font-bold my-10 text-center">Emoji Encoder/Decoder</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Encoder Section -->
             <div class="p-4 bg-sky-200 rounded-lg shadow-2xl">
                 <h2 class="text-xl font-semibold mb-2">Text to Emoji</h2>
                 <textarea id="textInput" class="textarea text-3xl textarea-bordered w-full h-48 mb-4" placeholder="Enter text here"></textarea>
                 <button id="encodeButton" class="btn btn-primary w-full">Encode to Emoji</button>
-                <div id="encodedText" class="mt-4 p-4 text-3xl bg-gray-200 rounded-lg h-48"></div>
+                <div id="encodedText" class="mt-4 p-4 text-3xl bg-gray-200 rounded-lg h-48 overflow-auto"></div>
             </div>
             <!-- Decoder Section -->
             <div class="p-4 bg-lime-200 rounded-lg shadow-2xl">
                 <h2 class="text-xl font-semibold mb-2">Emoji to Text</h2>
                 <textarea id="emojiInput" class="textarea text-3xl textarea-bordered w-full h-48 mb-4" placeholder="Enter emojis here"></textarea>
                 <button id="decodeButton" class="btn btn-primary w-full">Decode to Text</button>
-                <div id="decodedText" class="mt-4 p-4 text-3xl bg-gray-200 text-black rounded-lg h-48"></div>
+                <div id="decodedText" class="mt-4 p-4 text-3xl bg-gray-200 text-black rounded-lg h-48 overflow-auto"></div>
             </div>
         </div>
     </div>
 
-    
-
     <script src="app.js"></script>
 </body>
-
 </html>
