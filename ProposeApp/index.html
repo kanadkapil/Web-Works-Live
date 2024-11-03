@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Love Me?</title>
+    <!-- Tailwind CSS with DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.css" rel="stylesheet" />
+</head>
+<body class="flex items-center justify-center h-screen bg-primary">
+
+    <div class="text-center space-y-6">
+        <!-- Question -->
+        <h1 class="text-3xl font-bold text-white">Do you love me?</h1>
+        
+        <!-- Response Message -->
+        <div id="response" class="text-2xl font-semibold text-accent hidden">I love you too! ❤️</div>
+
+        <!-- Button Options -->
+        <div class="flex space-x-4 justify-center">
+            <button onclick="showLove()" class="btn btn-success">Yes</button>
+            <button id="noButton" class="btn btn-error" onclick="moveButton()">No</button>
+        </div>
+    </div>
+
+
+
+    <script>
+        // Function to display love response
+        function showLove() {
+            document.getElementById("response").classList.remove("hidden");
+        }
+
+        // Function to randomly reposition the 'No' button
+        function moveButton() {
+            const button = document.getElementById("noButton");
+            const randomX = Math.floor(Math.random() * 300) - 150; // Move within -150px to +150px range
+            const randomY = Math.floor(Math.random() * 200) - 100; // Move within -100px to +100px range
+            button.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        // Make the "No" button respond to cursor hover for desktop
+        document.getElementById("noButton").addEventListener("mouseover", moveButton);
+
+        // Make the "No" button change position on mobile tap
+        document.getElementById("noButton").addEventListener("touchstart", moveButton);
+
+    </script>
+</body>
+
+</html>
