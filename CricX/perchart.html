@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batsmen Contribution Pie Chart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@2.10.0/dist/full.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-100 font-sans flex items-center justify-center min-h-screen">
+    <div class="card w-full max-w-lg bg-white shadow-xl rounded-lg p-6">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Pie Chart for Batsmen Contributions</h2>
+
+        <!-- Input for Batsmen Names and Runs -->
+        <div class="form-control mb-4">
+            <label class="label">
+                <span class="label-text text-lg font-semibold text-gray-700">Enter Batsmen Names and Runs</span>
+            </label>
+            <textarea id="batsmenData" placeholder="e.g., Virat: 45, Rohit: 30, Rahul: 25"
+                class="textarea textarea-bordered w-full"></textarea>
+            <p class="text-gray-500 mt-2">Enter each batsman’s name and runs scored, separated by commas.</p>
+        </div>
+
+        <!-- Button to Generate Chart -->
+        <div class="form-control mt-4">
+            <button onclick="generatePieChart()" class="btn btn-primary w-full">Generate Pie Chart</button>
+        </div>
+
+        <!-- Chart Display -->
+        <div class="mt-6">
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        let pieChart;
+
+        function generatePieChart() {
+            const input = document.getElementById("batsmenData").value;
+            const batsmenEntries = input.split(',').map(entry => entry.split(':').map(item => item.trim()));
+
+            const batsmenNames = [];
+            const batsmenRuns = [];
+
+            // Validate and parse data
+            for (const [name, runs] of batsmenEntries) {
+                if (!name || isNaN(runs)) {
+                    alert("Please enter valid batsmen data in 'Name: Runs' format.");
+                    return;
+                }
+                batsmenNames.push(name);
+                batsmenRuns.push(Number(runs));
+            }
+
+            // Destroy previous chart instance if it exists
+            if (pieChart) {
+                pieChart.destroy();
+            }
+
+            // Initialize Chart.js pie chart
+            const ctx = document.getElementById("pieChart").getContext("2d");
+            pieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: batsmenNames,
+                    datasets: [{
+                        data: batsmenRuns,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)'
+                        ],
+                        borderColor: 'rgba(255, 255, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const label = context.label || '';
+                                    const value = context.raw;
+                                    return `${label}: ${value} runs`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

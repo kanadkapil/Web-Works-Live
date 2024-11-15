@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Over Runs Bar Chart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@2.10.0/dist/full.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-100 font-sans flex items-center justify-center min-h-screen">
+    <div class="card w-full max-w-lg bg-white shadow-xl rounded-lg p-6">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Bar Chart for Over Runs</h2>
+
+        <!-- Input for Runs per Over -->
+        <div class="form-control mb-4">
+            <label class="label">
+                <span class="label-text text-lg font-semibold text-gray-700">Enter Runs per Over</span>
+            </label>
+            <input type="text" id="overRuns" placeholder="e.g., 5, 8, 6, 7, 10" class="input input-bordered w-full">
+            <p class="text-gray-500 mt-2">Separate runs for each over with a comma (e.g., 5, 8, 6).</p>
+        </div>
+
+        <!-- Button to Generate Chart -->
+        <div class="form-control mt-4">
+            <button onclick="generateChart()" class="btn btn-primary w-full">Generate Bar Chart</button>
+        </div>
+
+        <!-- Chart Display -->
+        <div class="mt-6">
+            <canvas id="barChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        let chart;
+
+        function generateChart() {
+            const input = document.getElementById("overRuns").value;
+            const runsArray = input.split(',').map(Number);
+
+            if (runsArray.some(isNaN)) {
+                alert("Please enter valid numbers separated by commas.");
+                return;
+            }
+
+            const overs = runsArray.map((_, index) => `Over ${index + 1}`);
+
+            // Destroy previous chart instance if it exists
+            if (chart) {
+                chart.destroy();
+            }
+
+            // Initialize Chart.js bar chart
+            const ctx = document.getElementById("barChart").getContext("2d");
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: overs,
+                    datasets: [{
+                        label: 'Runs per Over',
+                        data: runsArray,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Runs'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Overs'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
