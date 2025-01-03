@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love You Too!</title>
+    <!-- Tailwind CSS (correct CDN link for browser) -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- DaisyUI for TailwindUI components -->
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@1.15.1/dist/full.js"></script>
+    <style>
+        .gif-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="min-h-screen flex flex-col items-center justify-center space-y-4">
+        <!-- Love You Too Screen -->
+        <div id="loveYouScreen" class="text-center">
+            <div class="gif-container">
+                <!-- GIF for Love You Too -->
+                <img id="loveGif" src="https://media.giphy.com/media/l3vR9TqESLvmzChJ2/giphy.gif" class="w-64 h-64 rounded-lg" alt="Love GIF">
+            </div>
+            <h2 class="text-4xl font-bold mt-6">I love you too!</h2>
+        </div>
+    </div>
+
+</body>
+</html>

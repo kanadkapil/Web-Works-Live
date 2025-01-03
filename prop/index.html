@@ -4,91 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proposal App</title>
-    <!-- <link rel="stylesheet" href="style.css">? -->
-     <style>
+    <style>
         /* Global styles */
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #ffebf2;
-    overflow: hidden;
-}
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffebf2;
+            overflow: hidden;
+        }
 
-.container {
-    text-align: center;
-}
+        .container {
+            text-align: center;
+        }
 
-.proposal-screen, .response-screen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+        .proposal-screen, .response-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-h1 {
-    font-size: 2.5rem;
-    color: #e83c8e;
-    margin: 20px 0;
-}
+        h1 {
+            font-size: 2.5rem;
+            color: #e83c8e;
+            margin: 20px 0;
+        }
 
-button {
-    font-size: 1.2rem;
-    padding: 10px 20px;
-    margin: 10px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
+        button {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
 
-.yes-btn {
-    background-color: #ff4d8e;
-    color: white;
-}
+        .yes-btn {
+            background-color: #ff4d8e;
+            color: white;
+        }
 
-.no-btn {
-    background-color: #ff97b5;
-    color: white;
-}
+        .no-btn {
+            background-color: #ff97b5;
+            color: white;
+        }
 
-/* Button hover effect */
-.no-btn:hover {
-    transform: scale(1.2);
-}
+        /* Button hover effect */
+        .no-btn:hover {
+            transform: scale(1.2);
+        }
 
-button:active {
-    transform: scale(0.95);
-}
+        button:active {
+            transform: scale(0.95);
+        }
 
-/* Hidden response screen styles */
-.response-screen {
-    display: none;
-}
+        /* Hidden response screen styles */
+        .response-screen {
+            display: none;
+        }
 
-#response-gif {
-    width: 300px;
-    height: auto;
-}
+        #response-gif {
+            width: 300px;
+            height: auto;
+        }
 
-#gif {
-    width: 400px;
-    height: auto;
-}
+        #gif {
+            width: 400px;
+            height: auto;
+        }
 
-.buttons {
-    display: flex;
-    justify-content: center;
-}
+        .buttons {
+            display: flex;
+            justify-content: center;
+        }
 
-     </style>
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="proposal-screen">
-            <img id="gif" src="https://media.giphy.com/media/12XyOGNqch10za/giphy.gif" alt="Proposal GIF">
+            <img id="gif" src="Will-You-Marry-Me-Image.png" alt="Proposal GIF">
             <h1>Will you marry me?</h1>
             <div class="buttons">
                 <button id="yes-btn" class="yes-btn">Yes</button>
@@ -96,45 +95,43 @@ button:active {
             </div>
         </div>
         <div id="response-screen" class="response-screen" style="display: none;">
-            <img id="response-gif" src="https://media.giphy.com/media/3oKIPcs3fksOV0XZs8/giphy.gif" alt="I love you GIF">
-            <h1>I love you too!</h1>
+            <img id="response-gif" src="R.jpg" alt="I love you GIF">
+            <h1>I love you.........!!! 😘😘😘</h1>
         </div>
     </div>
-    
-    <!-- <script src="script.js"></script> -->
-     <script>
+
+    <script>
         document.addEventListener("DOMContentLoaded", () => {
-    const yesButton = document.getElementById("yes-btn");
-    const noButton = document.getElementById("no-btn");
-    const proposalScreen = document.querySelector(".proposal-screen");
-    const responseScreen = document.getElementById("response-screen");
-    const gif = document.getElementById("gif");
-    const responseGif = document.getElementById("response-gif");
+            const yesButton = document.getElementById("yes-btn");
+            const noButton = document.getElementById("no-btn");
+            const proposalScreen = document.querySelector(".proposal-screen");
+            const responseScreen = document.getElementById("response-screen");
+            const gif = document.getElementById("gif");
+            const responseGif = document.getElementById("response-gif");
 
-    // Position of the "No" button initially
-    let noBtnPosition = { x: 0, y: 0 };
+            // Position of the "No" button initially
+            let noBtnPosition = { x: 0, y: 0 };
 
-    // Prevent "No" button from being clicked by moving it when hovered
-    noButton.addEventListener("mouseenter", () => {
-        noBtnPosition.x = Math.random() * 300;
-        noBtnPosition.y = Math.random() * 200;
-        noButton.style.transform = `translate(${noBtnPosition.x}px, ${noBtnPosition.y}px)`;
-    });
+            // Prevent "No" button from being clicked by moving it when hovered
+            noButton.addEventListener("mouseenter", () => {
+                noBtnPosition.x = Math.random() * 300;
+                noBtnPosition.y = Math.random() * 200;
+                noButton.style.transform = `translate(${noBtnPosition.x}px, ${noBtnPosition.y}px)`;
+            });
 
-    // When the "Yes" button is clicked
-    yesButton.addEventListener("click", () => {
-        proposalScreen.style.display = "none"; // Hide proposal screen
-        responseScreen.style.display = "block"; // Show response screen
-        gif.style.display = "none"; // Hide the proposal GIF
-        responseGif.style.display = "block"; // Show the "I love you" GIF
-    });
+            // When the "Yes" button is clicked
+            yesButton.addEventListener("click", () => {
+                proposalScreen.style.display = "none"; // Hide proposal screen
+                responseScreen.style.display = "block"; // Show response screen
+                gif.style.display = "none"; // Hide the proposal GIF
+                responseGif.style.display = "block"; // Show the "I love you" GIF
+            });
 
-    // No button click event for demonstration (although it's hard to click!)
-    noButton.addEventListener("click", () => {
-        alert("You cannot say 'No'! 😜");
-    });
-});
-
-     </script>
+            // No button click event for demonstration (although it's hard to click!)
+            noButton.addEventListener("click", () => {
+                alert("You cannot say 'No'! 😜");
+            });
+        });
+    </script>
 </body>
 </html>
