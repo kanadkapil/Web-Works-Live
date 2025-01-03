@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@1.15.1/dist/full.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS (if needed) */
+        .gif-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col items-center justify-center space-y-4">
+        <!-- Proposal Screen -->
+        <div id="proposalScreen" class="text-center">
+            <div class="gif-container">
+                <!-- GIF Example -->
+                <img id="gifImage" src="https://media.giphy.com/media/d31vTpPi1TOd5Fqg/giphy.gif" class="w-64 h-64 rounded-lg" alt="Proposal GIF">
+            </div>
+
+            <h2 class="text-3xl font-bold mt-4">Will you marry me?</h2>
+
+            <div class="flex gap-4 mt-6">
+                <button id="noButton" class="btn btn-primary text-xl px-8 py-4 bg-red-500 hover:bg-red-700">No</button>
+                <button id="yesButton" class="btn btn-primary text-xl px-8 py-4 bg-green-500 hover:bg-green-700">Yes</button>
+            </div>
+        </div>
+
+        <!-- Love You Too Screen (Hidden initially) -->
+        <div id="loveYouScreen" class="hidden text-center">
+            <div class="gif-container">
+                <img id="loveGif" src="https://media.giphy.com/media/l3vR9TqESLvmzChJ2/giphy.gif" class="w-64 h-64 rounded-lg" alt="Love GIF">
+            </div>
+            <h2 class="text-4xl font-bold mt-6">I love you too!</h2>
+        </div>
+    </div>
+
+    <!-- <script src="scripts.js"></script> -->
+    // Wait for the DOM to fully load before running the script
+    document.addEventListener('DOMContentLoaded', () => {
+        const noButton = document.getElementById('noButton');
+        const yesButton = document.getElementById('yesButton');
+        const proposalScreen = document.getElementById('proposalScreen');
+        const loveYouScreen = document.getElementById('loveYouScreen');
+        
+        // Function to handle clicking on the "No" button
+        noButton.addEventListener('click', () => {
+            // Shift the "No" button to a new location
+            noButton.style.position = "absolute";
+            noButton.style.top = `${Math.random() * 300 + 100}px`;  // Random top position
+            noButton.style.left = `${Math.random() * 300 + 100}px`; // Random left position
+            noButton.disabled = true;  // Disable the No button after clicking
+            yesButton.disabled = false; // Enable the Yes button again
+        });
+    
+        // Function to handle clicking on the "Yes" button
+        yesButton.addEventListener('click', () => {
+            // Hide the proposal screen and show the "I love you too" screen
+            proposalScreen.classList.add('hidden');
+            loveYouScreen.classList.remove('hidden');
+        });
+    });
+    
+</body>
+</html>
