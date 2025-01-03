@@ -33,7 +33,7 @@
             </div>
             <h2 class="text-3xl font-bold mt-4">Will you marry me?</h2>
             <div class="flex gap-4 mt-6">
-                <!-- No Button -->
+                <!-- No Button (will shift on hover) -->
                 <button id="noButton" class="btn btn-primary text-xl px-8 py-4 bg-red-500 hover:bg-red-700">No</button>
                 <!-- Yes Button -->
                 <button id="yesButton" class="btn btn-primary text-xl px-8 py-4 bg-green-500 hover:bg-green-700">Yes</button>
@@ -58,14 +58,12 @@
             const proposalScreen = document.getElementById('proposalScreen');
             const loveYouScreen = document.getElementById('loveYouScreen');
 
-            // Function to handle clicking on "No" button
-            noButton.addEventListener('click', () => {
-                // Shift the "No" button randomly on screen
+            // Function to handle hovering over "No" button
+            noButton.addEventListener('mouseover', () => {
+                // Shift the "No" button randomly on screen when the cursor hovers over it
                 noButton.classList.add('btn-shift');
                 noButton.style.top = `${Math.random() * 300 + 100}px`;
                 noButton.style.left = `${Math.random() * 300 + 100}px`;
-                noButton.disabled = true; // Disable the "No" button after clicking
-                yesButton.disabled = false; // Enable the "Yes" button
             });
 
             // Function to handle clicking on "Yes" button
