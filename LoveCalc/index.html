@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Calculator</title>
+  <!-- TailwindCSS & DaisyUI CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/daisyui@1.19.0/dist/full.js"></script>
+  <style>
+    body {
+      background-color: #f8f8f8;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+  <div class="card w-96 bg-white shadow-xl p-6">
+    <h1 class="text-2xl font-bold text-center mb-4">Love Calculator</h1>
+    <div class="form-control mb-4">
+      <label class="label">
+        <span class="label-text">Enter your full name:</span>
+      </label>
+      <input type="text" id="name1" class="input input-bordered w-full" placeholder="Your Name">
+    </div>
+    <div class="form-control mb-4">
+      <label class="label">
+        <span class="label-text">Enter their name:</span>
+      </label>
+      <input type="text" id="name2" class="input input-bordered w-full" placeholder="Their Name">
+    </div>
+    <button onclick="calculateLoveScore()" class="btn btn-primary w-full">Calculate Love Score</button>
+    <div id="result" class="mt-4 text-center text-lg font-semibold"></div>
+    <div id="message" class="mt-2 text-center"></div>
+  </div>
+
+  <script>
+    function calculateLoveScore() {
+      const name1 = document.getElementById("name1").value.trim();
+      const name2 = document.getElementById("name2").value.trim();
+      
+      if (!name1 || !name2) {
+        alert("Please enter both names!");
+        return;
+      }
+
+      // Combine both names, lowercase, and remove spaces
+      const combinedNames = (name1 + name2).toLowerCase().replace(/\s/g, '');
+      
+      // Letter weights (a=1, b=2, ..., z=26)
+      const letterWeights = {};
+      for (let i = 0; i < 26; i++) {
+        letterWeights[String.fromCharCode(97 + i)] = i + 1;
+      }
+
+      // Sum the letter weights
+      let totalWeight = 0;
+      for (let i = 0; i < combinedNames.length; i++) {
+        const char = combinedNames[i];
+        if (letterWeights[char]) {
+          totalWeight += letterWeights[char];
+        }
+      }
+
+      // Calculate love score between 0-100
+      const loveScore = totalWeight % 101;
+      
+      // Show the result
+      const result = document.getElementById("result");
+      const message = document.getElementById("message");
+
+      result.textContent = `Your love score is ${loveScore}%!`;
+      
+      // Display different messages based on the score
+      if (loveScore > 80) {
+        message.textContent = "Wow! You two are a match made in heaven! 💕";
+        message.classList.add("text-red-500");
+      } else if (loveScore > 50) {
+        message.textContent = "It's looking good! There's a strong connection. ❤️";
+        message.classList.add("text-yellow-500");
+      } else {
+        message.textContent = "Hmm... It could use a little work, but who knows? 😅";
+        message.classList.add("text-blue-500");
+      }
+    }
+  </script>
+</body>
+</html>
