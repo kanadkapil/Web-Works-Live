@@ -1,87 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Love Calculator</title>
-  <!-- TailwindCSS & DaisyUI CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/daisyui@1.19.0/dist/full.js"></script>
-  <style>
-    body {
-      background-color: #f8f8f8;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Calculator</title>
+    <!-- TailwindCSS & DaisyUI CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@1.19.0/dist/full.js"></script>
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body class="flex items-center justify-center min-h-screen">
-  <div class="card w-96 bg-white shadow-xl p-6">
-    <h1 class="text-2xl font-bold text-center mb-4">Love Calculator</h1>
-    <div class="form-control mb-4">
-      <label class="label">
-        <span class="label-text">Enter your full name:</span>
-      </label>
-      <input type="text" id="name1" class="input input-bordered w-full" placeholder="Your Name">
+
+<body class="bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300 min-h-screen flex items-center justify-center">
+
+    <div class="card w-full max-w-lg bg-white shadow-2xl p-10 rounded-2xl transform transition-all duration-500 ease-in-out hover:scale-105">
+        <h1 class="text-5xl font-extrabold text-center text-pink-600 mb-10 drop-shadow-lg">Love Calculator</h1>
+        
+        <div class="space-y-6">
+            <!-- Name Input 1 -->
+            <div class="form-control">
+                <div class="relative">
+                    <input type="text" id="name1" class="input input-bordered text-xl w-full p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white shadow-md"
+                        placeholder="Enter your full name:">
+                    <i class="fas fa-user absolute top-1/2 left-4 transform -translate-y-1/2 text-pink-500 text-xl"></i>
+                </div>
+            </div>
+
+            <!-- Name Input 2 -->
+            <div class="form-control">
+                <div class="relative">
+                    <input type="text" id="name2" class="input input-bordered text-xl w-full p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white shadow-md"
+                        placeholder="Enter their full name:">
+                    <i class="fas fa-user absolute top-1/2 left-4 transform -translate-y-1/2 text-pink-500 text-xl"></i>
+                </div>
+            </div>
+
+            <!-- Calculate Button -->
+            <button onclick="calculateLoveScore()"
+                class="btn w-full bg-gradient-to-r from-pink-400 to-red-400 text-white font-bold px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50">
+                Calculate Love Score
+            </button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="result" class="mt-8 text-center text-2xl font-semibold text-pink-600"></div>
+        <div id="message" class="mt-2 text-center text-xl text-white"></div>
     </div>
-    <div class="form-control mb-4">
-      <label class="label">
-        <span class="label-text">Enter their name:</span>
-      </label>
-      <input type="text" id="name2" class="input input-bordered w-full" placeholder="Their Name">
-    </div>
-    <button onclick="calculateLoveScore()" class="btn btn-primary w-full">Calculate Love Score</button>
-    <div id="result" class="mt-4 text-center text-lg font-semibold"></div>
-    <div id="message" class="mt-2 text-center"></div>
-  </div>
 
-  <script>
-    function calculateLoveScore() {
-      const name1 = document.getElementById("name1").value.trim();
-      const name2 = document.getElementById("name2").value.trim();
-      
-      if (!name1 || !name2) {
-        alert("Please enter both names!");
-        return;
-      }
+    <script>
+        function calculateLoveScore() {
+            const name1 = document.getElementById("name1").value.trim();
+            const name2 = document.getElementById("name2").value.trim();
 
-      // Combine both names, lowercase, and remove spaces
-      const combinedNames = (name1 + name2).toLowerCase().replace(/\s/g, '');
-      
-      // Letter weights (a=1, b=2, ..., z=26)
-      const letterWeights = {};
-      for (let i = 0; i < 26; i++) {
-        letterWeights[String.fromCharCode(97 + i)] = i + 1;
-      }
+            if (!name1 || !name2) {
+                alert("Please enter both names!");
+                return;
+            }
 
-      // Sum the letter weights
-      let totalWeight = 0;
-      for (let i = 0; i < combinedNames.length; i++) {
-        const char = combinedNames[i];
-        if (letterWeights[char]) {
-          totalWeight += letterWeights[char];
+            // Combine both names, lowercase, and remove spaces
+            const combinedNames = (name1 + name2).toLowerCase().replace(/\s/g, '');
+
+            // Letter weights (a=1, b=2, ..., z=26)
+            const letterWeights = {};
+            for (let i = 0; i < 26; i++) {
+                letterWeights[String.fromCharCode(97 + i)] = i + 1;
+            }
+
+            // Sum the letter weights
+            let totalWeight = 0;
+            for (let i = 0; i < combinedNames.length; i++) {
+                const char = combinedNames[i];
+                if (letterWeights[char]) {
+                    totalWeight += letterWeights[char];
+                }
+            }
+
+            // Calculate love score between 0-100
+            const loveScore = totalWeight % 101;
+
+            // Show the result
+            const result = document.getElementById("result");
+            const message = document.getElementById("message");
+
+            result.textContent = `Your love score is ${loveScore}%!`;
+
+            // Display different messages based on the score
+            if (loveScore > 80) {
+                message.textContent = "Wow! You two are a match made in heaven! 💕";
+                message.classList.add("text-red-500");
+            } else if (loveScore > 50) {
+                message.textContent = "It's looking good! There's a strong connection. ❤️";
+                message.classList.add("text-yellow-500");
+            } else {
+                message.textContent = "Hmm... It could use a little work, but who knows? 😅";
+                message.classList.add("text-blue-500");
+            }
         }
-      }
+    </script>
 
-      // Calculate love score between 0-100
-      const loveScore = totalWeight % 101;
-      
-      // Show the result
-      const result = document.getElementById("result");
-      const message = document.getElementById("message");
-
-      result.textContent = `Your love score is ${loveScore}%!`;
-      
-      // Display different messages based on the score
-      if (loveScore > 80) {
-        message.textContent = "Wow! You two are a match made in heaven! 💕";
-        message.classList.add("text-red-500");
-      } else if (loveScore > 50) {
-        message.textContent = "It's looking good! There's a strong connection. ❤️";
-        message.classList.add("text-yellow-500");
-      } else {
-        message.textContent = "Hmm... It could use a little work, but who knows? 😅";
-        message.classList.add("text-blue-500");
-      }
-    }
-  </script>
 </body>
+
 </html>
