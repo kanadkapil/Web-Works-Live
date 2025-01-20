@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="Style.css">
+    <title>Rock Paper Scissor Game</title>
+</head>
+<body>
+    <div class="container">
+        <div class="scores">
+            <p>
+                Computer: <span id="computer_score">0</span>
+            </p>
+            <p>
+                You: <span id="user_score">0</span>
+            </p>
+        </div>
+        <div class="weapons">
+            <button id="rock">
+                <i class="fas fa-hand-rock"></i>
+            </button>
+            <button id="paper">
+                <i class="fas fa-hand-paper"></i>
+            </button>
+            <button id="scissors">
+                <i class="fas fa-hand-scissors"></i>
+            </button>
+        </div>
+        
+        <div class="details">
+            <p id="user_choice"></p>
+            <p id="comp_choice"></p>
+            <p id="result"></p>
+        </div>
+    </div>
+    <script src="Script.js"></script>
+</body>
+</html>
