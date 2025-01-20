@@ -1,62 +1,63 @@
-let score = 0;
-let currentPlayerChoice = null; // Track current player choice
-
-function playerChoice(playerSelection) {
-    if (currentPlayerChoice === playerSelection) {
-        return; // Prevent selecting the same choice twice in a row
+let [computer_score, user_score] = [0, 0];
+let result_ref = document.getElementById("result");
+let choices_object = {
+    'rock': {
+        'rock': 'draw',
+        'scissor': 'win',
+        'paper': 'lose'
+    },
+    'scissor': {
+        'rock': 'lose',
+        'scissor': 'draw',
+        'paper': 'win'
+    },
+    'paper': {
+        'rock': 'win',
+        'scissor': 'lose',
+        'paper': 'draw'
     }
-    
-    const choicesContainer = document.querySelector('.player .choices');
-    const choiceElements = choicesContainer.querySelectorAll('.choice');
-    
-    // Remove active class from all choices
-    choiceElements.forEach(elem => {
-        elem.classList.remove('active');
-    });
-    
-    // Add active class to the selected choice
-    const selectedChoiceElement = choicesContainer.querySelector(`.choice[data-choice="${playerSelection}"]`);
-    selectedChoiceElement.classList.add('active');
-    
-    // Update current player choice
-    currentPlayerChoice = playerSelection;
+};
 
-    // Display opponent's "awaiting" message initially
-    const opponentChoiceImg = document.getElementById('opponentChoice');
-    opponentChoiceImg.src = 'assets/awaiting.jpeg';
-    opponentChoiceImg.alt = 'Awaiting';
+function checker(input) {
+    var choices = ["rock", "paper", "scissor"];
+    var num = Math.floor(Math.random() * 3);
 
-    // Simulate opponent's choice after a delay
-    setTimeout(() => {
-        const choices = ['rock', 'paper', 'scissors'];
-        const computerSelection = choices[Math.floor(Math.random() * choices.length)];
-        
-        opponentChoiceImg.src = `assets/${computerSelection}_opponent.jpeg`;
-        opponentChoiceImg.alt = computerSelection;
-        
-        const result = getResult(playerSelection, computerSelection);
-        displayResult(result);
-    }, 1000); // Delay opponent's response for 1 second
-}
+    document.getElementById("comp_choice").innerHTML =
+        `Computer chose <span> ${choices[num].toUpperCase()} </span>`;
 
-function getResult(player, computer) {
-    if (player === computer) {
-        return 'It\'s a tie!';
-    } else if ((player === 'rock' && computer === 'scissors') ||
-               (player === 'paper' && computer === 'rock') ||
-               (player === 'scissors' && computer === 'paper')) {
-        score++;
-        return 'You win!';
-    } else {
-        score--;
-        return 'You lose!';
+    document.getElementById("user_choice").innerHTML =
+        `You chose <span> ${input.toUpperCase()} </span>`;
+
+    let computer_choice = choices[num];
+
+    switch (choices_object[input][computer_choice]) {
+        case 'win':
+            result_ref.style.cssText = "background-color: #cefdce; color: #689f38";
+            result_ref.innerHTML = "YOU WIN";
+            user_score++;
+            break;
+        case 'lose':
+            result_ref.style.cssText = "background-color: #ffdde0; color: #d32f2f";
+            result_ref.innerHTML = "YOU LOSE";
+            computer_score++;
+            break;
+        default:
+            result_ref.style.cssText = "background-color: #e5e5e5; color: #808080";
+            result_ref.innerHTML = "DRAW";
+            break;
     }
+
+    document.getElementById("computer_score").innerHTML = computer_score;
+    document.getElementById("user_score").innerHTML = user_score;
 }
 
-function displayResult(result) {
-    const resultElement = document.getElementById('result');
-    resultElement.textContent = result;
-
-    const scoreElement = document.getElementById('score');
-    scoreElement.textContent = score;
-}
+// Add event listeners to buttons
+document.getElementById("rock").addEventListener("click", function() {
+    checker("rock");
+});
+document.getElementById("paper").addEventListener("click", function() {
+    checker("paper");
+});
+document.getElementById("scissors").addEventListener("click", function() {
+    checker("scissor");
+});
