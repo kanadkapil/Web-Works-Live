@@ -1,0 +1,124 @@
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #4f78eb, #ff9a8b);
+    color: #fff;
+    box-sizing: border-box;
+}
+
+/* Container styling */
+.container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Input field and button container */
+.input-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 15px;
+    font-size: 18px;
+    width: 60%;
+    border-radius: 25px;
+    border: 2px solid #ff6f61;
+    margin-right: 15px;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #ff9a8b;
+    box-shadow: 0 0 5px rgba(255, 154, 139, 0.6);
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #ff9a8b;
+    transform: scale(1.05);
+}
+
+/* Styling for the task list */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #fff;
+    color: #333;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: 0.3s;
+}
+
+li:hover {
+    background-color: #f2f2f2;
+}
+
+button {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    border: none;
+    transition: 0.3s;
+}
+
+/* Styling for the complete task */
+.completed {
+    text-decoration: line-through;
+    color: #888;
+}
+
+/* Buttons for Complete and Delete */
+button.complete {
+    background-color: #4caf50;
+    color: white;
+}
+
+button.delete {
+    background-color: #f44336;
+    color: white;
+}
+
+button.complete:hover {
+    background-color: #45a049;
+}
+
+button.delete:hover {
+    background-color: #e53935;
+}
