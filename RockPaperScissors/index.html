@@ -1,51 +1,41 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock Paper Scissors</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="Style.css">
+    <title>Rock Paper Scissor Game</title>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center my-4">Rock Paper Scissors</h1>
-
-        <div class="game">
-            <!-- Player's choices -->
-            <div class="player">
-                <h2>Your Choice</h2>
-                <div class="choices">
-                    <div class="choice" data-choice="rock" onclick="playerChoice('rock')">
-                        <img src="assets/rock.jpeg" alt="Rock">
-                    </div>
-                    <div class="choice" data-choice="paper" onclick="playerChoice('paper')">
-                        <img src="assets/paper.jpeg" alt="Paper">
-                    </div>
-                    <div class="choice" data-choice="scissors" onclick="playerChoice('scissors')">
-                        <img src="assets/scissors.jpeg" alt="Scissors">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Opponent's response -->
-            <div class="opponent">
-                <h2>Opponent's Choice</h2>
-                <div class="choice">
-                    <img id="opponentChoice" src="assets/awaiting.jpeg" alt="Awaiting">
-                </div>
-            </div>
+        <div class="scores">
+            <p>
+                Computer: <span id="computer_score">0</span>
+            </p>
+            <p>
+                You: <span id="user_score">0</span>
+            </p>
         </div>
-
-        <!-- Result display -->
-        <div class="result text-center mt-4">
-            <h2>Result: <span id="result">Make your choice!</span></h2>
+        <div class="weapons">
+            <button id="rock">
+                <i class="fas fa-hand-rock"></i>
+            </button>
+            <button id="paper">
+                <i class="fas fa-hand-paper"></i>
+            </button>
+            <button id="scissors">
+                <i class="fas fa-hand-scissors"></i>
+            </button>
         </div>
-
-        <!-- Score counter -->
-        <div class="score text-center mt-4">
-            <h2>Score: <span id="score">0</span></h2>
+        
+        <div class="details">
+            <p id="user_choice"></p>
+            <p id="comp_choice"></p>
+            <p id="result"></p>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="Script.js"></script>
 </body>
 </html>
