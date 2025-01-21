@@ -11,44 +11,50 @@
   <title>Document</title>
 </head>
 
-<body class="bg-gray-100 font-sans">
+<body class="bg-[#FFDAB3] font-sans">
 
   <!-- Navbar -->
-  <nav class="bg-black py-4">
+  <nav class="bg-[#9F8383] py-4">
     <div class="max-w-7xl mx-auto flex justify-between items-center px-8">
-      <h1 class="text-white text-xl font-semibold">Developergtm</h1>
+      <h1 class="text-[#C8AAAA] text-xl font-semibold">Developergtm</h1>
       <div class="flex gap-6">
-        <a href="#" class="text-white hover:text-gray-300">Home</a>
-        <a href="#" class="text-white hover:text-gray-300">About</a>
-        <a href="#" class="text-white hover:text-gray-300">Tools</a>
-        <a href="#" class="text-white hover:text-gray-300">Contact Us</a>
+        <a href="#" class="text-[#FFDAB3] hover:text-gray-300">Home</a>
+        <a href="#" class="text-[#FFDAB3] hover:text-gray-300">About</a>
+        <a href="#" class="text-[#FFDAB3] hover:text-gray-300">Tools</a>
+        <a href="#" class="text-[#FFDAB3] hover:text-gray-300">Contact Us</a>
       </div>
     </div>
   </nav>
 
   <!-- Main Section -->
   <div class="text-center mt-12">
-    <h1 class="text-3xl font-bold text-gray-800 mb-8">Word Counter</h1>
-    <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold text-[#574964] mb-8">Word Counter</h1>
+    <div class="max-w-3xl mx-auto bg-[#C8AAAA] p-8 rounded-lg shadow-lg">
       <form method="POST" action="#">
-        <textarea id="countfield" data-count-limit="140" rows="3" class="w-full p-4 border-4 border-blue-500 rounded-lg text-lg" placeholder="Start typing..."></textarea>
+        <textarea id="countfield" data-count-limit="140" rows="3" class="w-full p-4 border-4 border-[#9F8383] rounded-lg text-lg" placeholder="Start typing..."></textarea>
 
-        <p id="countlabel" class="text-right mt-2 text-blue-500">
+        <!-- Character count -->
+        <p id="countlabel" class="text-right mt-2 text-[#574964]">
           <span id="countnumber" class="font-semibold">0</span> characters
         </p>
 
-        <input type="submit" value="Submit" class="mt-4 w-full py-2 px-4 bg-blue-500 text-white text-lg font-semibold rounded-md hover:bg-blue-600 transition duration-200 cursor-pointer" />
+        <!-- Word count -->
+        <p id="wordcountlabel" class="text-right mt-2 text-[#574964]">
+          <span id="wordcountnumber" class="font-semibold">0</span> words
+        </p>
+
+        <input type="submit" value="Submit" class="mt-4 w-full py-2 px-4 bg-[#9F8383] text-[#FFDAB3] text-lg font-semibold rounded-md hover:bg-[#574964] transition duration-200 cursor-pointer" />
       </form>
     </div>
   </div>
 
   <!-- Hero Section -->
-  <section class="bg-white py-16 px-8">
+  <section class="bg-[#FFDAB3] py-16 px-8">
     <div class="max-w-7xl mx-auto text-center">
-      <p class="text-gray-700 mb-6">
+      <p class="text-[#574964] mb-6">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio itaque error quo. Iusto, commodi libero sunt a voluptates suscipit vitae veritatis placeat accusantium in, voluptatum itaque voluptas, sapiente et dolores.
       </p>
-      <p class="text-gray-700">
+      <p class="text-[#574964]">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio itaque error quo. Iusto, commodi libero sunt a voluptates suscipit vitae veritatis placeat accusantium in, voluptatum itaque voluptas, sapiente et dolores.
       </p>
     </div>
@@ -59,12 +65,20 @@
       var countField = document.getElementById('countfield');
       var countLabel = document.getElementById('countlabel');
       var countNum = document.getElementById('countnumber');
+      var wordCountLabel = document.getElementById('wordcountlabel');
+      var wordCountNum = document.getElementById('wordcountnumber');
 
       function _handleKeyUp(e) {
         var limit = Number(this.getAttribute('data-count-limit'));
         var text = this.value;
 
+        // Update character count
         countNum.textContent = text.length;
+
+        // Update word count
+        var words = text.trim().split(/\s+/);
+        var wordCount = (words[0] === "") ? 0 : words.length;
+        wordCountNum.textContent = wordCount;
       }
 
       countField.addEventListener('keyup', _handleKeyUp, false);
