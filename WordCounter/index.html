@@ -1,60 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="coffee">
 
 <head>
-  <!-- Link to TailwindCSS and DaisyUI -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/daisyui@2.0.0-beta.0/dist/full.js"></script>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body,
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        span {
+            font-family: "Poppins", sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+    <title>Index</title>
 </head>
 
-<body class="bg-[#FFDAB3] font-sans">
+<body class="font-sans">
 
-  <!-- Navbar -->
-  <nav class="bg-[#9F8383] py-4">
-    <div class="max-w-7xl mx-auto flex justify-between items-center px-8">
-      <h1 class="text-[#C8AAAA] text-xl font-semibold">Developergtm</h1>
-      <div class="flex gap-6">
-        <a href="#" class="text-[#FFDAB3] hover:text-gray-300">Home</a>
-        <a href="#" class="text-[#FFDAB3] hover:text-gray-300">About</a>
-        <a href="#" class="text-[#FFDAB3] hover:text-gray-300">Tools</a>
-        <a href="#" class="text-[#FFDAB3] hover:text-gray-300">Contact Us</a>
+<!-- Navbar -->
+<nav class="bg-base-100 py-4">
+  <div class="max-w-7xl mx-auto flex justify-between items-center px-8">
+    <h1 class="text-xl font-semibold text-white">Developergtm</h1>
+    <div class="flex gap-6 items-center">
+      <a href="#" class="text-white hover:text-base-200">Home</a>
+      <a href="#" class="text-white hover:text-base-200">About</a>
+      <a href="#" class="text-white hover:text-base-200">Tools</a>
+      <a href="#" class="text-white hover:text-base-200">Contact Us</a>
+
+      <!-- Theme Dropdown -->
+      <div class="dropdown dropdown-end">
+        <button class="btn btn-ghost text-white">
+          Theme
+          <svg class="fill-current w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path d="M12 14l-4-4h8z" />
+          </svg>
+        </button>
+        <ul class="menu menu-compact dropdown-content mt-2 p-2 shadow bg-base-100 rounded-box w-52">
+          <li><a data-theme="light">Light</a></li>
+          <li><a data-theme="dark">Dark</a></li>
+          <li><a data-theme="cupcake">Cupcake</a></li>
+          <li><a data-theme="synthwave">Synthwave</a></li>
+          <li><a data-theme="retro">Retro</a></li>
+          <li><a data-theme="cyberpunk">Cyberpunk</a></li>
+          <li><a data-theme="valentine">Valentine</a></li>
+          <li><a data-theme="halloween">Halloween</a></li>
+          <li><a data-theme="forest">Forest</a></li>
+          <li><a data-theme="aqua">Aqua</a></li>
+          <li><a data-theme="lofi">Lofi</a></li>
+          <li><a data-theme="dracula">Dracula</a></li>
+          <li><a data-theme="cmyk">CMYK</a></li>
+          <li><a data-theme="lemonade">Lemonade</a></li>
+          <li><a data-theme="coffee">Coffee</a></li>
+          <li><a data-theme="winter">Winter</a></li>
+          <li><a data-theme="nord">Nord</a></li>
+          <li><a data-theme="sunset">Sunset</a></li>
+        </ul>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
+
 
   <!-- Main Section -->
-  <div class="text-center mt-12">
-    <h1 class="text-3xl font-bold text-[#574964] mb-8">Word Counter</h1>
-    <div class="max-w-3xl mx-auto bg-[#C8AAAA] p-8 rounded-lg shadow-lg">
+  <div class="text-center my-12">
+    <h1 class="text-6xl font-bold mb-8">Word Counter</h1>
+    <div class="max-w-3xl mx-auto bg-base-200 p-8 rounded-lg shadow-lg">
       <form method="POST" action="#">
-        <textarea id="countfield" data-count-limit="140" rows="3" class="w-full p-4 border-4 border-[#9F8383] rounded-lg text-lg" placeholder="Start typing..."></textarea>
+        <textarea id="countfield" data-count-limit="140" rows="6" cols="8" class="w-full p-4 border-4 border-base-300 rounded-lg text-2xl" placeholder="Start typing..."></textarea>
 
         <!-- Character count -->
-        <p id="countlabel" class="text-right mt-2 text-[#574964]">
+        <p id="countlabel" class="text-center text-2xl mt-2">
           <span id="countnumber" class="font-semibold">0</span> characters
         </p>
 
         <!-- Word count -->
-        <p id="wordcountlabel" class="text-right mt-2 text-[#574964]">
+        <p id="wordcountlabel" class="text-center text-2xl mt-2">
           <span id="wordcountnumber" class="font-semibold">0</span> words
         </p>
 
-        <input type="submit" value="Submit" class="mt-4 w-full py-2 px-4 bg-[#9F8383] text-[#FFDAB3] text-lg font-semibold rounded-md hover:bg-[#574964] transition duration-200 cursor-pointer" />
+        <input type="submit" value="Submit" class="mt-4 w-full py-2 px-4 bg-base-300 text-base-100 text-lg font-semibold rounded-md hover:bg-base-400 transition duration-200 cursor-pointer" />
       </form>
     </div>
   </div>
 
   <!-- Hero Section -->
-  <section class="bg-[#FFDAB3] py-16 px-8">
+  <section class="py-16 px-8 text-2xl">
     <div class="max-w-7xl mx-auto text-center">
-      <p class="text-[#574964] mb-6">
+      <p class="mb-6">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio itaque error quo. Iusto, commodi libero sunt a voluptates suscipit vitae veritatis placeat accusantium in, voluptatum itaque voluptas, sapiente et dolores.
       </p>
-      <p class="text-[#574964]">
+      <p>
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio itaque error quo. Iusto, commodi libero sunt a voluptates suscipit vitae veritatis placeat accusantium in, voluptatum itaque voluptas, sapiente et dolores.
       </p>
     </div>
@@ -82,9 +133,20 @@
       }
 
       countField.addEventListener('keyup', _handleKeyUp, false);
+
+      // Theme switcher
+      var themeLinks = document.querySelectorAll('[data-theme]');
+      themeLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          var theme = this.getAttribute('data-theme');
+          document.body.setAttribute('data-theme', theme);
+
+          // Ensure the theme is applied immediately
+          document.querySelector('html').setAttribute('data-theme', theme);
+        });
+      });
     }());
   </script>
-
 </body>
 
 </html>
