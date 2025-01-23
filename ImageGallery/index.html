@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Photo Gallery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="gallery" class="container-fluid">
+        <!-- Initial set of images -->
+        <img src="https://images.unsplash.com/photo-1502031882019-24c0bccfffc6?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Portrait of a female">
+        <img src="https://images.unsplash.com/photo-1557053910-d9eadeed1c58?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Portrait of a female">
+        <img src="https://images.unsplash.com/photo-1603023436454-c91a5d12b580?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Portrait of a female">
+        <img src="https://plus.unsplash.com/premium_photo-1682096252599-e8536cd97d2b?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-responsive" alt="Portrait of a female">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D" class="img-responsive" alt="Portrait of a female">
+        <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D" class="img-responsive" alt="Portrait of a female">
+        <img src="https://plus.unsplash.com/premium_photo-1683140621573-233422bfc7f1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D" class="img-responsive" alt="Portrait of a female">
+        <img src="https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D" class="img-responsive" alt="Portrait of a female">
+        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHBvcnRyYWl0fGVufDB8fDB8fHww" class="img-responsive" alt="Portrait of a female">
+        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHBvcnRyYWl0fGVufDB8fDB8fHww" class="img-responsive" alt="Portrait of a female">
+        <img src="https://plus.unsplash.com/premium_photo-1683121771856-3c3964975777?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHBvcnRyYWl0fGVufDB8fDB8fHww" class="img-responsive" alt="Portrait of a female">
+        <img src="https://images.unsplash.com/photo-1551843073-4a9a5b6fcd5f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHBvcnRyYWl0fGVufDB8fDB8fHww" class="img-responsive" alt="Portrait of a female">
+        <img src="https://images.unsplash.com/photo-1496672254107-b07a26403885?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHBvcnRyYWl0fGVufDB8fDB8fHww" class="img-responsive" alt="Portrait of a female">
+        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHBvcnRyYWl0fGVufDB8fDB8fHww" class="img-responsive" alt="Portrait of a female">
+        <img src="https://images.unsplash.com/photo-1506863530036-1efeddceb993?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBvcnRyYWl0fGVufDB8fDB8fHww" class="img-responsive" alt="Portrait of a female">
+    </div>
+
+    <!-- Load More Button -->
+    <div id="loadMoreContainer">
+        <button id="loadMore">Load More</button>
+    </div>
+
+    <!-- Modal for image display -->
+    <div id="modal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="galleryFooter">
+        <p>Powered by Shuvajit Debnath | Crafted with ❤️</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
