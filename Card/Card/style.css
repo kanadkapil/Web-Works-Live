@@ -1,0 +1,81 @@
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.card-preview {
+    margin: 20px auto;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+}
+
+.card-header {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.card-title {
+    font-size: 16px;
+    color: #4a4a4a;
+}
+
+.card-details {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Vertical card styles */
+.vertical {
+    width: 320px;
+    height: 500px;
+}
+
+.vertical .card-header,
+.vertical .card-title,
+.vertical .card-details {
+    margin-right: 60px;
+}
+
+.vertical #previewQRCode {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+/* Horizontal card styles */
+.horizontal {
+    width: 500px;
+    height: 320px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.horizontal .card-header,
+.horizontal .card-title,
+.horizontal .card-details {
+    margin-left: 20px;
+}
+
+.horizontal #previewQRCode {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
