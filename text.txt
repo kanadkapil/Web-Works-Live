@@ -13,4 +13,39 @@ name will be always will be in h2 and bold.
 can u make a proper prompt about this thing for me?
 
 2.
+i missed, users will be able to select whether the card will be horizontal or vertical,
+and after u provide the output, users will take a screenshot and can make their business card.
+
+3. gpt ptompt
+
+Business Card Maker App Prompt:
+
+Welcome to the Business Card Maker! This intuitive app lets you create a fully customized business card, with options to personalize the design and layout to suit your style. Follow the steps below to easily generate your unique business card:
+
+1. Personal Information Form:
+Name (Required):
+Enter your full name. This field is mandatory. Your name will appear in a bold and large h2 font on your business card.
+Designation (Required):
+Specify your job title or role. This field is also required.
+Email (Required):
+Provide your contact email address. This field is mandatory.
+Contact Number:
+If you wish to include your phone number, you can fill in this optional field. You can toggle its visibility on or off for the final card.
+Home Address:
+Add your home address if desired. This field is optional, and you can choose whether or not it will appear on the card.
+Office Address:
+You can enter your office address here. This is also optional, with a toggle to decide if it should be shown.
+Profile Image:
+Upload a professional profile image. This is an optional field, and you can choose whether it will appear on the final card.
+2. Card Orientation:
+Choose whether you want your business card to be in Horizontal or Vertical orientation. This option will affect the layout of the design, so pick the one that fits your style best.
+3. Business Card Design Customization:
+Visibility Toggles:
+Each optional field (Contact Number, Home Address, Office Address, Profile Image) will have a switch. Turn it on or off depending on whether you want to include that information on your card.
+QR Code:
+A personalized QR code will be generated, containing your contact information. You can toggle this option to show or hide the QR code on your card.
+4. Final Output:
+After completing the form and selecting your preferred layout (horizontal or vertical), hit the Generate Business Card button.
+Your business card will be displayed in a preview, showing all the information you’ve chosen and the layout style you selected.
+You can take a screenshot of your final card design, and save or share it as your business card.
 
