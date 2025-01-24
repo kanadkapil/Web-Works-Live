@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Card Maker</title>
+    <!-- TailwindCSS and DaisyUI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@1.19.0/dist/full.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .card-preview {
+            width: 350px;
+            height: 200px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-family: 'Roboto', sans-serif;
+        }
+        .card-header {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .card-title {
+            font-size: 16px;
+            color: #4a4a4a;
+        }
+        .card-details {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-5">
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-5">
+            <h1 class="text-2xl font-bold text-center mb-5">Business Card Maker</h1>
+
+            <!-- Personal Information Form -->
+            <form id="businessCardForm">
+                <div class="mb-3">
+                    <label for="name" class="block text-lg font-semibold">Name (Required):</label>
+                    <input type="text" id="name" name="name" required class="input input-bordered w-full" placeholder="Enter your full name">
+                </div>
+                <div class="mb-3">
+                    <label for="designation" class="block text-lg font-semibold">Designation (Required):</label>
+                    <input type="text" id="designation" name="designation" required class="input input-bordered w-full" placeholder="Enter your designation">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="block text-lg font-semibold">Email (Required):</label>
+                    <input type="email" id="email" name="email" required class="input input-bordered w-full" placeholder="Enter your email">
+                </div>
+                <div class="mb-3">
+                    <label for="contactNumber" class="block text-lg font-semibold">Contact Number (Optional):</label>
+                    <input type="text" id="contactNumber" name="contactNumber" class="input input-bordered w-full" placeholder="Enter your contact number">
+                </div>
+                <div class="mb-3">
+                    <label for="homeAddress" class="block text-lg font-semibold">Home Address (Optional):</label>
+                    <input type="text" id="homeAddress" name="homeAddress" class="input input-bordered w-full" placeholder="Enter your home address">
+                </div>
+                <div class="mb-3">
+                    <label for="officeAddress" class="block text-lg font-semibold">Office Address (Optional):</label>
+                    <input type="text" id="officeAddress" name="officeAddress" class="input input-bordered w-full" placeholder="Enter your office address">
+                </div>
+                <div class="mb-3">
+                    <label for="profileImage" class="block text-lg font-semibold">Profile Image (Optional):</label>
+                    <input type="file" id="profileImage" name="profileImage" class="file-input file-input-bordered w-full">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="cardOrientation" class="block text-lg font-semibold">Card Orientation:</label>
+                    <select id="cardOrientation" class="select select-bordered w-full">
+                        <option value="horizontal">Horizontal</option>
+                        <option value="vertical">Vertical</option>
+                    </select>
+                </div>
+
+                <div class="mb-3 flex items-center">
+                    <label class="mr-3">Include QR Code:</label>
+                    <input type="checkbox" id="showQRCode" class="toggle toggle-primary">
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full">Generate Business Card</button>
+            </form>
+
+            <!-- Business Card Preview -->
+            <div class="card-preview hidden" id="cardPreview">
+                <div class="card-header" id="previewName">John Doe</div>
+                <div class="card-title" id="previewDesignation">Software Engineer</div>
+                <div class="card-details">
+                    <p id="previewEmail">john.doe@example.com</p>
+                    <p id="previewPhone"></p>
+                    <p id="previewHomeAddress"></p>
+                    <p id="previewOfficeAddress"></p>
+                    <div id="previewQRCode" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('businessCardForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get values from the form
+            const name = document.getElementById('name').value;
+            const designation = document.getElementById('designation').value;
+            const email = document.getElementById('email').value;
+            const contactNumber = document.getElementById('contactNumber').value;
+            const homeAddress = document.getElementById('homeAddress').value;
+            const officeAddress = document.getElementById('officeAddress').value;
+            const profileImage = document.getElementById('profileImage').files[0];
+            const cardOrientation = document.getElementById('cardOrientation').value;
+            const showQRCode = document.getElementById('showQRCode').checked;
+
+            // Populate preview card
+            document.getElementById('previewName').textContent = name;
+            document.getElementById('previewDesignation').textContent = designation;
+            document.getElementById('previewEmail').textContent = email;
+            document.getElementById('previewPhone').textContent = contactNumber ? `Phone: ${contactNumber}` : '';
+            document.getElementById('previewHomeAddress').textContent = homeAddress ? `Home: ${homeAddress}` : '';
+            document.getElementById('previewOfficeAddress').textContent = officeAddress ? `Office: ${officeAddress}` : '';
+
+            // QR Code logic
+            if (showQRCode) {
+                // In a real app, you would generate a QR code here (for example using a QR code library)
+                document.getElementById('previewQRCode').innerHTML = '<img src="https://via.placeholder.com/100?text=QR" alt="QR Code">';
+            } else {
+                document.getElementById('previewQRCode').innerHTML = '';
+            }
+
+            // Toggle preview visibility
+            document.getElementById('cardPreview').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
