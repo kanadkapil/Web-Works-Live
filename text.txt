@@ -18,6 +18,9 @@ and after u provide the output, users will take a screenshot and can make their 
 the qr code will be the text information provided in the form.
 in the vertical card put the profile pic in the top right, and have a bit margin in x and y axis, 
 and also give the flexibility to the users to chose the background color of the business card.
+for vertical card width will be 320px and height will be 500px
+and for horizontal card height will be 320px and width will be 500px
+and in the horizontal card the qr code will be bottom left of the card
 
 3. gpt ptompt
 
