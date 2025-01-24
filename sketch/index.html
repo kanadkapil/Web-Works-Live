@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing App</title>
+    <!-- Include Tailwind CSS and DaisyUI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@1.1.6/dist/full.js"></script>
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="bg-gray-400 flex justify-center items-center h-screen">
+    <div class="text-center space-y-6">
+        <h1 class="text-4xl font-bold text-gray-800">Drawing App</h1>
+
+        <!-- Controls -->
+        <div class="flex justify-center space-x-6">
+            <div>
+                <label for="color-picker" class="block text-gray-600">Color:</label>
+                <input type="color" id="color-picker" class="p-1 rounded" value="#000000">
+            </div>
+
+            <div>
+                <label for="brush-size" class="block text-gray-600">Brush Size:</label>
+                <input type="range" id="brush-size" class="w-32" min="1" max="10" value="5">
+            </div>
+
+            <div>
+                <button id="eraser-btn" class="btn btn-warning">Eraser</button>
+            </div>
+
+            <div>
+                <button id="clear-btn" class="btn btn-error">Clear</button>
+            </div>
+        </div>
+
+        <!-- Canvas -->
+        <!-- Canvas Wrapper with the new class applied -->
+        <div class="relative mt-6 rounded-lg shadow-xl p-4 bg-white">
+            <canvas id="drawing-canvas" width="1000" height="600" class="border bg-white"></canvas>
+        </div>
+
+
+        <!-- Save & Undo Buttons -->
+        <div class="flex justify-center space-x-6 mt-4">
+            <button id="save-btn" class="btn btn-primary">Save Drawing</button>
+            <button id="undo-btn" class="btn btn-secondary">Undo</button>
+        </div>
+
+        <!-- Background Color Picker -->
+        <div class="mt-6">
+            <label for="bg-color-picker" class="block text-gray-600">Background Color:</label>
+            <input type="color" id="bg-color-picker" class="p-1 rounded" value="#ffffff">
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('drawing-canvas');
+        const ctx = canvas.getContext('2d');
+        const colorPicker = document.getElementById('color-picker');
+        const brushSize = document.getElementById('brush-size');
+        const clearBtn = document.getElementById('clear-btn');
+        const saveBtn = document.getElementById('save-btn');
+        const undoBtn = document.getElementById('undo-btn');
+        const eraserBtn = document.getElementById('eraser-btn');
+        const bgColorPicker = document.getElementById('bg-color-picker');
+
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let eraserMode = false;
+        let strokes = [];
+        let currentStroke = [];
+
+        // Set initial brush settings
+        ctx.strokeStyle = colorPicker.value;
+        ctx.lineWidth = brushSize.value;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        canvas.style.backgroundColor = bgColorPicker.value;
+
+        // Update brush color and size when user changes the settings
+        colorPicker.addEventListener('input', (e) => {
+            ctx.strokeStyle = e.target.value;
+        });
+
+        brushSize.addEventListener('input', (e) => {
+            ctx.lineWidth = e.target.value;
+        });
+
+        bgColorPicker.addEventListener('input', (e) => {
+            canvas.style.backgroundColor = e.target.value;
+        });
+
+        // Switch between pen and eraser
+        eraserBtn.addEventListener('click', () => {
+            eraserMode = !eraserMode;
+            eraserBtn.classList.toggle('btn-success', eraserMode);
+            eraserBtn.classList.toggle('btn-warning', !eraserMode);
+            ctx.strokeStyle = eraserMode ? canvas.style.backgroundColor : colorPicker.value;
+            ctx.lineWidth = eraserMode ? 10 : brushSize.value; // Make eraser larger for better visibility
+        });
+
+        // Start drawing when mouse is pressed down
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+            currentStroke = [{ x: lastX, y: lastY }];
+        });
+
+        // Stop drawing when mouse is lifted
+        canvas.addEventListener('mouseup', () => {
+            if (currentStroke.length > 0) {
+                strokes.push(currentStroke);
+            }
+            isDrawing = false;
+        });
+
+        // Draw on the canvas as mouse moves
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing) return;
+            const x = e.offsetX;
+            const y = e.offsetY;
+
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            currentStroke.push({ x, y });
+            [lastX, lastY] = [x, y];
+        });
+
+        // Clear the canvas
+        clearBtn.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            strokes = [];
+        });
+
+        // Save the drawing as an image
+        saveBtn.addEventListener('click', () => {
+            const dataURL = canvas.toDataURL();
+            const a = document.createElement('a');
+            a.href = dataURL;
+            a.download = 'drawing.png';
+            a.click();
+        });
+
+        // Undo the last stroke
+        undoBtn.addEventListener('click', () => {
+            if (strokes.length === 0) return;
+            strokes.pop(); // Remove the last stroke
+            redrawCanvas();
+        });
+
+        // Redraw the canvas from the strokes array
+        function redrawCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            strokes.forEach(stroke => {
+                ctx.beginPath();
+                ctx.moveTo(stroke[0].x, stroke[0].y);
+                stroke.forEach(point => {
+                    ctx.lineTo(point.x, point.y);
+                });
+                ctx.stroke();
+            });
+        }
+    </script>
+</body>
+
+</html>
