@@ -1,0 +1,16 @@
+## Business Card prompt
+
+1.
+ make an app for me, where user will be able to make their own business card.
+user will be having a form where he will be putting his information like name, Designation, contact number, email, home address, office address, and his image.
+here in the form, name, designation, email will be required field.
+and other fields will be having switches, which users will be able to turn off or on to show in the output.
+
+and a qr code will be also generated, and it will be also having a switch whether user wants to show the qr code or not in the business card.
+
+name will be always will be in h2 and bold.
+
+can u make a proper prompt about this thing for me?
+
+2.
+
