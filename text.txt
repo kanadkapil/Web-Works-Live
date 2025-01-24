@@ -15,6 +15,7 @@ can u make a proper prompt about this thing for me?
 2.
 i missed, users will be able to select whether the card will be horizontal or vertical,
 and after u provide the output, users will take a screenshot and can make their business card.
+the qr code will be the text information provided in the form.
 
 3. gpt ptompt
 
