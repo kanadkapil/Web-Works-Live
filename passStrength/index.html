@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@1.18.0/dist/full.js"></script>
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-md mx-auto p-4 bg-white rounded-lg shadow-lg">
+        <h1 class="text-2xl font-semibold text-center mb-4">Password Strength Checker</h1>
+        
+        <input type="password" id="password" class="input input-bordered w-full mb-4" placeholder="Enter your password" oninput="checkPasswordStrength()">
+        
+        <div id="strengthMessage" class="text-center mt-2 text-lg font-semibold"></div>
+        <div id="strengthBar" class="h-2 mt-2 rounded"></div>
+    </div>
+
+    <script>
+        function checkPasswordStrength() {
+            const password = document.getElementById("password").value;
+            const strengthMessage = document.getElementById("strengthMessage");
+            const strengthBar = document.getElementById("strengthBar");
+
+            // Criteria checks
+            const lengthCriteria = password.length >= 8;
+            const numberCriteria = /[0-9]/.test(password);
+            const uppercaseCriteria = /[A-Z]/.test(password);
+            const specialCharCriteria = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+            let strength = 0;
+
+            // Calculate strength based on criteria
+            if (lengthCriteria) strength++;
+            if (numberCriteria) strength++;
+            if (uppercaseCriteria) strength++;
+            if (specialCharCriteria) strength++;
+
+            // Set strength message and progress bar
+            if (strength === 0) {
+                strengthMessage.textContent = "Weak";
+                strengthMessage.className = "text-red-500";
+                strengthBar.className = "bg-red-500";
+            } else if (strength === 1) {
+                strengthMessage.textContent = "Weak";
+                strengthMessage.className = "text-red-500";
+                strengthBar.className = "bg-red-500";
+            } else if (strength === 2) {
+                strengthMessage.textContent = "Medium";
+                strengthMessage.className = "text-yellow-500";
+                strengthBar.className = "bg-yellow-500";
+            } else if (strength === 3) {
+                strengthMessage.textContent = "Strong";
+                strengthMessage.className = "text-green-500";
+                strengthBar.className = "bg-green-500";
+            } else if (strength === 4) {
+                strengthMessage.textContent = "Very Strong";
+                strengthMessage.className = "text-green-700";
+                strengthBar.className = "bg-green-700";
+            }
+
+            // Set progress bar width based on strength
+            strengthBar.style.width = `${(strength / 4) * 100}%`;
+        }
+    </script>
+</body>
+</html>
