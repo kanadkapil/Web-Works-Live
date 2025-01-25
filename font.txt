@@ -1,0 +1,111 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+</style>
+
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 400 to 700
+
+.caveat-<uniquifier> {
+  font-family: "Caveat", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+
+
+#######################################################################################
+
+
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Shadows+Into+Light&display=swap');
+</style>
+
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 400 to 700
+
+.caveat-<uniquifier> {
+  font-family: "Caveat", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+.shadows-into-light-regular {
+  font-family: "Shadows Into Light", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.shadows-into-light-regular {
+  font-family: "Shadows Into Light", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+#######################################################################################
+
+
+
+Varela Round ******
+
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+</style>
+
+.varela-round-regular {
+  font-family: "Varela Round", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+....................
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+  <style>
+    h1, h2, h3, h4, h5, h6, div, p {
+      font-family: "Varela Round", serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+  </style>
+
+
+#######################################################################################
+
+Flow Circular
+
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Flow+Circular&display=swap');
+</style>
+
+.flow-circular-regular {
+  font-family: "Flow Circular", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+#######################################################################################
+
+Nunito****
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+</style>
+
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 200 to 1000
+
+.nunito-<uniquifier> {
+  font-family: "Nunito", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
