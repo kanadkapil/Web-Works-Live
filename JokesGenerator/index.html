@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Catamaran:wght@200&family=Courgette&family=Edu+TAS+Beginner:wght@700&family=Lato:wght@300;900&family=Mukta:wght@700&family=Mulish:wght@300&family=Open+Sans&family=PT+Sans:ital,wght@1,700&family=Poppins:wght@300&family=Raleway:wght@100&family=Roboto+Condensed:wght@700&family=Roboto+Slab&family=Roboto:wght@300&family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
-
+    <title>it's just a joke</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        <img src="smile.png" alt="">
-        <h3 id="joke"></h3>
-        <button onclick="getJoke()">Get Joke's</button>
+
+<body class="bg-gray-100 font-sans flex items-center justify-center min-h-screen">
+
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full text-center">
+        <img src="smile.png" alt="Smiley" class="mx-auto mb-4 w-24 h-24 object-cover">
+        <h3 id="joke" class="text-xl font-semibold text-gray-700 mb-4">Your joke will appear here!</h3>
+        <button onclick="getJoke()"
+            class="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors duration-300">
+            Get Joke's
+        </button>
     </div>
+
     <script src="index.js"></script>
 </body>
+
 </html>
