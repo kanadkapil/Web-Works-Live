@@ -5,32 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Age Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@1.10.1/dist/full.js"></script>
 </head>
 
-<body>
-    <div class="container">
-        <form>
-            <div class="base">
-                <h4>Age Calculator</h4>
-            </div>
-        </form>
+<body class="bg-gray-100 font-sans">
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-lg space-y-6">
+            <h2 class="text-3xl font-semibold text-center text-gray-800">Age Calculator</h2>
+            <form>
+                <div class="space-y-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text text-lg">Date</span>
+                        </label>
+                        <input type="text" id="date" class="input input-bordered w-full" placeholder="dd" required minlength="1" maxlength="2">
+                    </div>
 
-        <div class="block">
-            <p class="title">Date</p>
-            <input type="text" name="date" id="date" placeholder="dd" required minlength="1" maxlength="2">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text text-lg">Month</span>
+                        </label>
+                        <input type="text" id="month" class="input input-bordered w-full" placeholder="mm" required minlength="1" maxlength="2">
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text text-lg">Year</span>
+                        </label>
+                        <input type="text" id="year" class="input input-bordered w-full" placeholder="yyyy" required minlength="4" maxlength="4">
+                    </div>
+
+                    <div class="form-control">
+                        <button type="button" onclick="calculateAge()" class="btn btn-primary w-full">Submit</button>
+                    </div>
+                </div>
+            </form>
+
+            <div id="age" class="mt-6 text-lg text-gray-700"></div>
         </div>
-        <div class="block">
-            <p class="title">Month</p>
-            <input type="text" name="month" id="month" placeholder="mm" required minlength="1" maxlength="2">
-        </div>
-        <div class="block">
-            <p class="title">Year</p>
-            <input type="text" name="year" id="year" placeholder="yyyy" required minlength="4" maxlength="4">
-        </div>
-        <div class="base">
-            <input type="button" name="submit" value="Submit" onclick="calculateAge()">
-        </div>
-        <div id="age"></div>
     </div>
 
     <script>
@@ -66,7 +79,6 @@
                 document.getElementById("age").textContent = `Your Age: ${y} years, ${m} months, and ${d} days.`;
             }
         }
-
     </script>
 </body>
 
