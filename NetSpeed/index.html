@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detect Internet Speed</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <p id="bits"><span>Speed In Bits: </span><span class="value"></span></p>
-        <p id="kbs"><span>Speed In Kbs: </span><span class="value"></span></p>
-        <p id="mbs"><span>Speed In Mbs: </span><span class="value"></span></p>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full text-center">
+        <p id="bits" class="text-lg mb-4 text-gray-700">
+            <span class="font-semibold">Speed In Bits:</span> 
+            <span class="value text-blue-500 font-medium"></span>
+        </p>
+        <p id="kbs" class="text-lg mb-4 text-gray-700">
+            <span class="font-semibold">Speed In Kbs:</span> 
+            <span class="value text-blue-500 font-medium"></span>
+        </p>
+        <p id="mbs" class="text-lg mb-4 text-gray-700">
+            <span class="font-semibold">Speed In Mbs:</span> 
+            <span class="value text-blue-500 font-medium"></span>
+        </p>
     </div>
 
     <script src="script.js"></script>
