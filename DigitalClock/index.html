@@ -52,27 +52,34 @@
 </head>
 <body class="bg-gradient-to-r from-gray-900 via-purple-900 to-blue-900 flex justify-center items-center h-screen theme">
 
+    <!-- Navbar (Dropdown Menu for Theme Selection) -->
+    <nav class="absolute top-5 left-5 z-50">
+        <div class="relative">
+            <button id="themeDropdown" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Themes
+            </button>
+            <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2 space-y-2">
+                <button id="morning" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">Morning</button>
+                <button id="afternoon" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">Afternoon</button>
+                <button id="night" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">Night</button>
+                <button id="default" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">Default</button>
+                <button id="light" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">Light</button>
+                <button id="dark" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">Dark</button>
+                <button id="sunset" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">Sunset</button>
+                <button id="ocean" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">Ocean</button>
+                <button id="forest" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">Forest</button>
+                <button id="vibrant" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">Vibrant</button>
+                <button id="retro" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">Retro</button>
+                <button id="galaxy" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">Galaxy</button>
+            </div>
+        </div>
+    </nav>
+
     <!-- Clock Container -->
     <div id="clock" class="date flex items-center space-x-4 text-white text-8xl font-extrabold bg-black/60 p-8 rounded-3xl shadow-xl shadow-gray-900/40 transform hover:scale-105 hover:shadow-2xl transition-all duration-500 glow">
         <span class="hour"></span>
         <span class="min">:</span>
         <span class="sec opacity-80">:</span>
-    </div>
-
-    <!-- Theme Switcher Buttons -->
-    <div class="absolute top-10 right-10 flex flex-wrap space-x-4">
-        <button id="morning" class="bg-yellow-500 px-4 py-2 rounded-lg text-white hover:bg-yellow-400 focus:outline-none">Morning</button>
-        <button id="afternoon" class="bg-orange-500 px-4 py-2 rounded-lg text-white hover:bg-orange-400 focus:outline-none">Afternoon</button>
-        <button id="night" class="bg-blue-500 px-4 py-2 rounded-lg text-white hover:bg-blue-400 focus:outline-none">Night</button>
-        <button id="default" class="bg-gray-500 px-4 py-2 rounded-lg text-white hover:bg-gray-400 focus:outline-none">Default</button>
-        <button id="light" class="bg-yellow-100 px-4 py-2 rounded-lg text-gray-700 hover:bg-yellow-200 focus:outline-none">Light</button>
-        <button id="dark" class="bg-gray-800 px-4 py-2 rounded-lg text-white hover:bg-gray-700 focus:outline-none">Dark</button>
-        <button id="sunset" class="bg-gradient-to-r from-orange-600 to-pink-600 px-4 py-2 rounded-lg text-white hover:bg-pink-500 focus:outline-none">Sunset</button>
-        <button id="ocean" class="bg-gradient-to-r from-teal-500 to-blue-500 px-4 py-2 rounded-lg text-white hover:bg-teal-400 focus:outline-none">Ocean</button>
-        <button id="forest" class="bg-gradient-to-r from-green-600 to-brown-600 px-4 py-2 rounded-lg text-white hover:bg-green-500 focus:outline-none">Forest</button>
-        <button id="vibrant" class="bg-gradient-to-r from-pink-500 via-yellow-500 to-blue-500 px-4 py-2 rounded-lg text-white hover:bg-blue-400 focus:outline-none">Vibrant</button>
-        <button id="retro" class="bg-gradient-to-r from-pink-600 to-blue-600 px-4 py-2 rounded-lg text-white hover:bg-pink-500 focus:outline-none">Retro</button>
-        <button id="galaxy" class="bg-gradient-to-r from-purple-900 to-blue-900 px-4 py-2 rounded-lg text-white hover:bg-indigo-600 focus:outline-none">Galaxy</button>
     </div>
 
     <!-- Transparency Slider -->
@@ -81,6 +88,7 @@
         <input id="transparency" type="range" min="0" max="100" value="60" class="slider"/>
     </div>
 
+    <!-- Script -->
     <script>
         // Function to update the clock and handle theme switching
         function clock() {
@@ -111,7 +119,15 @@
             clockElement.style.backgroundColor = `rgba(0, 0, 0, ${(transparencyValue / 100).toFixed(2)})`;
         });
 
-        // Theme switching logic
+        // Toggle Dropdown Menu for Mobile
+        const themeDropdown = document.getElementById("themeDropdown");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        themeDropdown.addEventListener("click", () => {
+            dropdownMenu.classList.toggle("hidden");
+        });
+
+        // Theme switching logic (same as before)
         const morningButton = document.getElementById("morning");
         const afternoonButton = document.getElementById("afternoon");
         const nightButton = document.getElementById("night");
@@ -125,7 +141,7 @@
         const retroButton = document.getElementById("retro");
         const galaxyButton = document.getElementById("galaxy");
 
-        // Apply specific themes
+        // Apply themes (same as before)
         function applyMorningTheme() {
             document.body.classList.add("from-orange-400", "via-yellow-400", "to-orange-600");
             document.body.classList.remove("from-blue-900", "via-purple-900", "to-gray-900", "from-yellow-400", "via-orange-400", "to-red-500", "from-gray-100", "to-gray-200");
