@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <!-- Link to Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Additional custom styles to create a smooth transition on time change */
+        .date span {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-gray-800 to-indigo-900 flex justify-center items-center h-screen">
+
+    <div class="date flex items-center space-x-4 text-white text-6xl font-semibold bg-black/50 p-6 rounded-lg shadow-lg shadow-gray-800/40">
+        <span class="hour"></span>
+        <span class="min"></span>
+        <span class="sec opacity-70"></span>
+    </div>
+
+    <script>
+        function clock() {
+            let d = new Date(),
+                h = d.getHours(),
+                m = d.getMinutes(),
+                s = d.getSeconds();
+
+            h = h < 10 ? `0${h}` : h;
+            m = m < 10 ? `0${m}` : m;
+            s = s < 10 ? `0${s}` : s;
+
+            document.querySelector(".hour").textContent = h;
+            document.querySelector(".min").textContent = m;
+            document.querySelector(".sec").textContent = s;
+
+            setTimeout(clock, 1000);
+        }
+
+        clock();
+    </script>
+
+</body>
+</html>
