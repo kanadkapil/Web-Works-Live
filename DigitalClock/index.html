@@ -39,10 +39,19 @@
     </div>
 
     <!-- Theme Switcher Buttons -->
-    <div class="absolute top-10 right-10 flex space-x-4">
+    <div class="absolute top-10 right-10 flex flex-wrap space-x-4">
         <button id="morning" class="bg-yellow-500 px-4 py-2 rounded-lg text-white hover:bg-yellow-400 focus:outline-none">Morning</button>
         <button id="afternoon" class="bg-orange-500 px-4 py-2 rounded-lg text-white hover:bg-orange-400 focus:outline-none">Afternoon</button>
         <button id="night" class="bg-blue-500 px-4 py-2 rounded-lg text-white hover:bg-blue-400 focus:outline-none">Night</button>
+        <button id="default" class="bg-gray-500 px-4 py-2 rounded-lg text-white hover:bg-gray-400 focus:outline-none">Default</button>
+        <button id="light" class="bg-yellow-100 px-4 py-2 rounded-lg text-gray-700 hover:bg-yellow-200 focus:outline-none">Light</button>
+        <button id="dark" class="bg-gray-800 px-4 py-2 rounded-lg text-white hover:bg-gray-700 focus:outline-none">Dark</button>
+        <button id="sunset" class="bg-gradient-to-r from-orange-600 to-pink-600 px-4 py-2 rounded-lg text-white hover:bg-pink-500 focus:outline-none">Sunset</button>
+        <button id="ocean" class="bg-gradient-to-r from-teal-500 to-blue-500 px-4 py-2 rounded-lg text-white hover:bg-teal-400 focus:outline-none">Ocean</button>
+        <button id="forest" class="bg-gradient-to-r from-green-600 to-brown-600 px-4 py-2 rounded-lg text-white hover:bg-green-500 focus:outline-none">Forest</button>
+        <button id="vibrant" class="bg-gradient-to-r from-pink-500 via-yellow-500 to-blue-500 px-4 py-2 rounded-lg text-white hover:bg-blue-400 focus:outline-none">Vibrant</button>
+        <button id="retro" class="bg-gradient-to-r from-pink-600 to-blue-600 px-4 py-2 rounded-lg text-white hover:bg-pink-500 focus:outline-none">Retro</button>
+        <button id="galaxy" class="bg-gradient-to-r from-purple-900 to-blue-900 px-4 py-2 rounded-lg text-white hover:bg-indigo-600 focus:outline-none">Galaxy</button>
     </div>
 
     <script>
@@ -70,34 +79,90 @@
         const morningButton = document.getElementById("morning");
         const afternoonButton = document.getElementById("afternoon");
         const nightButton = document.getElementById("night");
+        const defaultButton = document.getElementById("default");
+        const lightButton = document.getElementById("light");
+        const darkButton = document.getElementById("dark");
+        const sunsetButton = document.getElementById("sunset");
+        const oceanButton = document.getElementById("ocean");
+        const forestButton = document.getElementById("forest");
+        const vibrantButton = document.getElementById("vibrant");
+        const retroButton = document.getElementById("retro");
+        const galaxyButton = document.getElementById("galaxy");
 
+        // Apply specific themes
         function applyMorningTheme() {
             document.body.classList.add("from-orange-400", "via-yellow-400", "to-orange-600");
-            document.body.classList.remove("from-blue-900", "via-purple-900", "to-gray-900", "from-yellow-400", "via-orange-400", "to-red-500");
+            document.body.classList.remove("from-blue-900", "via-purple-900", "to-gray-900", "from-yellow-400", "via-orange-400", "to-red-500", "from-gray-100", "to-gray-200");
         }
 
         function applyAfternoonTheme() {
             document.body.classList.add("from-yellow-400", "via-orange-400", "to-red-500");
-            document.body.classList.remove("from-orange-400", "via-yellow-400", "to-orange-600", "from-blue-900", "via-purple-900", "to-gray-900");
+            document.body.classList.remove("from-orange-400", "via-yellow-400", "to-orange-600", "from-blue-900", "via-purple-900", "to-gray-900", "from-gray-100", "to-gray-200");
         }
 
         function applyNightTheme() {
             document.body.classList.add("from-blue-800", "via-indigo-700", "to-purple-900");
-            document.body.classList.remove("from-orange-400", "via-yellow-400", "to-orange-600", "from-yellow-400", "via-orange-400", "to-red-500");
+            document.body.classList.remove("from-orange-400", "via-yellow-400", "to-orange-600", "from-yellow-400", "via-orange-400", "to-red-500", "from-gray-100", "to-gray-200");
+        }
+
+        function applyDefaultTheme() {
+            document.body.classList.add("from-gray-900", "via-purple-900", "to-blue-900");
+            document.body.classList.remove("from-orange-400", "via-yellow-400", "to-orange-600", "from-yellow-400", "via-orange-400", "to-red-500", "from-gray-100", "to-gray-200");
+        }
+
+        function applyLightTheme() {
+            document.body.classList.add("from-gray-100", "to-gray-200");
+            document.body.classList.remove("from-blue-900", "via-purple-900", "to-gray-900", "from-orange-400", "via-yellow-400", "to-orange-600", "from-yellow-400", "via-orange-400", "to-red-500");
+        }
+
+        function applyDarkTheme() {
+            document.body.classList.add("from-gray-900", "via-gray-800", "to-gray-700");
+            document.body.classList.remove("from-blue-800", "via-indigo-700", "to-purple-900", "from-orange-400", "via-yellow-400", "to-orange-600", "from-yellow-400", "via-orange-400", "to-red-500", "from-gray-100", "to-gray-200");
+        }
+
+        function applySunsetTheme() {
+            document.body.classList.add("from-orange-600", "to-pink-600");
+            document.body.classList.remove("from-gray-100", "to-gray-200", "from-yellow-400", "via-orange-400", "to-red-500", "from-gray-900", "via-purple-900", "to-blue-900");
+        }
+
+        function applyOceanTheme() {
+            document.body.classList.add("from-teal-500", "to-blue-500");
+            document.body.classList.remove("from-gray-100", "to-gray-200", "from-yellow-400", "via-orange-400", "to-red-500", "from-gray-900", "via-purple-900", "to-blue-900");
+        }
+
+        function applyForestTheme() {
+            document.body.classList.add("from-green-600", "to-brown-600");
+            document.body.classList.remove("from-gray-100", "to-gray-200", "from-yellow-400", "via-orange-400", "to-red-500", "from-gray-900", "via-purple-900", "to-blue-900");
+        }
+
+        function applyVibrantTheme() {
+            document.body.classList.add("from-pink-500", "via-yellow-500", "to-blue-500");
+            document.body.classList.remove("from-gray-100", "to-gray-200", "from-yellow-400", "via-orange-400", "to-red-500", "from-gray-900", "via-purple-900", "to-blue-900");
+        }
+
+        function applyRetroTheme() {
+            document.body.classList.add("from-pink-600", "to-blue-600");
+            document.body.classList.remove("from-gray-100", "to-gray-200", "from-yellow-400", "via-orange-400", "to-red-500", "from-gray-900", "via-purple-900", "to-blue-900");
+        }
+
+        function applyGalaxyTheme() {
+            document.body.classList.add("from-purple-900", "to-blue-900");
+            document.body.classList.remove("from-gray-100", "to-gray-200", "from-yellow-400", "via-orange-400", "to-red-500", "from-gray-900", "via-purple-900", "to-blue-900");
         }
 
         // Event Listeners for Theme Buttons
-        morningButton.addEventListener("click", function () {
-            applyMorningTheme();
-        });
-
-        afternoonButton.addEventListener("click", function () {
-            applyAfternoonTheme();
-        });
-
-        nightButton.addEventListener("click", function () {
-            applyNightTheme();
-        });
+        morningButton.addEventListener("click", applyMorningTheme);
+        afternoonButton.addEventListener("click", applyAfternoonTheme);
+        nightButton.addEventListener("click", applyNightTheme);
+        defaultButton.addEventListener("click", applyDefaultTheme);
+        lightButton.addEventListener("click", applyLightTheme);
+        darkButton.addEventListener("click", applyDarkTheme);
+        sunsetButton.addEventListener("click", applySunsetTheme);
+        oceanButton.addEventListener("click", applyOceanTheme);
+        forestButton.addEventListener("click", applyForestTheme);
+        vibrantButton.addEventListener("click", applyVibrantTheme);
+        retroButton.addEventListener("click", applyRetroTheme);
+        galaxyButton.addEventListener("click", applyGalaxyTheme);
 
         // Start the clock
         clock();
