@@ -38,24 +38,60 @@
     </div>
 
     <script>
-        const categories = {
-            retro: ["#FF5733", "#FFC300", "#DAF7A6", "#C70039", "#900C3F"],
-            vintage: ["#776B5D", "#A67C52", "#C09B75", "#ECD5BB", "#F1E3D3"],
-            summer: ["#FF6B6B", "#FFE66D", "#4ECDC4", "#1A535C", "#F7FFF7"],
-            forest: ["#2E8B57", "#556B2F", "#6B8E23", "#8FBC8F", "#A9DFBF"],
-            coffee: ["#6F4E37", "#C19A6B", "#D2B48C", "#8B4513", "#5C4033"],
-            cool: ["#00A8CC", "#89CFF0", "#4682B4", "#5F9EA0", "#008080"],
-            spring: ["#FFB6C1", "#FFD700", "#ADFF2F", "#32CD32", "#00FA9A"]
+        const categoryHues = {
+            retro: [10, 40],       // Warm orange & red hues
+            vintage: [30, 60],     // Yellow and muted tones
+            summer: [180, 220],    // Bright blues and aquas
+            forest: [90, 150],     // Green shades
+            coffee: [20, 40],      // Brown and warm neutral tones
+            cool: [200, 250],      // Cool blues and purples
+            spring: [0, 100]       // Pastel and fresh colors
         };
 
-        function getRandomHexColor() {
-            return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+        function getRandomHexFromHue(hueRange) {
+            const h = Math.floor(Math.random() * (hueRange[1] - hueRange[0]) + hueRange[0]);
+            const s = Math.floor(Math.random() * 30) + 50; // Keep saturation moderate
+            const l = Math.floor(Math.random() * 30) + 40; // Keep lightness moderate
+            return hslToHex(h, s, l);
+        }
+
+        function hslToHex(h, s, l) {
+            s /= 100;
+            l /= 100;
+            let c = (1 - Math.abs(2 * l - 1)) * s;
+            let x = c * (1 - Math.abs((h / 60) % 2 - 1));
+            let m = l - c / 2;
+            let r, g, b;
+
+            if (h < 60) [r, g, b] = [c, x, 0];
+            else if (h < 120) [r, g, b] = [x, c, 0];
+            else if (h < 180) [r, g, b] = [0, c, x];
+            else if (h < 240) [r, g, b] = [0, x, c];
+            else if (h < 300) [r, g, b] = [x, 0, c];
+            else [r, g, b] = [c, 0, x];
+
+            r = Math.round((r + m) * 255);
+            g = Math.round((g + m) * 255);
+            b = Math.round((b + m) * 255);
+
+            return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase()}`;
         }
 
         function generatePalette() {
             const category = document.getElementById("category").value;
-            let colors = categories[category] || Array.from({ length: 5 }, getRandomHexColor);
-            
+            let colors = [];
+            const numColors = 4 + Math.floor(Math.random() * 5); // Between 4 and 8 colors
+
+            if (category === "random") {
+                for (let i = 0; i < numColors; i++) {
+                    colors.push(getRandomHexFromHue([0, 360])); // Fully random colors
+                }
+            } else {
+                for (let i = 0; i < numColors; i++) {
+                    colors.push(getRandomHexFromHue(categoryHues[category]));
+                }
+            }
+
             const container = document.getElementById("palette-container");
             container.innerHTML = "";
 
