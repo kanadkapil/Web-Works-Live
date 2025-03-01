@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whiteboard & Blackboard App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-4">
+        <div class="flex justify-between mb-4">
+            <button id="toggleMode" class="bg-blue-500 text-white px-4 py-2 rounded">Switch to Blackboard</button>
+            <input type="color" id="colorPicker" class="border p-1">
+            <input type="range" id="brushSize" min="1" max="10" value="3" class="w-24">
+            <button id="clearCanvas" class="bg-red-500 text-white px-4 py-2 rounded">Clear</button>
+        </div>
+        <canvas id="drawingCanvas" class="border w-full h-[400px] bg-white"></canvas>
+    </div>
+
+    <script >
+        const canvas = document.getElementById("drawingCanvas");
+const ctx = canvas.getContext("2d");
+const toggleMode = document.getElementById("toggleMode");
+const colorPicker = document.getElementById("colorPicker");
+const brushSize = document.getElementById("brushSize");
+const clearCanvas = document.getElementById("clearCanvas");
+
+let isDrawing = false;
+let currentColor = "#000000";
+let currentSize = 3;
+let isBlackboard = false;
+
+// Set canvas size
+canvas.width = canvas.clientWidth;
+canvas.height = 400;
+
+// Start Drawing
+canvas.addEventListener("mousedown", () => (isDrawing = true));
+canvas.addEventListener("mouseup", () => (isDrawing = false));
+canvas.addEventListener("mousemove", draw);
+
+function draw(e) {
+    if (!isDrawing) return;
+    ctx.lineWidth = currentSize;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = currentColor;
+
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(e.offsetX, e.offsetY);
+}
+
+// Change Color
+colorPicker.addEventListener("input", (e) => {
+    currentColor = e.target.value;
+});
+
+// Change Brush Size
+brushSize.addEventListener("input", (e) => {
+    currentSize = e.target.value;
+});
+
+// Clear Canvas
+clearCanvas.addEventListener("click", () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+});
+
+// Toggle Whiteboard/Blackboard Mode
+toggleMode.addEventListener("click", () => {
+    isBlackboard = !isBlackboard;
+    canvas.style.background = isBlackboard ? "#222" : "#fff";
+    currentColor = isBlackboard ? "#fff" : "#000";
+    toggleMode.textContent = isBlackboard ? "Switch to Whiteboard" : "Switch to Blackboard";
+});
+
+    </script>
+</body>
+</html>
