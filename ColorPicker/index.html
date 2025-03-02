@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Template App</title>
+    <title>Color Palette Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-6">
 
-    <div class="max-w-4xl mx-auto">
-        <h1 class="text-3xl font-bold text-center mb-6">Color Template App</h1>
+    <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-3xl font-bold mb-6">🎨 Color Palette Generator</h1>
 
-        <div class="flex space-x-2 mb-4">
+        <div class="flex flex-wrap justify-center gap-2 mb-4">
             <select id="category" class="p-2 border rounded">
                 <option value="random">Random</option>
                 <option value="retro">Retro</option>
@@ -22,15 +22,16 @@
                 <option value="cool">Cool</option>
                 <option value="spring">Spring</option>
             </select>
-            <button onclick="generatePalette()" class="p-2 bg-blue-500 text-white rounded">Generate Palette</button>
+            <input type="number" id="numColors" min="2" max="7" value="5" class="p-2 border rounded w-20" title="Select number of colors">
+            <button onclick="generatePalette()" class="p-2 bg-blue-500 text-white rounded">Generate</button>
         </div>
 
-        <div id="palette-container" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
+        <div id="palette-container" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
     </div>
 
     <!-- Modal -->
     <div id="colorModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-        <div class="bg-white p-4 rounded w-80">
+        <div class="bg-white p-6 rounded w-80 shadow-lg text-center">
             <h2 class="text-lg font-bold mb-2">Color Details</h2>
             <p id="colorInfo"></p>
             <button onclick="closeModal()" class="mt-2 bg-red-500 text-white px-4 py-2 rounded">Close</button>
@@ -39,19 +40,19 @@
 
     <script>
         const categoryHues = {
-            retro: [10, 40],       // Warm orange & red hues
-            vintage: [30, 60],     // Yellow and muted tones
-            summer: [180, 220],    // Bright blues and aquas
-            forest: [90, 150],     // Green shades
-            coffee: [20, 40],      // Brown and warm neutral tones
-            cool: [200, 250],      // Cool blues and purples
-            spring: [0, 100]       // Pastel and fresh colors
+            retro: [10, 40],
+            vintage: [30, 60],
+            summer: [180, 220],
+            forest: [90, 150],
+            coffee: [20, 40],
+            cool: [200, 250],
+            spring: [0, 100]
         };
 
         function getRandomHexFromHue(hueRange) {
             const h = Math.floor(Math.random() * (hueRange[1] - hueRange[0]) + hueRange[0]);
-            const s = Math.floor(Math.random() * 30) + 50; // Keep saturation moderate
-            const l = Math.floor(Math.random() * 30) + 40; // Keep lightness moderate
+            const s = Math.floor(Math.random() * 30) + 50;
+            const l = Math.floor(Math.random() * 30) + 40;
             return hslToHex(h, s, l);
         }
 
@@ -79,12 +80,12 @@
 
         function generatePalette() {
             const category = document.getElementById("category").value;
+            const numColors = parseInt(document.getElementById("numColors").value) || 5;
             let colors = [];
-            const numColors = 4 + Math.floor(Math.random() * 5); // Between 4 and 8 colors
 
             if (category === "random") {
                 for (let i = 0; i < numColors; i++) {
-                    colors.push(getRandomHexFromHue([0, 360])); // Fully random colors
+                    colors.push(getRandomHexFromHue([0, 360]));
                 }
             } else {
                 for (let i = 0; i < numColors; i++) {
@@ -97,9 +98,9 @@
 
             colors.forEach(color => {
                 const card = document.createElement("div");
-                card.className = "p-4 rounded shadow cursor-pointer";
+                card.className = "p-4 rounded shadow cursor-pointer flex justify-center items-center text-white font-bold h-24";
                 card.style.backgroundColor = color;
-                card.innerHTML = `<p class="text-white font-bold">${color}</p>`;
+                card.innerText = color;
                 card.onclick = () => showColorDetails(color);
                 container.appendChild(card);
             });
@@ -109,6 +110,7 @@
             document.getElementById("colorInfo").innerHTML = `
                 <p>HEX: <span class="font-bold">${color}</span></p>
                 <p>RGB: <span class="font-bold">${hexToRGB(color)}</span></p>
+                <button onclick="copyToClipboard('${color}')" class="mt-2 bg-green-500 text-white px-4 py-1 rounded">Copy HEX</button>
             `;
             document.getElementById("colorModal").classList.remove("hidden");
         }
@@ -120,10 +122,15 @@
             return `rgb(${r}, ${g}, ${b})`;
         }
 
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Copied: " + text);
+            });
+        }
+
         function closeModal() {
             document.getElementById("colorModal").classList.add("hidden");
         }
     </script>
-
 </body>
 </html>
