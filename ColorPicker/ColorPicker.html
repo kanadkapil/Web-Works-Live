@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+        <h1 class="text-2xl font-bold mb-4">Color Picker App</h1>
+        
+        <input type="color" id="colorPicker" class="w-20 h-10 border-none cursor-pointer">
+        
+        <div class="mt-4 p-4 rounded-lg text-white text-lg font-semibold" id="colorBox">
+            #FFFFFF
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const colorPicker = document.getElementById("colorPicker");
+            const colorBox = document.getElementById("colorBox");
+
+            colorPicker.addEventListener("input", () => {
+                let selectedColor = colorPicker.value;
+                colorBox.style.backgroundColor = selectedColor;
+                colorBox.textContent = selectedColor.toUpperCase();
+            });
+        });
+    </script>
+
+</body>
+</html>
