@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roman Numeral Converter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom style to add margin for the body */
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+  <div class="max-w-4xl mx-auto py-10 px-4">
+    <h1 class="text-3xl font-semibold text-center mb-8">Roman Numeral Converter</h1>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <h2 class="text-2xl font-medium text-center mb-4">Convert Roman to Decimal</h2>
+      <div class="flex justify-center items-center space-x-4">
+        <input type="text" id="romanInput" class="border border-gray-300 rounded-lg p-3 w-1/2" placeholder="Enter Roman Numeral" />
+        <button onclick="convertRomanToDecimal()" class="bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600">Convert</button>
+      </div>
+      <p id="romanToDecimalResult" class="text-center mt-4 text-lg"></p>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-2xl font-medium text-center mb-4">Convert Decimal to Roman</h2>
+      <div class="flex justify-center items-center space-x-4">
+        <input type="number" id="decimalInput" class="border border-gray-300 rounded-lg p-3 w-1/2" placeholder="Enter Decimal Number" />
+        <button onclick="convertDecimalToRoman()" class="bg-green-500 text-white p-3 rounded-lg hover:bg-green-600">Convert</button>
+      </div>
+      <p id="decimalToRomanResult" class="text-center mt-4 text-lg"></p>
+    </div>
+  </div>
+
+  <script>
+    // Function to convert Roman to Decimal
+    function convertRomanToDecimal() {
+      const roman = document.getElementById('romanInput').value.toUpperCase();
+      const resultElement = document.getElementById('romanToDecimalResult');
+
+      const romanNumerals = {
+        'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000
+      };
+
+      let total = 0;
+      let prevValue = 0;
+
+      for (let i = roman.length - 1; i >= 0; i--) {
+        const currentValue = romanNumerals[roman[i]];
+
+        // If the current value is less than the previous value, subtract it from total, else add it
+        if (currentValue < prevValue) {
+          total -= currentValue;
+        } else {
+          total += currentValue;
+        }
+
+        prevValue = currentValue;
+      }
+
+      // Output the result
+      if (isNaN(total) || total <= 0) {
+        resultElement.textContent = 'Invalid Roman Numeral';
+      } else {
+        resultElement.textContent = `Decimal: ${total}`;
+      }
+    }
+
+    // Function to convert Decimal to Roman
+    function convertDecimalToRoman() {
+      const decimal = parseInt(document.getElementById('decimalInput').value);
+      const resultElement = document.getElementById('decimalToRomanResult');
+
+      if (isNaN(decimal) || decimal <= 0 || decimal > 3999) {
+        resultElement.textContent = 'Please enter a valid decimal number (1-3999)';
+        return;
+      }
+
+      const romanNumerals = [
+        { value: 1000, numeral: 'M' },
+        { value: 900, numeral: 'CM' },
+        { value: 500, numeral: 'D' },
+        { value: 400, numeral: 'CD' },
+        { value: 100, numeral: 'C' },
+        { value: 90, numeral: 'XC' },
+        { value: 50, numeral: 'L' },
+        { value: 40, numeral: 'XL' },
+        { value: 10, numeral: 'X' },
+        { value: 9, numeral: 'IX' },
+        { value: 5, numeral: 'V' },
+        { value: 4, numeral: 'IV' },
+        { value: 1, numeral: 'I' }
+      ];
+
+      let result = '';
+      let num = decimal;
+
+      for (let i = 0; i < romanNumerals.length; i++) {
+        while (num >= romanNumerals[i].value) {
+          result += romanNumerals[i].numeral;
+          num -= romanNumerals[i].value;
+        }
+      }
+
+      // Output the result
+      resultElement.textContent = `Roman: ${result}`;
+    }
+  </script>
+
+</body>
+</html>
