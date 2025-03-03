@@ -3,41 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Picker App</title>
+    <title>Advanced Color Picker</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gray-100">
-
-    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-        <h1 class="text-2xl font-bold mb-4">Color Picker App</h1>
-        
-        <input type="color" id="colorPicker" class="w-20 h-10 border-none cursor-pointer">
-        
-        <div class="mt-4 p-4 rounded-lg text-white text-lg font-semibold" id="colorBox">
-            #FFFFFF
-        </div><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Picker App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="flex items-center justify-center min-h-screen bg-gray-100">
+<body class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
 
     <div class="bg-white p-6 rounded-lg shadow-lg text-center w-96">
-        <h1 class="text-2xl font-bold mb-4">Color Picker App</h1>
+        <h1 class="text-2xl font-bold mb-4">Advanced Color Picker</h1>
         
         <input type="color" id="colorPicker" class="w-20 h-10 border-none cursor-pointer">
-        
         <div id="colorDisplay" class="mt-4 p-4 rounded-lg text-white text-lg font-semibold">
             #FFFFFF | rgb(255, 255, 255)
         </div>
+        <p id="colorName" class="text-gray-500 mt-2"></p>
 
         <button id="copyBtn" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
             Copy Color Code
         </button>
-        
+
+        <button id="randomColorBtn" class="mt-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+            Random Color
+        </button>
+
+        <h2 class="mt-6 text-lg font-semibold">Recent Colors:</h2>
+        <div id="colorHistory" class="flex gap-2 mt-2 justify-center"></div>
+
+        <h2 class="mt-6 text-lg font-semibold">Gradient Preview:</h2>
+        <input type="color" id="gradientPicker" class="w-10 h-10 cursor-pointer">
+        <div id="gradientPreview" class="mt-2 h-10 rounded-lg"></div>
+
+        <button id="downloadPalette" class="mt-4 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600">
+            Download Palette
+        </button>
+
         <p id="message" class="text-green-500 mt-2 hidden">Copied!</p>
     </div>
 
@@ -45,32 +43,43 @@
         document.addEventListener("DOMContentLoaded", () => {
             const colorPicker = document.getElementById("colorPicker");
             const colorDisplay = document.getElementById("colorDisplay");
+            const colorName = document.getElementById("colorName");
             const copyBtn = document.getElementById("copyBtn");
             const message = document.getElementById("message");
+            const colorHistory = document.getElementById("colorHistory");
+            const randomColorBtn = document.getElementById("randomColorBtn");
+            const gradientPicker = document.getElementById("gradientPicker");
+            const gradientPreview = document.getElementById("gradientPreview");
+            const downloadPalette = document.getElementById("downloadPalette");
 
-            // Load last selected color from localStorage
-            const savedColor = localStorage.getItem("selectedColor") || "#FFFFFF";
-            colorPicker.value = savedColor;
-            updateColor(savedColor);
-
-            colorPicker.addEventListener("input", () => {
-                const selectedColor = colorPicker.value;
-                updateColor(selectedColor);
-                localStorage.setItem("selectedColor", selectedColor);
-            });
-
-            copyBtn.addEventListener("click", () => {
-                const colorText = colorDisplay.textContent;
-                navigator.clipboard.writeText(colorText).then(() => {
-                    message.classList.remove("hidden");
-                    setTimeout(() => message.classList.add("hidden"), 1500);
-                });
-            });
+            let colors = JSON.parse(localStorage.getItem("colorHistory")) || [];
 
             function updateColor(color) {
                 const rgbColor = hexToRgb(color);
                 colorDisplay.style.backgroundColor = color;
                 colorDisplay.textContent = `${color.toUpperCase()} | ${rgbColor}`;
+                colorName.textContent = getColorName(color);
+                addToHistory(color);
+            }
+
+            function addToHistory(color) {
+                if (!colors.includes(color)) {
+                    if (colors.length >= 5) colors.pop();
+                    colors.unshift(color);
+                    localStorage.setItem("colorHistory", JSON.stringify(colors));
+                }
+                renderHistory();
+            }
+
+            function renderHistory() {
+                colorHistory.innerHTML = "";
+                colors.forEach(color => {
+                    const div = document.createElement("div");
+                    div.className = "w-6 h-6 rounded-full cursor-pointer border";
+                    div.style.backgroundColor = color;
+                    div.onclick = () => updateColor(color);
+                    colorHistory.appendChild(div);
+                });
             }
 
             function hexToRgb(hex) {
@@ -80,24 +89,60 @@
                 const b = bigint & 255;
                 return `rgb(${r}, ${g}, ${b})`;
             }
-        });
-    </script>
 
-</body>
-</html>
+            function getColorName(hex) {
+                const colorNames = {
+                    "#FF0000": "Red", "#00FF00": "Green", "#0000FF": "Blue",
+                    "#FFFF00": "Yellow", "#FFA500": "Orange", "#800080": "Purple",
+                    "#000000": "Black", "#FFFFFF": "White", "#808080": "Gray"
+                };
+                return colorNames[hex.toUpperCase()] || "Unknown Color";
+            }
 
-    </div>
+            function generateRandomColor() {
+                const randomHex = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+                colorPicker.value = randomHex;
+                updateColor(randomHex);
+            }
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const colorPicker = document.getElementById("colorPicker");
-            const colorBox = document.getElementById("colorBox");
+            function updateGradient() {
+                const color1 = colorPicker.value;
+                const color2 = gradientPicker.value;
+                gradientPreview.style.background = `linear-gradient(to right, ${color1}, ${color2})`;
+            }
 
-            colorPicker.addEventListener("input", () => {
-                let selectedColor = colorPicker.value;
-                colorBox.style.backgroundColor = selectedColor;
-                colorBox.textContent = selectedColor.toUpperCase();
+            function downloadColorPalette() {
+                const canvas = document.createElement("canvas");
+                canvas.width = 200;
+                canvas.height = 50;
+                const ctx = canvas.getContext("2d");
+
+                for (let i = 0; i < colors.length; i++) {
+                    ctx.fillStyle = colors[i];
+                    ctx.fillRect(i * 40, 0, 40, 50);
+                }
+
+                const link = document.createElement("a");
+                link.href = canvas.toDataURL();
+                link.download = "color_palette.png";
+                link.click();
+            }
+
+            colorPicker.addEventListener("input", () => updateColor(colorPicker.value));
+            gradientPicker.addEventListener("input", updateGradient);
+            copyBtn.addEventListener("click", () => {
+                navigator.clipboard.writeText(colorDisplay.textContent).then(() => {
+                    message.classList.remove("hidden");
+                    setTimeout(() => message.classList.add("hidden"), 1500);
+                });
             });
+
+            randomColorBtn.addEventListener("click", generateRandomColor);
+            downloadPalette.addEventListener("click", downloadColorPalette);
+
+            updateColor(colorPicker.value);
+            renderHistory();
+            updateGradient();
         });
     </script>
 
