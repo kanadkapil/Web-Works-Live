@@ -15,7 +15,77 @@
         
         <div class="mt-4 p-4 rounded-lg text-white text-lg font-semibold" id="colorBox">
             #FFFFFF
+        </div><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center w-96">
+        <h1 class="text-2xl font-bold mb-4">Color Picker App</h1>
+        
+        <input type="color" id="colorPicker" class="w-20 h-10 border-none cursor-pointer">
+        
+        <div id="colorDisplay" class="mt-4 p-4 rounded-lg text-white text-lg font-semibold">
+            #FFFFFF | rgb(255, 255, 255)
         </div>
+
+        <button id="copyBtn" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+            Copy Color Code
+        </button>
+        
+        <p id="message" class="text-green-500 mt-2 hidden">Copied!</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const colorPicker = document.getElementById("colorPicker");
+            const colorDisplay = document.getElementById("colorDisplay");
+            const copyBtn = document.getElementById("copyBtn");
+            const message = document.getElementById("message");
+
+            // Load last selected color from localStorage
+            const savedColor = localStorage.getItem("selectedColor") || "#FFFFFF";
+            colorPicker.value = savedColor;
+            updateColor(savedColor);
+
+            colorPicker.addEventListener("input", () => {
+                const selectedColor = colorPicker.value;
+                updateColor(selectedColor);
+                localStorage.setItem("selectedColor", selectedColor);
+            });
+
+            copyBtn.addEventListener("click", () => {
+                const colorText = colorDisplay.textContent;
+                navigator.clipboard.writeText(colorText).then(() => {
+                    message.classList.remove("hidden");
+                    setTimeout(() => message.classList.add("hidden"), 1500);
+                });
+            });
+
+            function updateColor(color) {
+                const rgbColor = hexToRgb(color);
+                colorDisplay.style.backgroundColor = color;
+                colorDisplay.textContent = `${color.toUpperCase()} | ${rgbColor}`;
+            }
+
+            function hexToRgb(hex) {
+                const bigint = parseInt(hex.slice(1), 16);
+                const r = (bigint >> 16) & 255;
+                const g = (bigint >> 8) & 255;
+                const b = bigint & 255;
+                return `rgb(${r}, ${g}, ${b})`;
+            }
+        });
+    </script>
+
+</body>
+</html>
+
     </div>
 
     <script>
