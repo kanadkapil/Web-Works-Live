@@ -65,56 +65,6 @@
         "bombs": "8,160 kg"
       }
     ],
-    "migSeries": [
-      {
-        "name": "MiG-21",
-        "nickname": "Fishbed",
-        "abilities": "Lightweight, high-speed interceptor",
-        "topSpeed": 2175,
-        "range": 1000,
-        "bombs": "2,000 kg"
-      },
-      {
-        "name": "MiG-23",
-        "nickname": "Flogger",
-        "abilities": "Variable-sweep wings, multi-role capability",
-        "topSpeed": 2500,
-        "range": 1500,
-        "bombs": "3,500 kg"
-      },
-      {
-        "name": "MiG-25",
-        "nickname": "Foxbat",
-        "abilities": "Extreme speed, high-altitude interceptor",
-        "topSpeed": 3000,
-        "range": 1600,
-        "bombs": "4,000 kg"
-      },
-      {
-        "name": "MiG-29",
-        "nickname": "Fulcrum",
-        "abilities": "High maneuverability, air superiority",
-        "topSpeed": 2400,
-        "range": 1500,
-        "bombs": "4,000 kg"
-      },
-      {
-        "name": "MiG-31",
-        "nickname": "Foxhound",
-        "abilities": "Long-range, high-speed interceptor",
-        "topSpeed": 3000,
-        "range": 2000,
-        "bombs": "6,000 kg"
-      },
-      {
-        "name": "MiG-35",
-        "nickname": "Fulcrum-F",
-        "abilities": "Multi-role, advanced avionics, thrust vectoring",
-        "topSpeed": 2700,
-        "range": 2000,
-        "bombs": "5,000 kg"
-      }
-    ],
     "suSeries": [
       {
         "name": "Su-27",
@@ -163,6 +113,56 @@
         "topSpeed": 2600,
         "range": 3500,
         "bombs": "10,000 kg"
+      }
+    ],
+    "migSeries": [
+      {
+        "name": "MiG-21",
+        "nickname": "Fishbed",
+        "abilities": "Lightweight, high-speed interceptor",
+        "topSpeed": 2175,
+        "range": 1000,
+        "bombs": "2,000 kg"
+      },
+      {
+        "name": "MiG-23",
+        "nickname": "Flogger",
+        "abilities": "Variable-sweep wings, multi-role capability",
+        "topSpeed": 2500,
+        "range": 1500,
+        "bombs": "3,500 kg"
+      },
+      {
+        "name": "MiG-25",
+        "nickname": "Foxbat",
+        "abilities": "Extreme speed, high-altitude interceptor",
+        "topSpeed": 3000,
+        "range": 1600,
+        "bombs": "4,000 kg"
+      },
+      {
+        "name": "MiG-29",
+        "nickname": "Fulcrum",
+        "abilities": "High maneuverability, air superiority",
+        "topSpeed": 2400,
+        "range": 1500,
+        "bombs": "4,000 kg"
+      },
+      {
+        "name": "MiG-31",
+        "nickname": "Foxhound",
+        "abilities": "Long-range, high-speed interceptor",
+        "topSpeed": 3000,
+        "range": 2000,
+        "bombs": "6,000 kg"
+      },
+      {
+        "name": "MiG-35",
+        "nickname": "Fulcrum-F",
+        "abilities": "Multi-role, advanced avionics, thrust vectoring",
+        "topSpeed": 2700,
+        "range": 2000,
+        "bombs": "5,000 kg"
       }
     ],
     "jSeries": [
@@ -231,6 +231,56 @@
         "topSpeed": 2400,
         "range": 1800,
         "bombs": "3,500 kg"
+      },
+      {
+        "name": "Rafale",
+        "nickname": "-",
+        "abilities": "Multi-role, advanced radar, carrier-capable",
+        "topSpeed": 1912,
+        "range": 1850,
+        "bombs": "3,700 kg"
+      }
+    ],
+    "indianSeries": [
+      {
+        "name": "Tejas",
+        "nickname": "Light Combat Aircraft (LCA)",
+        "abilities": "Lightweight, multi-role, indigenously developed",
+        "topSpeed": 2200,
+        "range": 1700,
+        "bombs": "4,000 kg"
+      },
+      {
+        "name": "HAL Tejas Mk1A",
+        "nickname": "Upgraded Tejas",
+        "abilities": "Improved avionics, better radar, enhanced payload",
+        "topSpeed": 2200,
+        "range": 1700,
+        "bombs": "4,500 kg"
+      },
+      {
+        "name": "Sukhoi Su-30MKI",
+        "nickname": "Flanker-H",
+        "abilities": "Air superiority, thrust vectoring, multi-role",
+        "topSpeed": 2120,
+        "range": 3000,
+        "bombs": "8,000 kg"
+      },
+      {
+        "name": "Mirage 2000",
+        "nickname": "-",
+        "abilities": "Delta-wing, multi-role, high-speed interceptor",
+        "topSpeed": 2336,
+        "range": 1550,
+        "bombs": "2,000 kg"
+      },
+      {
+        "name": "MiG-21 Bison",
+        "nickname": "Upgraded Fishbed",
+        "abilities": "Upgraded avionics, improved radar, lightweight",
+        "topSpeed": 2175,
+        "range": 1000,
+        "bombs": "2,000 kg"
       },
       {
         "name": "Rafale",
