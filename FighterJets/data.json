@@ -1,0 +1,244 @@
+{
+    "fSeries": [
+      {
+        "name": "F-4",
+        "nickname": "Phantom II",
+        "abilities": "Multi-role, long-range, high payload",
+        "topSpeed": 2370,
+        "range": 1610,
+        "bombs": "8,000 kg"
+      },
+      {
+        "name": "F-14",
+        "nickname": "Tomcat",
+        "abilities": "Variable-sweep wings, advanced radar, carrier-based",
+        "topSpeed": 2485,
+        "range": 2600,
+        "bombs": "6,800 kg"
+      },
+      {
+        "name": "F-15",
+        "nickname": "Eagle",
+        "abilities": "Air superiority, high maneuverability",
+        "topSpeed": 2655,
+        "range": 4000,
+        "bombs": "7,700 kg"
+      },
+      {
+        "name": "F-16",
+        "nickname": "Fighting Falcon",
+        "abilities": "Lightweight, high agility, versatile",
+        "topSpeed": 2414,
+        "range": 4200,
+        "bombs": "7,700 kg"
+      },
+      {
+        "name": "F/A-18",
+        "nickname": "Hornet",
+        "abilities": "Carrier-capable, multi-role, high survivability",
+        "topSpeed": 1915,
+        "range": 2250,
+        "bombs": "4,500 kg"
+      },
+      {
+        "name": "F/A-18E/F",
+        "nickname": "Super Hornet",
+        "abilities": "Upgraded Hornet, better avionics & fuel capacity",
+        "topSpeed": 1915,
+        "range": 2400,
+        "bombs": "8,000 kg"
+      },
+      {
+        "name": "F-22",
+        "nickname": "Raptor",
+        "abilities": "Stealth, supercruise, extreme maneuverability",
+        "topSpeed": 2414,
+        "range": 2960,
+        "bombs": "8,000 kg"
+      },
+      {
+        "name": "F-35",
+        "nickname": "Lightning II",
+        "abilities": "Stealth, advanced avionics, vertical landing (B variant)",
+        "topSpeed": 1931,
+        "range": 2220,
+        "bombs": "8,160 kg"
+      }
+    ],
+    "migSeries": [
+      {
+        "name": "MiG-21",
+        "nickname": "Fishbed",
+        "abilities": "Lightweight, high-speed interceptor",
+        "topSpeed": 2175,
+        "range": 1000,
+        "bombs": "2,000 kg"
+      },
+      {
+        "name": "MiG-23",
+        "nickname": "Flogger",
+        "abilities": "Variable-sweep wings, multi-role capability",
+        "topSpeed": 2500,
+        "range": 1500,
+        "bombs": "3,500 kg"
+      },
+      {
+        "name": "MiG-25",
+        "nickname": "Foxbat",
+        "abilities": "Extreme speed, high-altitude interceptor",
+        "topSpeed": 3000,
+        "range": 1600,
+        "bombs": "4,000 kg"
+      },
+      {
+        "name": "MiG-29",
+        "nickname": "Fulcrum",
+        "abilities": "High maneuverability, air superiority",
+        "topSpeed": 2400,
+        "range": 1500,
+        "bombs": "4,000 kg"
+      },
+      {
+        "name": "MiG-31",
+        "nickname": "Foxhound",
+        "abilities": "Long-range, high-speed interceptor",
+        "topSpeed": 3000,
+        "range": 2000,
+        "bombs": "6,000 kg"
+      },
+      {
+        "name": "MiG-35",
+        "nickname": "Fulcrum-F",
+        "abilities": "Multi-role, advanced avionics, thrust vectoring",
+        "topSpeed": 2700,
+        "range": 2000,
+        "bombs": "5,000 kg"
+      }
+    ],
+    "suSeries": [
+      {
+        "name": "Su-27",
+        "nickname": "Flanker",
+        "abilities": "Air superiority, high maneuverability",
+        "topSpeed": 2500,
+        "range": 3530,
+        "bombs": "4,000 kg"
+      },
+      {
+        "name": "Su-30",
+        "nickname": "Flanker-C",
+        "abilities": "Multi-role, advanced avionics, thrust vectoring",
+        "topSpeed": 2120,
+        "range": 3000,
+        "bombs": "8,000 kg"
+      },
+      {
+        "name": "Su-33",
+        "nickname": "Flanker-D",
+        "abilities": "Carrier-based, naval air superiority",
+        "topSpeed": 2300,
+        "range": 3000,
+        "bombs": "6,500 kg"
+      },
+      {
+        "name": "Su-34",
+        "nickname": "Fullback",
+        "abilities": "Strike fighter, long-range, heavy payload",
+        "topSpeed": 1900,
+        "range": 4000,
+        "bombs": "8,000 kg"
+      },
+      {
+        "name": "Su-35",
+        "nickname": "Flanker-E",
+        "abilities": "Super maneuverability, advanced avionics",
+        "topSpeed": 2400,
+        "range": 3600,
+        "bombs": "8,000 kg"
+      },
+      {
+        "name": "Su-57",
+        "nickname": "Felon",
+        "abilities": "Stealth, supercruise, 5th-generation fighter",
+        "topSpeed": 2600,
+        "range": 3500,
+        "bombs": "10,000 kg"
+      }
+    ],
+    "jSeries": [
+      {
+        "name": "J-7",
+        "nickname": "Derived from MiG-21",
+        "abilities": "Lightweight, fast interceptor",
+        "topSpeed": 2200,
+        "range": 1000,
+        "bombs": "1,500 kg"
+      },
+      {
+        "name": "J-10",
+        "nickname": "Vigorous Dragon",
+        "abilities": "Multi-role, high maneuverability",
+        "topSpeed": 2327,
+        "range": 1700,
+        "bombs": "3,500 kg"
+      },
+      {
+        "name": "J-11",
+        "nickname": "Su-27 Variant",
+        "abilities": "Air superiority, high agility",
+        "topSpeed": 2500,
+        "range": 2100,
+        "bombs": "4,500 kg"
+      },
+      {
+        "name": "J-15",
+        "nickname": "Flying Shark",
+        "abilities": "Carrier-based, naval strike fighter",
+        "topSpeed": 2400,
+        "range": 1000,
+        "bombs": "3,000 kg"
+      },
+      {
+        "name": "J-16",
+        "nickname": "Su-30 Variant",
+        "abilities": "Multi-role, enhanced avionics",
+        "topSpeed": 2250,
+        "range": 2000,
+        "bombs": "4,500 kg"
+      },
+      {
+        "name": "J-20",
+        "nickname": "Mighty Dragon",
+        "abilities": "Stealth, supercruise, 5th-generation fighter",
+        "topSpeed": 2126,
+        "range": 2000,
+        "bombs": "4,000 kg"
+      }
+    ],
+    "dassaultSeries": [
+      {
+        "name": "Mirage 2000",
+        "nickname": "-",
+        "abilities": "Delta-wing, multi-role, high-speed interceptor",
+        "topSpeed": 2336,
+        "range": 1550,
+        "bombs": "2,000 kg"
+      },
+      {
+        "name": "Mirage 4000",
+        "nickname": "-",
+        "abilities": "Experimental, twin-engine, high-performance",
+        "topSpeed": 2400,
+        "range": 1800,
+        "bombs": "3,500 kg"
+      },
+      {
+        "name": "Rafale",
+        "nickname": "-",
+        "abilities": "Multi-role, advanced radar, carrier-capable",
+        "topSpeed": 1912,
+        "range": 1850,
+        "bombs": "3,700 kg"
+      }
+    ]
+  }
