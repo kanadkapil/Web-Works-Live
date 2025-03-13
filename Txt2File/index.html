@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Text to File</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #044b82;
+            font-family: "Kanit", Verdana, Arial, sans-serif;
+        }
+        #container {
+            width: 430px;
+            padding: 40px 20px;
+            background: white;
+            text-align: center;
+            border-radius: 10px;
+        }
+        h1 {
+            color: #0773d7;
+            font-size: 30px;
+            width: 100%;
+            margin-top: -15px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        textarea {
+            display: block;
+            width: 100%;
+            background-color: transparent;
+            color: #021652;
+            border: 2px solid #3ba9f4;
+            border-radius: 5px;
+            resize: none;
+            margin-bottom: 20px;
+            height: 200px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #filename {
+            width: calc(100% - 180px);
+            border: 2px solid #3ba9f4;
+            border-radius: 5px;
+            background-color: transparent;
+            color: #052a53;
+            padding: 10px;
+            height: 40px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        #download {
+            background-color: #3ba9f4;
+            color: #fff;
+            font-size: 16px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            width: 160px;
+            cursor: pointer;
+        }
+        #download:hover {
+            background-color: #065a9e;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <h1>Save the text to a file</h1>
+        <textarea placeholder="Type your text here..." id="text"></textarea>
+        <br>
+        <input id="filename" placeholder="Specify a filename..." />
+        <button id="download">Download file</button>
+    </div>
+
+    <script>
+        function downloadFile(filename, content) {
+            const element = document.createElement('a');
+            const blob = new Blob([content], { type: 'text/plain' });
+            const fileUrl = URL.createObjectURL(blob);
+            
+            element.setAttribute('href', fileUrl);
+            element.setAttribute('download', filename);
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+
+        window.onload = () => {
+            document.getElementById('download').addEventListener('click', () => {
+                const filename = document.getElementById('filename').value.trim();
+                const content = document.getElementById('text').value.trim();
+
+                if (filename && content) {
+                    downloadFile(filename, content);
+                } else {
+                    alert("Please enter a filename and text content before downloading.");
+                }
+            });
+        };
+    </script>
+
+</body>
+</html>
