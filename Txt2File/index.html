@@ -2,83 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Save Text to File</title>
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        * {
-            box-sizing: border-box;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body, p, h1, h2, h3, h4, span {
+            font-family: "Poppins", sans-serif;
         }
-        body {
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #044b82;
-            font-family: "Kanit", Verdana, Arial, sans-serif;
-        }
-        #container {
-            width: 430px;
-            padding: 40px 20px;
-            background: white;
-            text-align: center;
-            border-radius: 10px;
-        }
-        h1 {
-            color: #0773d7;
-            font-size: 30px;
-            width: 100%;
-            margin-top: -15px;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-        }
-        textarea {
-            display: block;
-            width: 100%;
-            background-color: transparent;
-            color: #021652;
-            border: 2px solid #3ba9f4;
-            border-radius: 5px;
-            resize: none;
-            margin-bottom: 20px;
-            height: 200px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        #filename {
-            width: calc(100% - 180px);
-            border: 2px solid #3ba9f4;
-            border-radius: 5px;
-            background-color: transparent;
-            color: #052a53;
-            padding: 10px;
-            height: 40px;
-            font-size: 16px;
-            margin-right: 10px;
-        }
-        #download {
-            background-color: #3ba9f4;
-            color: #fff;
-            font-size: 16px;
-            height: 40px;
-            border: none;
-            border-radius: 5px;
-            width: 160px;
-            cursor: pointer;
-        }
-        #download:hover {
-            background-color: #065a9e;
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
-<body>
+<body class="bg-lime-200 h-screen flex items-center justify-center">
 
-    <div id="container">
-        <h1>Save the text to a file</h1>
-        <textarea placeholder="Type your text here..." id="text"></textarea>
-        <br>
-        <input id="filename" placeholder="Specify a filename..." />
-        <button id="download">Download file</button>
+    <div class="bg-white p-8 rounded-2xl w-[430px] max-w-md text-center shadow-xl">
+        <h1 class="text-3xl text-blue-600 font-semibold mb-6 uppercase">Save Text to File</h1>
+
+        <!-- Textarea Component -->
+        <textarea id="text" class="textarea textarea-bordered w-full mb-4 h-48 text-blue-900 border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none" placeholder="Type your text here..."></textarea>
+
+        <!-- Filename Input -->
+        <div class="mb-4">
+            <input id="filename" type="text" class="input input-bordered w-full text-blue-900 border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="Specify a filename...">
+        </div>
+
+        <!-- Download Button -->
+        <button id="download" class="btn btn-primary w-full py-3 mt-4 hover:bg-blue-700 transition ease-in-out duration-200">
+            <i class="fas fa-download mr-2"></i> Download File
+        </button>
     </div>
 
     <script>
@@ -86,7 +45,7 @@
             const element = document.createElement('a');
             const blob = new Blob([content], { type: 'text/plain' });
             const fileUrl = URL.createObjectURL(blob);
-            
+
             element.setAttribute('href', fileUrl);
             element.setAttribute('download', filename);
             document.body.appendChild(element);
@@ -102,7 +61,7 @@
                 if (filename && content) {
                     downloadFile(filename, content);
                 } else {
-                    alert("Please enter a filename and text content before downloading.");
+                    alert("Please enter both filename and text content before downloading.");
                 }
             });
         };
