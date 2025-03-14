@@ -54,6 +54,18 @@
             font-size: 1.25rem;
         }
 
+        .color-palette {
+            display: flex;
+            gap: 10px;
+        }
+
+        .color-palette .color-box {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
         @media (min-width: 640px) {
             .toolbox {
                 flex-direction: row;
@@ -76,12 +88,21 @@
             <button id="increase" class="btn btn-primary p-2 text-xl">+</button>
         </div>
         <div class="flex items-center space-x-2">
-            <input type="color" id="color" class="p-2 rounded border-none" />
+            <div class="color-palette">
+                <div class="color-box" style="background-color: #000;" id="black"></div>
+                <div class="color-box" style="background-color: #FF0000;" id="red"></div>
+                <div class="color-box" style="background-color: #00FF00;" id="green"></div>
+                <div class="color-box" style="background-color: #0000FF;" id="blue"></div>
+                <input type="color" id="color" class="p-2 rounded border-none" />
+            </div>
             <button id="clear" class="btn btn-error p-2 text-xl"><i class="fas fa-times"></i></button>
         </div>
         <div class="flex items-center space-x-2">
             <button id="undo" class="btn btn-warning p-2 text-xl"><i class="fas fa-undo"></i></button>
             <button id="save" class="btn btn-success p-2 text-xl"><i class="fas fa-save"></i></button>
+        </div>
+        <div class="flex items-center space-x-2">
+            <button id="toggleShape" class="btn btn-info p-2 text-xl">Shape Mode</button>
         </div>
     </div>
 
@@ -95,17 +116,24 @@
         const clearElement = document.getElementById("clear");
         const undoButton = document.getElementById("undo");
         const saveButton = document.getElementById("save");
+        const toggleShapeButton = document.getElementById("toggleShape");
 
         let size = 10;
         let color = "black";
         let isDrawing = false;
         let x, y;
         let drawHistory = [];
+        let isShapeMode = false;
+        let startX, startY;
+
+        // Shapes Array
+        let shapes = [];
 
         // Resize canvas to full width
         canvas.width = window.innerWidth * 0.9;
         canvas.height = window.innerHeight * 0.7;
 
+        // Draw Circle
         const drawCircle = (x, y) => {
             ctx.beginPath();
             ctx.arc(x, y, size, 0, Math.PI * 2);
@@ -113,6 +141,7 @@
             ctx.fill();
         };
 
+        // Draw Line
         const drawLine = (x1, y1, x2, y2) => {
             ctx.beginPath();
             ctx.moveTo(x1, y1);
@@ -123,10 +152,20 @@
             ctx.stroke();
         };
 
+        // Draw Rectangle
+        const drawRectangle = (x1, y1, x2, y2) => {
+            ctx.beginPath();
+            ctx.rect(x1, y1, x2 - x1, y2 - y1);
+            ctx.fillStyle = color;
+            ctx.fill();
+        };
+
+        // Save Canvas State
         const saveState = () => {
             drawHistory.push(canvas.toDataURL());
         };
 
+        // Undo Last Action
         const undo = () => {
             if (drawHistory.length > 1) {
                 drawHistory.pop();
@@ -139,16 +178,23 @@
             }
         };
 
+        // Update Size on Screen
         const updateSizeOnScreen = () => (sizeElement.innerText = size);
 
+        // Mouse Events
         canvas.addEventListener("mousedown", (e) => {
             isDrawing = true;
             x = e.offsetX;
             y = e.offsetY;
+            startX = x;
+            startY = y;
             saveState();  // Save current state when drawing starts
         });
 
         canvas.addEventListener("mouseup", () => {
+            if (isShapeMode) {
+                shapes.push({ x1: startX, y1: startY, x2: x, y2: y });
+            }
             isDrawing = false;
             x = undefined;
             y = undefined;
@@ -160,13 +206,25 @@
             let x2 = e.offsetX;
             let y2 = e.offsetY;
 
-            drawCircle(x2, y2);
-            drawLine(x, y, x2, y2);
+            if (isShapeMode) {
+                // Re-draw all previous shapes
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                shapes.forEach(shape => {
+                    drawRectangle(shape.x1, shape.y1, shape.x2, shape.y2);
+                });
+
+                // Draw the temporary rectangle as user drags
+                drawRectangle(startX, startY, x2, y2);
+            } else {
+                drawCircle(x2, y2);
+                drawLine(x, y, x2, y2);
+            }
 
             x = x2;
             y = y2;
         });
 
+        // Increase/Decrease Brush Size
         increaseButton.addEventListener("click", () => {
             size = Math.min(size + 5, 50);
             updateSizeOnScreen();
@@ -177,25 +235,45 @@
             updateSizeOnScreen();
         });
 
+        // Change Color
         colorElement.addEventListener("change", (e) => {
             color = e.target.value;
         });
 
-        clearElement.addEventListener("click", () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawHistory = [];  // Reset history
+        // Color Palette Click Event
+        document.querySelectorAll(".color-box").forEach(colorBox => {
+            colorBox.addEventListener("click", (e) => {
+                color = e.target.style.backgroundColor;
+            });
         });
 
+        // Clear Canvas
+        clearElement.addEventListener("click", () => {
+            if (confirm("Are you sure you want to clear the canvas?")) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawHistory = [];  // Reset history
+                shapes = [];  // Clear shapes
+            }
+        });
+
+        // Undo Button
         undoButton.addEventListener("click", () => {
             undo();
         });
 
+        // Save Drawing
         saveButton.addEventListener("click", () => {
             const dataUrl = canvas.toDataURL();
             const link = document.createElement('a');
             link.href = dataUrl;
             link.download = 'drawing.png';
             link.click();
+        });
+
+        // Toggle Shape Mode
+        toggleShapeButton.addEventListener("click", () => {
+            isShapeMode = !isShapeMode;
+            toggleShapeButton.textContent = isShapeMode ? "Freehand" : "Shape Mode";
         });
 
         // Responsive canvas on window resize
