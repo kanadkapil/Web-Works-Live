@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing App</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #0f2867;
+            font-family: "Roboto", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        canvas {
+            border: 2px solid steelblue;
+            background: #fff;
+            cursor: crosshair;
+            touch-action: none; /* Prevent scrolling while drawing */
+            width: 90vw;
+            height: 70vh;
+        }
+
+        .toolbox {
+            background-color: steelblue;
+            border: 1px solid slateblue;
+            display: flex;
+            width: 400px;
+            padding: 1rem;
+            margin-top: 10px;
+        }
+
+        .toolbox > * {
+            background-color: #fff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            height: 50px;
+            width: 50px;
+            margin: 0.25rem;
+            padding: 0.25rem;
+            cursor: pointer;
+        }
+
+        .toolbox > *:last-child {
+            margin-left: auto;
+        }
+
+        @media (max-width: 600px) {
+            canvas {
+                width: 100%;
+                height: 60vh;
+            }
+
+            .toolbox {
+                width: 100%;
+                justify-content: space-around;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+
+    <div class="toolbox">
+        <button id="decrease">-</button>
+        <span id="size">10</span>
+        <button id="increase">+</button>
+        <input type="color" id="color" />
+        <button id="clear">X</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const increaseButton = document.getElementById("increase");
+        const decreaseButton = document.getElementById("decrease");
+        const sizeElement = document.getElementById("size");
+        const colorElement = document.getElementById("color");
+        const clearElement = document.getElementById("clear");
+
+        let size = 10;
+        let color = "black";
+        let isDrawing = false;
+        let x, y;
+
+        // Resize canvas to full width
+        canvas.width = window.innerWidth * 0.9;
+        canvas.height = window.innerHeight * 0.7;
+
+        const drawCircle = (x, y) => {
+            ctx.beginPath();
+            ctx.arc(x, y, size, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+        };
+
+        const drawLine = (x1, y1, x2, y2) => {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = size * 2;
+            ctx.lineCap = "round";
+            ctx.stroke();
+        };
+
+        const updateSizeOnScreen = () => (sizeElement.innerText = size);
+
+        canvas.addEventListener("mousedown", (e) => {
+            isDrawing = true;
+            x = e.offsetX;
+            y = e.offsetY;
+        });
+
+        canvas.addEventListener("mouseup", () => {
+            isDrawing = false;
+            x = undefined;
+            y = undefined;
+        });
+
+        canvas.addEventListener("mousemove", (e) => {
+            if (!isDrawing) return;
+
+            let x2 = e.offsetX;
+            let y2 = e.offsetY;
+
+            drawCircle(x2, y2);
+            drawLine(x, y, x2, y2);
+
+            x = x2;
+            y = y2;
+        });
+
+        increaseButton.addEventListener("click", () => {
+            size = Math.min(size + 5, 50);
+            updateSizeOnScreen();
+        });
+
+        decreaseButton.addEventListener("click", () => {
+            size = Math.max(size - 5, 5);
+            updateSizeOnScreen();
+        });
+
+        colorElement.addEventListener("change", (e) => {
+            color = e.target.value;
+        });
+
+        clearElement.addEventListener("click", () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        // Responsive canvas on window resize
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth * 0.9;
+            canvas.height = window.innerHeight * 0.7;
+        });
+    </script>
+
+</body>
+</html>
