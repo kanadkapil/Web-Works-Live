@@ -206,6 +206,11 @@
                 const randomY = (Math.random() - 0.5) * 40; // Random Y movement
 
                 pupil.style.transform = `translate(-50%, -50%) translate(${randomX}px, ${randomY}px)`;
+
+                // Random eyebrow movement
+                const eyebrow = eye.querySelector(".eyebrow");
+                const randomAngle = (Math.random() - 0.5) * 30; // Random angle
+                eyebrow.style.transform = `rotate(${randomAngle}deg)`;
             });
 
             // Repeat random movement
