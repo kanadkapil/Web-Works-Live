@@ -25,6 +25,7 @@
         .container {
             display: flex;
             gap: 40px;
+            position: relative;
         }
 
         .eye {
@@ -38,6 +39,7 @@
                         inset 0 0 25px #f5af19;
             transition: transform 0.2s ease-out;
             animation: blink 5s infinite; /* Blinking animation */
+            cursor: grab; /* Draggable cursor */
         }
 
         @keyframes blink {
@@ -70,17 +72,41 @@
         .pupil.glow {
             box-shadow: 0 0 20px 10px rgba(135, 206, 235, 0.8); /* Glow effect */
         }
+
+        .eyebrow {
+            position: absolute;
+            width: 100px;
+            height: 10px;
+            background: #000;
+            top: -20px;
+            left: 10px;
+            border-radius: 5px;
+            transition: transform 0.2s ease-out;
+        }
+
+        .eyebrow.left {
+            transform: rotate(-10deg);
+        }
+
+        .eyebrow.right {
+            transform: rotate(10deg);
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="eye">
+            <div class="eyebrow left"></div>
             <div class="pupil"></div>
         </div>
         <div class="eye">
+            <div class="eyebrow right"></div>
             <div class="pupil"></div>
         </div>
     </div>
+
+    <audio id="blink-sound" src="blink.mp3"></audio> <!-- Blink sound effect -->
+    <audio id="hover-sound" src="hover.mp3"></audio> <!-- Hover sound effect -->
 
     <script>
         document.body.addEventListener("mousemove", eyeball);
@@ -89,6 +115,41 @@
 
         let idleTimeout;
         let isGlowing = false;
+
+        // Draggable eyes
+        const eyes = document.querySelectorAll(".eye");
+        eyes.forEach((eye) => {
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            eye.addEventListener("mousedown", (e) => {
+                isDragging = true;
+                offsetX = e.clientX - eye.getBoundingClientRect().left;
+                offsetY = e.clientY - eye.getBoundingClientRect().top;
+                eye.style.cursor = "grabbing";
+            });
+
+            document.addEventListener("mousemove", (e) => {
+                if (isDragging) {
+                    eye.style.left = `${e.clientX - offsetX}px`;
+                    eye.style.top = `${e.clientY - offsetY}px`;
+                }
+            });
+
+            document.addEventListener("mouseup", () => {
+                isDragging = false;
+                eye.style.cursor = "grab";
+            });
+        });
+
+        // Randomize eye color every 5 seconds
+        setInterval(() => {
+            const pupils = document.querySelectorAll(".pupil");
+            const randomColor = `hsl(${Math.random() * 360}, 50%, 50%)`;
+            pupils.forEach((pupil) => {
+                pupil.style.borderColor = randomColor;
+            });
+        }, 5000);
 
         function eyeball(event) {
             const eyes = document.querySelectorAll(".eye");
@@ -119,6 +180,7 @@
                 if (distance < 100 && !isGlowing) {
                     pupil.classList.add("glow");
                     isGlowing = true;
+                    document.getElementById("hover-sound").play(); // Play hover sound
                 } else if (distance >= 100 && isGlowing) {
                     pupil.classList.remove("glow");
                     isGlowing = false;
