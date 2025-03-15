@@ -17,8 +17,9 @@
             align-items: center;
             min-height: 100vh;
             font-family: "Bebas Neue", cursive;
-            background: linear-gradient(135deg, #0c3b5a, #1c6ea4);
+            background: linear-gradient(135deg, #05283f, #1c6ea4);
             overflow: hidden;
+            transition: background 0.5s ease; /* Smooth background transition */
         }
 
         .container {
@@ -63,7 +64,11 @@
             background: radial-gradient(circle, #000 50%, #333 100%);
             border: 10px solid skyblue;
             box-sizing: border-box;
-            transition: transform 0.1s ease-out, width 0.2s ease-out, height 0.2s ease-out;
+            transition: transform 0.1s ease-out, width 0.2s ease-out, height 0.2s ease-out, box-shadow 0.2s ease-out;
+        }
+
+        .pupil.glow {
+            box-shadow: 0 0 20px 10px rgba(135, 206, 235, 0.8); /* Glow effect */
         }
     </style>
 </head>
@@ -80,8 +85,10 @@
     <script>
         document.body.addEventListener("mousemove", eyeball);
         document.body.addEventListener("mouseleave", randomMovement);
+        document.body.addEventListener("click", changeExpression);
 
         let idleTimeout;
+        let isGlowing = false;
 
         function eyeball(event) {
             const eyes = document.querySelectorAll(".eye");
@@ -107,7 +114,21 @@
                 const pupilSize = 50 - (distance / 20); // Pupil dilates when mouse is closer
                 pupil.style.width = `${pupilSize}px`;
                 pupil.style.height = `${pupilSize}px`;
+
+                // Add glow effect when mouse is close
+                if (distance < 100 && !isGlowing) {
+                    pupil.classList.add("glow");
+                    isGlowing = true;
+                } else if (distance >= 100 && isGlowing) {
+                    pupil.classList.remove("glow");
+                    isGlowing = false;
+                }
             });
+
+            // Change background color based on mouse position
+            const xPercent = (event.clientX / window.innerWidth) * 100;
+            const yPercent = (event.clientY / window.innerHeight) * 100;
+            document.body.style.background = `linear-gradient(135deg, hsl(${xPercent}, 50%, 50%), hsl(${yPercent}, 50%, 50%)`;
 
             // Reset idle timeout
             clearTimeout(idleTimeout);
@@ -127,6 +148,17 @@
 
             // Repeat random movement
             idleTimeout = setTimeout(randomMovement, 2000);
+        }
+
+        function changeExpression() {
+            const eyes = document.querySelectorAll(".eye");
+
+            eyes.forEach((eye) => {
+                eye.style.transform = "scale(1.2)"; // Widen eyes on click
+                setTimeout(() => {
+                    eye.style.transform = "scale(1)"; // Return to normal size
+                }, 200);
+            });
         }
     </script>
 </body>
