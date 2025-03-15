@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Keyboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>  <!-- Tailwind CSS CDN -->
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+<!-- Display Area -->
+<p id="ip" class="w-full max-w-md h-16 bg-gray-700 text-center text-2xl font-semibold mt-20 mx-auto rounded-lg shadow-xl p-4 text-gray-200 leading-tight"></p>
+
+<!-- Virtual Keyboard -->
+<div class="w-full max-w-4xl mx-auto mt-8 p-6 bg-gray-800 rounded-xl shadow-lg space-y-4">
+    <!-- Row 1 (Numbers & Symbols) -->
+    <div class="grid grid-cols-12 gap-2">
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">1</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">2</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">3</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">4</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">5</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">6</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">7</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">8</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">9</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">0</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">!</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">@</button>
+    </div>
+
+    <!-- Row 2 (Letters) -->
+    <div class="grid grid-cols-10 gap-2">
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">Q</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">W</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">E</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">R</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">T</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">Y</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">U</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">I</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">O</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">P</button>
+    </div>
+
+    <!-- Row 3 (Letters) -->
+    <div class="grid grid-cols-10 gap-2">
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">A</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">S</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">D</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">F</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">G</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">H</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">J</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">K</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">L</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">;</button>
+    </div>
+
+    <!-- Row 4 (Letters) -->
+    <div class="grid grid-cols-10 gap-2">
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">Z</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">X</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">C</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">V</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">B</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">N</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">M</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">,</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">.</button>
+        <button class="key p-4 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out">/</button>
+    </div>
+
+    <!-- Row 5 (Shift, Space, Backspace, Caps Lock) -->
+    <div class="flex justify-between items-center mt-4 space-x-2">
+        <!-- Shift Button -->
+        <button class="key p-4 w-24 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out" id="shift">Shift</button>
+        
+        <!-- Space Bar -->
+        <button class="key p-4 flex-grow rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out" id="space">Space</button>
+        
+        <!-- Backspace Button -->
+        <button class="key p-4 w-24 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out" id="backspace">Backspace</button>
+
+        <!-- Caps Lock -->
+        <button class="key p-4 w-24 rounded-md bg-gray-600 hover:bg-gray-500 focus:outline-none active:bg-yellow-400 transition duration-200 ease-in-out" id="caps-lock">Caps Lock</button>
+    </div>
+</div>
+
+<script>
+    let buttons = document.getElementsByTagName('button');
+    let p = document.getElementById('ip');
+    let space = document.getElementById('space');
+    let backspace = document.getElementById('backspace');
+    let shift = document.getElementById('shift');
+    let capsLock = document.getElementById('caps-lock');
+    
+    let isShiftActive = false;
+    let isCapsLockActive = false;
+
+    // Toggle Shift key
+    shift.addEventListener('click', function() {
+        isShiftActive = !isShiftActive;
+    });
+
+    // Toggle Caps Lock key
+    capsLock.addEventListener('click', function() {
+        isCapsLockActive = !isCapsLockActive;
+    });
+
+    // Keyboard keydown event
+    document.body.addEventListener('keydown', function(index) {
+        for (let i = 0; i < buttons.length; i++) {
+            if (buttons[i].innerHTML === index.key.toUpperCase()) {
+                buttons[i].classList.add('active');
+            }
+        }
+
+        // Add the key pressed to the paragraph
+        if (index.key === 'Backspace') {
+            p.innerHTML = p.innerHTML.slice(0, -1); // remove the last character
+        } else if (index.key === 'Shift') {
+            isShiftActive = true;
+        } else {
+            if (isShiftActive || isCapsLockActive) {
+                p.innerHTML += index.key.toUpperCase();
+            } else {
+                p.innerHTML += index.key.toLowerCase();
+            }
+        }
+    });
+
+    // Keyboard keyup event
+    document.body.addEventListener('keyup', function(index) {
+        for (let j = 0; j < buttons.length; j++) {
+            if (buttons[j].innerHTML === index.key.toUpperCase()) {
+                buttons[j].classList.remove('active');
+            }
+        }
+
+        if (index.key === 'Shift') {
+            isShiftActive = false;
+        }
+    });
+
+    // Mouse down event for buttons
+    for (let x of buttons) {
+        x.addEventListener('mousedown', function() {
+            x.classList.add('active');
+            p.innerHTML += x.innerHTML;
+        });
+    }
+
+    // Mouse up event for buttons
+    for (let y of buttons) {
+        y.addEventListener('mouseup', function() {
+            y.classList.remove('active');
+        });
+    }
+
+    // Space button event (mousedown & mouseup)
+    space.addEventListener('mousedown', function() {
+        space.classList.add('active');
+        p.innerHTML += " ";
+    });
+
+    space.addEventListener('mouseup', function() {
+        space.classList.remove('active');
+    });
+
+    // Backspace button event (mousedown & mouseup)
+    function back() {
+        backspace.classList.add('active');
+        p.innerHTML = p.innerHTML.slice(0, -1); // remove last character
+    }
+
+    backspace.onmousedown = back;
+    backspace.onmouseup = function() {
+        backspace.classList.remove('active');
+    };
+</script>
+
+</body>
+</html>
