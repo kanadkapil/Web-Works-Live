@@ -1,287 +1,512 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drawing App</title>
-
-    <!-- External Stylesheets and Fonts -->
-    <link rel="stylesheet" href="index.css">
-    <script src="https://cdn.tailwindcss.com" defer></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-        body, p, h1, h2, h3, h4, span {
-            font-family: "Poppins", sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        .btn {
-            transition: background-color 0.3s ease;
-        }
-        .btn:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-
-        /* Toolbox positioned at the bottom */
-        .toolbox {
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 600px;
-            background-color: #4a90e2;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .toolbox .btn {
-            font-size: 1.25rem;
-        }
-
-        .color-palette {
-            display: flex;
-            gap: 10px;
-        }
-
-        .color-palette .color-box {
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        @media (min-width: 640px) {
-            .toolbox {
-                flex-direction: row;
-                justify-content: space-between;
-                gap: 20px;
-            }
-        }
-    </style>
-</head>
-<body class="bg-blue-900 flex justify-center items-center h-screen p-4">
-
-    <!-- Canvas Element -->
-    <canvas id="canvas" class="border-2 border-steelblue bg-white cursor-crosshair rounded-xl shadow-xl"></canvas>
-
-    <!-- Toolbox -->
-    <div class="toolbox">
-        <div class="flex items-center space-x-2">
-            <button id="decrease" class="btn btn-primary p-2 text-xl">-</button>
-            <span id="size" class="text-white text-2xl">10</span>
-            <button id="increase" class="btn btn-primary p-2 text-xl">+</button>
-        </div>
-        <div class="flex items-center space-x-2">
-            <div class="color-palette">
-                <div class="color-box" style="background-color: #000;" id="black"></div>
-                <div class="color-box" style="background-color: #FF0000;" id="red"></div>
-                <div class="color-box" style="background-color: #00FF00;" id="green"></div>
-                <div class="color-box" style="background-color: #0000FF;" id="blue"></div>
-                <input type="color" id="color" class="p-2 rounded border-none" />
-            </div>
-            <button id="clear" class="btn btn-error p-2 text-xl"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="flex items-center space-x-2">
-            <button id="undo" class="btn btn-warning p-2 text-xl"><i class="fas fa-undo"></i></button>
-            <button id="save" class="btn btn-success p-2 text-xl"><i class="fas fa-save"></i></button>
-        </div>
-        <div class="flex items-center space-x-2">
-            <button id="toggleShape" class="btn btn-info p-2 text-xl">Shape Mode</button>
-        </div>
-    </div>
-
-    <script>
-        const canvas = document.getElementById("canvas");
-        const ctx = canvas.getContext("2d");
-        const increaseButton = document.getElementById("increase");
-        const decreaseButton = document.getElementById("decrease");
-        const sizeElement = document.getElementById("size");
-        const colorElement = document.getElementById("color");
-        const clearElement = document.getElementById("clear");
-        const undoButton = document.getElementById("undo");
-        const saveButton = document.getElementById("save");
-        const toggleShapeButton = document.getElementById("toggleShape");
-
-        let size = 10;
-        let color = "black";
-        let isDrawing = false;
-        let x, y;
-        let drawHistory = [];
-        let isShapeMode = false;
-        let startX, startY;
-
-        // Shapes Array
-        let shapes = [];
-
-        // Resize canvas to full width
-        canvas.width = window.innerWidth * 0.9;
-        canvas.height = window.innerHeight * 0.7;
-
-        // Draw Circle
-        const drawCircle = (x, y) => {
-            ctx.beginPath();
-            ctx.arc(x, y, size, 0, Math.PI * 2);
-            ctx.fillStyle = color;
-            ctx.fill();
-        };
-
-        // Draw Line
-        const drawLine = (x1, y1, x2, y2) => {
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.strokeStyle = color;
-            ctx.lineWidth = size * 2;
-            ctx.lineCap = "round";
-            ctx.stroke();
-        };
-
-        // Draw Rectangle
-        const drawRectangle = (x1, y1, x2, y2) => {
-            ctx.beginPath();
-            ctx.rect(x1, y1, x2 - x1, y2 - y1);
-            ctx.fillStyle = color;
-            ctx.fill();
-        };
-
-        // Save Canvas State
-        const saveState = () => {
-            drawHistory.push(canvas.toDataURL());
-        };
-
-        // Undo Last Action
-        const undo = () => {
-            if (drawHistory.length > 1) {
-                drawHistory.pop();
-                const img = new Image();
-                img.src = drawHistory[drawHistory.length - 1];
-                img.onload = () => {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, 0, 0);
-                };
-            }
-        };
-
-        // Update Size on Screen
-        const updateSizeOnScreen = () => (sizeElement.innerText = size);
-
-        // Mouse Events
-        canvas.addEventListener("mousedown", (e) => {
-            isDrawing = true;
-            x = e.offsetX;
-            y = e.offsetY;
-            startX = x;
-            startY = y;
-            saveState();  // Save current state when drawing starts
-        });
-
-        canvas.addEventListener("mouseup", () => {
-            if (isShapeMode) {
-                shapes.push({ x1: startX, y1: startY, x2: x, y2: y });
-            }
-            isDrawing = false;
-            x = undefined;
-            y = undefined;
-        });
-
-        canvas.addEventListener("mousemove", (e) => {
-            if (!isDrawing) return;
-
-            let x2 = e.offsetX;
-            let y2 = e.offsetY;
-
-            if (isShapeMode) {
-                // Re-draw all previous shapes
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                shapes.forEach(shape => {
-                    drawRectangle(shape.x1, shape.y1, shape.x2, shape.y2);
-                });
-
-                // Draw the temporary rectangle as user drags
-                drawRectangle(startX, startY, x2, y2);
-            } else {
-                drawCircle(x2, y2);
-                drawLine(x, y, x2, y2);
-            }
-
-            x = x2;
-            y = y2;
-        });
-
-        // Increase/Decrease Brush Size
-        increaseButton.addEventListener("click", () => {
-            size = Math.min(size + 5, 50);
-            updateSizeOnScreen();
-        });
-
-        decreaseButton.addEventListener("click", () => {
-            size = Math.max(size - 5, 5);
-            updateSizeOnScreen();
-        });
-
-        // Change Color
-        colorElement.addEventListener("change", (e) => {
-            color = e.target.value;
-        });
-
-        // Color Palette Click Event
-        document.querySelectorAll(".color-box").forEach(colorBox => {
-            colorBox.addEventListener("click", (e) => {
-                color = e.target.style.backgroundColor;
-            });
-        });
-
-        // Clear Canvas
-        clearElement.addEventListener("click", () => {
-            if (confirm("Are you sure you want to clear the canvas?")) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                drawHistory = [];  // Reset history
-                shapes = [];  // Clear shapes
-            }
-        });
-
-        // Undo Button
-        undoButton.addEventListener("click", () => {
-            undo();
-        });
-
-        // Save Drawing
-        saveButton.addEventListener("click", () => {
-            const dataUrl = canvas.toDataURL();
-            const link = document.createElement('a');
-            link.href = dataUrl;
-            link.download = 'drawing.png';
-            link.click();
-        });
-
-        // Toggle Shape Mode
-        toggleShapeButton.addEventListener("click", () => {
-            isShapeMode = !isShapeMode;
-            toggleShapeButton.textContent = isShapeMode ? "Freehand" : "Shape Mode";
-        });
-
-        // Responsive canvas on window resize
-        window.addEventListener("resize", () => {
-            canvas.width = window.innerWidth * 0.9;
-            canvas.height = window.innerHeight * 0.7;
-        });
-    </script>
-
-</body>
-</html>
+ <html lang="en" data-theme="coffee">
+ <head>
+     <title>Fighter Jets</title>
+     <script src="https://cdn.tailwindcss.com" defer></script>
+     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+     <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+         crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <style>
+         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+ 
+         body,
+         p,
+         h1,
+         h2,
+         h3,
+         h4,
+         span {
+             font-family: "Poppins", sans-serif;
+         }
+ 
+         html {
+             scroll-behavior: smooth;
+         }
+     </style>
+ </head>
+ <body class="bg-base-100 text-base-content">
+ 
+     <div class="container mx-auto p-6">
+ 
+         <!-- theme  -->
+         <!-- Theme Selector -->
+         <div class="flex justify-between items-center mb-5">
+             <h1 class="text-3xl font-bold">Fighter Jets</h1>
+             <select id="theme-selector" class="select select-bordered">
+ @@ -42,313 +42,178 @@
+             </select>
+         </div>
+ 
+ 
+         <h1 class="text-4xl font-bold text-center text-primary mb-6">Fighter Jets Comparison</h1>
+ 
+         <!-- F-Series (USA) Table -->
+         <div class="mb-8">
+             <h2 class="text-2xl font-semibold text-secondary mb-4">F-Series (USA)</h2>
+             <div class="overflow-x-auto">
+                 <div class="card bg-base-200 border border-base-300 shadow-md">
+                     <div class="card-body">
+                         <table class="min-w-full border-separate border-spacing-2">
+                             <thead class="bg-base-300">
+                                 <tr>
+                                     <th class="border p-2">Fighter Jet</th>
+                                     <th class="border p-2">Nickname</th>
+                                     <th class="border p-2">Special Abilities</th>
+                                     <th class="border p-2">Top Speed (km/h)</th>
+                                     <th class="border p-2">Range (km)</th>
+                                     <th class="border p-2">Bombs (kg)</th>
+                                 </tr>
+                             </thead>
+                             <tbody class="bg-base-200">
+                                 <tr class="border">
+                                     <td class="border p-2">F-4</td>
+                                     <td class="border p-2">Phantom II</td>
+                                     <td class="border p-2">Multi-role, long-range, high payload</td>
+                                     <td class="border p-2">2,370</td>
+                                     <td class="border p-2">1,610</td>
+                                     <td class="border p-2">8,000 kg</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">F-14</td>
+                                     <td class="border p-2">Tomcat</td>
+                                     <td class="border p-2">Variable-sweep wings, advanced radar, carrier-based</td>
+                                     <td class="border p-2">2,485</td>
+                                     <td class="border p-2">2,600</td>
+                                     <td class="border p-2">6,800 kg</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">F-15</td>
+                                     <td class="border p-2">Eagle</td>
+                                     <td class="border p-2">Air superiority, high maneuverability</td>
+                                     <td class="border p-2">2,655</td>
+                                     <td class="border p-2">4,000</td>
+                                     <td class="border p-2">7,700 kg</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">F-16</td>
+                                     <td class="border p-2">Fighting Falcon</td>
+                                     <td class="border p-2">Lightweight, high agility, versatile</td>
+                                     <td class="border p-2">2,414</td>
+                                     <td class="border p-2">4,200</td>
+                                     <td class="border p-2">7,700 kg</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">F/A-18</td>
+                                     <td class="border p-2">Hornet</td>
+                                     <td class="border p-2">Carrier-capable, multi-role, high survivability</td>
+                                     <td class="border p-2">1,915</td>
+                                     <td class="border p-2">2,250</td>
+                                     <td class="border p-2">4,500 kg</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">F/A-18E/F</td>
+                                     <td class="border p-2">Super Hornet</td>
+                                     <td class="border p-2">Upgraded Hornet, better avionics & fuel capacity</td>
+                                     <td class="border p-2">1,915</td>
+                                     <td class="border p-2">2,400</td>
+                                     <td class="border p-2">8,000 kg</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">F-22</td>
+                                     <td class="border p-2">Raptor</td>
+                                     <td class="border p-2">Stealth, supercruise, extreme maneuverability</td>
+                                     <td class="border p-2">2,414</td>
+                                     <td class="border p-2">2,960</td>
+                                     <td class="border p-2">8,000 kg</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">F-35</td>
+                                     <td class="border p-2">Lightning II</td>
+                                     <td class="border p-2">Stealth, advanced avionics, vertical landing (B variant)</td>
+                                     <td class="border p-2">1,931</td>
+                                     <td class="border p-2">2,220</td>
+                                     <td class="border p-2">8,160 kg</td>
+                                 </tr>
+                             </tbody>
+                         </table>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <!-- Tables will be populated here -->
+         <div id="tables-container"></div>
+ 
+         <!-- MiG (Russia) Table -->
+         <div class="mb-8">
+             <h2 class="text-2xl font-semibold text-accent mb-4">MiG (Russia)</h2>
+             <div class="overflow-x-auto">
+                 <div class="card bg-base-200 border border-base-300 shadow-md">
+                     <div class="card-body">
+                         <table class="min-w-full border-separate border-spacing-2">
+                             <thead class="bg-base-300">
+                                 <tr>
+                                     <th class="border p-2">Fighter Jet</th>
+                                     <th class="border p-2">Nickname</th>
+                                     <th class="border p-2">Special Abilities</th>
+                                     <th class="border p-2">Top Speed (km/h)</th>
+                                     <th class="border p-2">Range (km)</th>
+                                     <th class="border p-2">Bombs (kg)</th>
+                                     <th class="border p-2">Bomb Capacity</th>
+                                 </tr>
+                             </thead>
+                             <tbody class="bg-base-200">
+                                 <tr class="border">
+                                     <td class="border p-2">MiG-21</td>
+                                     <td class="border p-2">Fishbed</td>
+                                     <td class="border p-2">Lightweight, high-speed interceptor</td>
+                                     <td class="border p-2">2,175</td>
+                                     <td class="border p-2">1,000</td>
+                                     <td class="border p-2">2,000 kg</td>
+                                     <td class="border p-2">2x 500 kg bombs</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">MiG-23</td>
+                                     <td class="border p-2">Flogger</td>
+                                     <td class="border p-2">Variable-sweep wings, multi-role capability</td>
+                                     <td class="border p-2">2,500</td>
+                                     <td class="border p-2">1,500</td>
+                                     <td class="border p-2">3,500 kg</td>
+                                     <td class="border p-2">4x 500 kg bombs</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">MiG-25</td>
+                                     <td class="border p-2">Foxbat</td>
+                                     <td class="border p-2">Extreme speed, high-altitude interceptor</td>
+                                     <td class="border p-2">3,000+</td>
+                                     <td class="border p-2">1,600</td>
+                                     <td class="border p-2">4,000 kg</td>
+                                     <td class="border p-2">4x 500 kg bombs</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">MiG-29</td>
+                                     <td class="border p-2">Fulcrum</td>
+                                     <td class="border p-2">High maneuverability, air superiority</td>
+                                     <td class="border p-2">2,400</td>
+                                     <td class="border p-2">1,500</td>
+                                     <td class="border p-2">4,000 kg</td>
+                                     <td class="border p-2">4x 500 kg bombs</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">MiG-31</td>
+                                     <td class="border p-2">Foxhound</td>
+                                     <td class="border p-2">Long-range, high-speed interceptor</td>
+                                     <td class="border p-2">3,000</td>
+                                     <td class="border p-2">2,000</td>
+                                     <td class="border p-2">6,000 kg</td>
+                                     <td class="border p-2">6x 500 kg bombs</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">MiG-35</td>
+                                     <td class="border p-2">Fulcrum-F</td>
+                                     <td class="border p-2">Multi-role, advanced avionics, thrust vectoring</td>
+                                     <td class="border p-2">2,700</td>
+                                     <td class="border p-2">2,000</td>
+                                     <td class="border p-2">5,000 kg</td>
+                                     <td class="border p-2">5x 500 kg bombs</td>
+                                 </tr>
+                             </tbody>
+                         </table>
+                     </div>
+         <!-- Modal for Comparison -->
+         <dialog id="comparison-modal" class="modal">
+             <div class="modal-box w-11/12 max-w-5xl">
+                 <h3 class="font-bold text-lg">Compare Fighter Jets</h3>
+                 <div id="comparison-content" class="py-4">
+                     <!-- Comparison table will be dynamically inserted here -->
+                 </div>
+             </div>
+         </div>
+ 
+         <!-- J-Series (China) Table -->
+         <div class="mb-8">
+             <h2 class="text-2xl font-semibold text-success mb-4">J-Series (China)</h2>
+             <div class="overflow-x-auto">
+                 <div class="card bg-base-200 border border-base-300 shadow-md">
+                     <div class="card-body">
+                         <table class="min-w-full border-separate border-spacing-2">
+                             <thead class="bg-base-300">
+                                 <tr>
+                                     <th class="border p-2">Fighter Jet</th>
+                                     <th class="border p-2">Nickname</th>
+                                     <th class="border p-2">Special Abilities</th>
+                                     <th class="border p-2">Top Speed (km/h)</th>
+                                     <th class="border p-2">Range (km)</th>
+                                     <th class="border p-2">Bombs (kg)</th>
+                                     <th class="border p-2">Bomb Capacity</th>
+                                 </tr>
+                             </thead>
+                             <tbody class="bg-base-200">
+                                 <tr class="border">
+                                     <td class="border p-2">J-7</td>
+                                     <td class="border p-2">Derived from MiG-21</td>
+                                     <td class="border p-2">Lightweight, fast interceptor</td>
+                                     <td class="border p-2">2,200</td>
+                                     <td class="border p-2">1,000</td>
+                                     <td class="border p-2">1,500 kg</td>
+                                     <td class="border p-2">2x 500 kg bombs</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">J-10</td>
+                                     <td class="border p-2">Vigorous Dragon</td>
+                                     <td class="border p-2">Multi-role, high maneuverability</td>
+                                     <td class="border p-2">2,327</td>
+                                     <td class="border p-2">1,700</td>
+                                     <td class="border p-2">3,500 kg</td>
+                                     <td class="border p-2">4x 500 kg bombs</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">J-11</td>
+                                     <td class="border p-2">Su-27 Variant</td>
+                                     <td class="border p-2">Air superiority, high agility</td>
+                                     <td class="border p-2">2,500</td>
+                                     <td class="border p-2">2,100</td>
+                                     <td class="border p-2">4,500 kg</td>
+                                     <td class="border p-2">4x 500 kg bombs</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">J-15</td>
+                                     <td class="border p-2">Flying Shark</td>
+                                     <td class="border p-2">Carrier-based, naval strike fighter</td>
+                                     <td class="border p-2">2,400</td>
+                                     <td class="border p-2">1,000</td>
+                                     <td class="border p-2">3,000 kg</td>
+                                     <td class="border p-2">4x 500 kg bombs</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">J-16</td>
+                                     <td class="border p-2">Su-30 Variant</td>
+                                     <td class="border p-2">Multi-role, enhanced avionics</td>
+                                     <td class="border p-2">2,250</td>
+                                     <td class="border p-2">2,000</td>
+                                     <td class="border p-2">4,500 kg</td>
+                                     <td class="border p-2">4x 500 kg bombs</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">J-20</td>
+                                     <td class="border p-2">Mighty Dragon</td>
+                                     <td class="border p-2">Stealth, supercruise, 5th-generation fighter</td>
+                                     <td class="border p-2">2,126</td>
+                                     <td class="border p-2">2,000</td>
+                                     <td class="border p-2">4,000 kg</td>
+                                     <td class="border p-2">4x 500 kg bombs</td>
+                                 </tr>
+                             </tbody>
+                         </table>
+                     </div>
+                 <div class="modal-action">
+                     <button id="close-modal" class="btn">Close</button>
+                 </div>
+             </div>
+         </div>
+         </dialog>
+ 
+     </div>
+ 
+     <script>
+         // Fetch data from JSON file
+         async function fetchData() {
+             const response = await fetch('data.json');
+             const data = await response.json();
+             return data;
+         }
+ 
+         <!-- Dassault (French) Fighter Jets Table -->
+         <div class="mb-8">
+             <h2 class="text-2xl font-semibold text-warning mb-4">Dassault (France)</h2>
+             <div class="overflow-x-auto">
+                 <div class="card bg-base-200 border border-base-300 shadow-md">
+                     <div class="card-body">
+                         <table class="min-w-full border-separate border-spacing-2">
+                             <thead class="bg-base-300">
+                                 <tr>
+                                     <th class="border p-2">Fighter Jet</th>
+                                     <th class="border p-2">Nickname</th>
+                                     <th class="border p-2">Special Abilities</th>
+                                     <th class="border p-2">Top Speed (km/h)</th>
+                                     <th class="border p-2">Range (km)</th>
+                                     <th class="border p-2">Bombs (kg)</th>
+                                     <th class="border p-2">Bomb Capacity</th>
+                                 </tr>
+                             </thead>
+                             <tbody class="bg-base-200">
+                                 <tr class="border">
+                                     <td class="border p-2">Mirage 2000</td>
+                                     <td class="border p-2">-</td>
+                                     <td class="border p-2">Delta-wing, multi-role, high-speed interceptor</td>
+                                     <td class="border p-2">2,336</td>
+                                     <td class="border p-2">1,550</td>
+                                     <td class="border p-2">2,000 kg</td>
+                                     <td class="border p-2">3x 500 kg bombs</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">Mirage 4000</td>
+                                     <td class="border p-2">-</td>
+                                     <td class="border p-2">Experimental, twin-engine, high-performance</td>
+                                     <td class="border p-2">2,400</td>
+                                     <td class="border p-2">1,800</td>
+                                     <td class="border p-2">3,500 kg</td>
+                                     <td class="border p-2">4x 500 kg bombs</td>
+                                 </tr>
+                                 <tr class="border">
+                                     <td class="border p-2">Rafale</td>
+                                     <td class="border p-2">-</td>
+                                     <td class="border p-2">Multi-role, advanced radar, carrier-capable</td>
+                                     <td class="border p-2">1,912</td>
+                                     <td class="border p-2">1,850</td>
+                                     <td class="border p-2">3,700 kg</td>
+                                     <td class="border p-2">5x 500 kg bombs</td>
+                                 </tr>
+                             </tbody>
+                         </table>
+         // Generate table HTML
+         function generateTable(data, title, colorClass) {
+             return `
+                 <div class="mb-8">
+                     <h2 class="text-2xl font-semibold ${colorClass} mb-4">${title}</h2>
+                     <div class="overflow-x-auto">
+                         <div class="card bg-base-200 border border-base-300 shadow-md">
+                             <div class="card-body">
+                                 <table class="min-w-full border-separate border-spacing-2">
+                                     <thead class="bg-base-300">
+                                         <tr>
+                                             <th class="border p-2">Fighter Jet</th>
+                                             <th class="border p-2">Nickname</th>
+                                             <th class="border p-2">Special Abilities</th>
+                                             <th class="border p-2">Top Speed (km/h)</th>
+                                             <th class="border p-2">Range (km)</th>
+                                             <th class="border p-2">Bombs (kg)</th>
+                                             <th class="border p-2">Compare</th>
+                                         </tr>
+                                     </thead>
+                                     <tbody class="bg-base-200">
+                                         ${data.map(item => `
+                                             <tr class="border">
+                                                 <td class="border p-2">${item.name}</td>
+                                                 <td class="border p-2">${item.nickname}</td>
+                                                 <td class="border p-2">${item.abilities}</td>
+                                                 <td class="border p-2">${item.topSpeed}</td>
+                                                 <td class="border p-2">${item.range}</td>
+                                                 <td class="border p-2">${item.bombs}</td>
+                                                 <td class="border p-2">
+                                                     <button class="btn btn-xs btn-primary compare-btn" data-jet='${JSON.stringify(item)}'>
+                                                         Compare
+                                                     </button>
+                                                 </td>
+                                             </tr>
+                                         `).join('')}
+                                     </tbody>
+                                 </table>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+             `;
+         }
+ 
+     </div>
+         // Render tables
+         async function renderTables() {
+             const data = await fetchData();
+             const tablesContainer = document.getElementById('tables-container');
+ 
+             tablesContainer.innerHTML = `
+                 ${generateTable(data.fSeries, 'F-Series (USA)', 'text-secondary')}
+                 ${generateTable(data.suSeries, 'Su Series (Russia)', 'text-info')}
+                 ${generateTable(data.migSeries, 'MiG (Russia)', 'text-accent')}
+                 ${generateTable(data.jSeries, 'J-Series (China)', 'text-success')}
+                 ${generateTable(data.dassaultSeries, 'Dassault (France)', 'text-warning')}
+             `;
+ 
+             // Add event listeners to compare buttons
+             const compareButtons = document.querySelectorAll('.compare-btn');
+             compareButtons.forEach(button => {
+                 button.addEventListener('click', () => handleCompare(button));
+             });
+         }
+ 
+         // Array to store selected jets for comparison
+         let selectedJets = [];
+ 
+         // Handle comparison button click
+         function handleCompare(button) {
+             const jet = JSON.parse(button.getAttribute('data-jet'));
+ 
+             // Add the jet to the selectedJets array
+             if (selectedJets.length < 2) {
+                 selectedJets.push(jet);
+                 button.disabled = true; // Disable the button after selection
+             }
+ 
+             // If two jets are selected, open the modal
+             if (selectedJets.length === 2) {
+                 openComparisonModal();
+             }
+         }
+ 
+         // Open the comparison modal
+         function openComparisonModal() {
+             const modal = document.getElementById('comparison-modal');
+             const comparisonContent = document.getElementById('comparison-content');
+ 
+             // Generate comparison table
+             comparisonContent.innerHTML = `
+                 <table class="min-w-full border-separate border-spacing-2">
+                     <thead class="bg-base-300">
+                         <tr>
+                             <th class="border p-2">Property</th>
+                             <th class="border p-2">${selectedJets[0].name}</th>
+                             <th class="border p-2">${selectedJets[1].name}</th>
+                         </tr>
+                     </thead>
+                     <tbody class="bg-base-200">
+                         <tr class="border">
+                             <td class="border p-2">Nickname</td>
+                             <td class="border p-2">${selectedJets[0].nickname}</td>
+                             <td class="border p-2">${selectedJets[1].nickname}</td>
+                         </tr>
+                         <tr class="border">
+                             <td class="border p-2">Special Abilities</td>
+                             <td class="border p-2">${selectedJets[0].abilities}</td>
+                             <td class="border p-2">${selectedJets[1].abilities}</td>
+                         </tr>
+                         <tr class="border">
+                             <td class="border p-2">Top Speed (km/h)</td>
+                             <td class="border p-2">${selectedJets[0].topSpeed}</td>
+                             <td class="border p-2">${selectedJets[1].topSpeed}</td>
+                         </tr>
+                         <tr class="border">
+                             <td class="border p-2">Range (km)</td>
+                             <td class="border p-2">${selectedJets[0].range}</td>
+                             <td class="border p-2">${selectedJets[1].range}</td>
+                         </tr>
+                         <tr class="border">
+                             <td class="border p-2">Bombs (kg)</td>
+                             <td class="border p-2">${selectedJets[0].bombs}</td>
+                             <td class="border p-2">${selectedJets[1].bombs}</td>
+                         </tr>
+                     </tbody>
+                 </table>
+             `;
+ 
+             // Show the modal
+             modal.showModal();
+         }
+ 
+         // Close the modal and reset the comparison
+         document.getElementById('close-modal').addEventListener('click', () => {
+             const modal = document.getElementById('comparison-modal');
+             modal.close();
+             selectedJets = []; // Reset the selected jets
+             renderTables(); // Re-render tables to re-enable buttons
+         });
+ 
+         // Initialize
+         renderTables();
+     </script>
+ 
+ </body>
+ </html>
