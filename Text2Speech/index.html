@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text to Speech</title>
+    <title>Multilingual Text to Speech</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
     <style>
@@ -18,18 +18,29 @@
             <!-- Header Section -->
             <div class="text-center mb-10">
                 <h1 class="text-4xl font-bold text-gray-800 mb-3">
-                    Text to Speech Converter
+                    Multilingual Text to Speech
                 </h1>
                 <h3 class="text-xl text-gray-600">
-                    Enter Text and Convert into Speech
+                    Supports English, Hindi, and Bengali
                 </h3>
             </div>
 
             <!-- Main Content -->
             <div class="space-y-6">
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Select Language</span>
+                    </label>
+                    <select id="languageSelect" class="select select-bordered w-full">
+                        <option value="en">English</option>
+                        <option value="hi">Hindi</option>
+                        <option value="bn">Bengali</option>
+                    </select>
+                </div>
+
                 <textarea 
                     id="textToConvert"
-                    placeholder="Enter text to convert into speech..."
+                    placeholder="Enter text in selected language..."
                     class="w-full h-48 px-4 py-3 text-lg border-2 border-gray-200 rounded-xl 
                            focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200
                            resize-none placeholder-gray-400"
@@ -42,7 +53,7 @@
                     class="btn btn-primary w-full py-4 text-lg font-semibold
                            transition-all duration-300 hover:scale-[1.02]"
                 >
-                    Play Converted Sound
+                    Play Converted Speech
                 </button>
             </div>
         </div>
@@ -51,30 +62,119 @@
     <script>
         const text = document.getElementById("textToConvert");
         const convertBtn = document.getElementById("convertBtn");
-
-        convertBtn.addEventListener('click', function () {
+        const languageSelect = document.getElementById("languageSelect");
+        let voices = [];
+        let selectedVoice = null;
+    
+        // Voice configuration
+        const voiceConfig = {
+            'en': {
+                langCodes: ['en-US', 'en-GB'],
+                fallbackText: "English text...",
+                ttsFallback: null
+            },
+            'hi': {
+                langCodes: ['hi-IN', 'ur-IN'],
+                fallbackText: "हिंदी पाठ...",
+                ttsFallback: 'https://translate.google.com/translate_tts?ie=UTF-8&tl=hi&client=tw-ob&q='
+            },
+            'bn': {
+                langCodes: ['bn-BD', 'bn-IN', 'hi-IN'],
+                fallbackText: "বাংলা টেক্সট...",
+                ttsFallback: 'https://translate.google.com/translate_tts?ie=UTF-8&tl=bn&client=tw-ob&q='
+            }
+        };
+    
+        // Load available voices
+        function loadVoices() {
+            voices = window.speechSynthesis.getVoices();
+            const config = voiceConfig[languageSelect.value];
+            
+            // Find matching voice
+            selectedVoice = voices.find(voice => 
+                config.langCodes.includes(voice.lang)
+            ) || voices.find(voice => 
+                voice.lang.startsWith(languageSelect.value)
+            ) || voices[0];
+    
+            console.log('Selected Voice:', selectedVoice);
+        }
+    
+        // Initialize voices
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    
+        // Handle language change
+        languageSelect.addEventListener('change', () => {
+            loadVoices();
+            const config = voiceConfig[languageSelect.value];
+            text.placeholder = config.fallbackText;
+        });
+    
+        // Convert button handler
+        convertBtn.addEventListener('click', async function () {
             const speechSynth = window.speechSynthesis;
-            const enteredText = text.value;
+            const enteredText = text.value.trim();
             const error = document.querySelector('.error-para');
-
-            if (!speechSynth.speaking && !enteredText.trim().length) {
-                error.textContent = `Nothing to Convert! Enter text in the text area.`;
+            const config = voiceConfig[languageSelect.value];
+    
+            if (!enteredText) {
+                error.textContent = "Please enter some text to convert!";
                 return;
             }
-            
-            if (!speechSynth.speaking && enteredText.trim().length) {
-                error.textContent = "";
-                const newUtter = new SpeechSynthesisUtterance(enteredText);
-                speechSynth.speak(newUtter);
-                convertBtn.textContent = "Sound is Playing...";
-                convertBtn.disabled = true;
+    
+            // Try system voices first
+            if (selectedVoice) {
+                try {
+                    const newUtter = new SpeechSynthesisUtterance(enteredText);
+                    newUtter.voice = selectedVoice;
+                    newUtter.lang = selectedVoice.lang;
+                    
+                    newUtter.onend = () => {
+                        convertBtn.disabled = false;
+                        convertBtn.textContent = "Play Converted Speech";
+                    };
+    
+                    speechSynth.speak(newUtter);
+                    convertBtn.disabled = true;
+                    convertBtn.textContent = "Playing...";
+                    error.textContent = "";
+                } catch (err) {
+                    error.textContent = "System voice error: " + err.message;
+                }
             }
-            
-            setTimeout(() => {
-                convertBtn.textContent = "Play Converted Sound";
-                convertBtn.disabled = false;
-            }, 5000);
+            // Fallback to Google TTS API
+            else if (config.ttsFallback) {
+                try {
+                    const audio = new Audio();
+                    audio.src = config.ttsFallback + encodeURIComponent(enteredText);
+                    audio.play();
+                    
+                    audio.onended = () => {
+                        convertBtn.disabled = false;
+                        convertBtn.textContent = "Play Converted Speech";
+                    };
+                    
+                    convertBtn.disabled = true;
+                    convertBtn.textContent = "Playing...";
+                    error.textContent = "";
+                } catch (err) {
+                    error.textContent = "TTS API error: " + err.message;
+                }
+            } else {
+                error.textContent = "No TTS options available for this language!";
+            }
         });
+    
+        // Debug: Show installed voices
+        window.showVoices = function() {
+            const voices = window.speechSynthesis.getVoices();
+            console.log("Available voices:");
+            voices.forEach(voice => {
+                console.log(`Name: ${voice.name} | Lang: ${voice.lang} | Default: ${voice.default}`);
+            });
+            alert(`${voices.length} voices found. Check console for details.`);
+        };
     </script>
+    
 </body>
 </html>
