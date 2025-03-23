@@ -15,17 +15,11 @@
 <body class="bg-gradient-to-br from-purple-50 to-blue-50 min-h-screen">
     <div class="container mx-auto px-4 py-12">
         <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8">
-            <!-- Header Section -->
             <div class="text-center mb-10">
-                <h1 class="text-4xl font-bold text-gray-800 mb-3">
-                    Multilingual Text to Speech
-                </h1>
-                <h3 class="text-xl text-gray-600">
-                    Supports English, Hindi, and Bengali
-                </h3>
+                <h1 class="text-4xl font-bold text-gray-800 mb-3">Multilingual Text to Speech</h1>
+                <h3 class="text-xl text-gray-600">Supports English, Hindi, and Bengali</h3>
             </div>
 
-            <!-- Main Content -->
             <div class="space-y-6">
                 <div class="form-control">
                     <label class="label">
@@ -38,23 +32,24 @@
                     </select>
                 </div>
 
-                <textarea 
-                    id="textToConvert"
-                    placeholder="Enter text in selected language..."
-                    class="w-full h-48 px-4 py-3 text-lg border-2 border-gray-200 rounded-xl 
-                           focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200
-                           resize-none placeholder-gray-400"
-                ></textarea>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Speech Speed</span>
+                        <span class="label-text-alt" id="speedValue">100%</span>
+                    </label>
+                    <input type="range" min="0.5" max="2" step="0.1" value="1" 
+                         class="range range-xs range-primary" id="speedRange" />
+                </div>
+
+                <textarea id="textToConvert" placeholder="Enter text in selected language..."
+                    class="w-full h-48 px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:outline-none 
+                           focus:border-purple-500 focus:ring-2 focus:ring-purple-200 resize-none placeholder-gray-400">
+                </textarea>
 
                 <p class="error-para text-red-500 text-sm h-4 text-center"></p>
 
-                <button 
-                    id="convertBtn"
-                    class="btn btn-primary w-full py-4 text-lg font-semibold
-                           transition-all duration-300 hover:scale-[1.02]"
-                >
-                    Play Converted Speech
-                </button>
+                <button id="convertBtn" class="btn btn-primary w-full py-4 text-lg font-semibold
+                       transition-all duration-300 hover:scale-[1.02]">Play Converted Speech</button>
             </div>
         </div>
     </div>
@@ -63,77 +58,67 @@
         const text = document.getElementById("textToConvert");
         const convertBtn = document.getElementById("convertBtn");
         const languageSelect = document.getElementById("languageSelect");
+        const speedRange = document.getElementById("speedRange");
+        const speedValue = document.getElementById("speedValue");
+        
         let voices = [];
         let selectedVoice = null;
-    
-        // Voice configuration
+        const languageSpeeds = { en: 1, hi: 1, bn: 1 };
+
         const voiceConfig = {
-            'en': {
-                langCodes: ['en-US', 'en-GB'],
-                fallbackText: "English text...",
-                ttsFallback: null
-            },
-            'hi': {
-                langCodes: ['hi-IN', 'ur-IN'],
-                fallbackText: "हिंदी पाठ...",
-                ttsFallback: 'https://translate.google.com/translate_tts?ie=UTF-8&tl=hi&client=tw-ob&q='
-            },
-            'bn': {
-                langCodes: ['bn-BD', 'bn-IN', 'hi-IN'],
-                fallbackText: "বাংলা টেক্সট...",
-                ttsFallback: 'https://translate.google.com/translate_tts?ie=UTF-8&tl=bn&client=tw-ob&q='
-            }
+            'en': { langCodes: ['en-US', 'en-GB'], fallbackText: "English text...", ttsFallback: null },
+            'hi': { langCodes: ['hi-IN', 'ur-IN'], fallbackText: "हिंदी पाठ...", 
+                   ttsFallback: 'https://translate.google.com/translate_tts?ie=UTF-8&tl=hi&client=tw-ob&q=' },
+            'bn': { langCodes: ['bn-BD', 'bn-IN', 'hi-IN'], fallbackText: "বাংলা টেক্সট...", 
+                   ttsFallback: 'https://translate.google.com/translate_tts?ie=UTF-8&tl=bn&client=tw-ob&q=' }
         };
-    
-        // Load available voices
+
         function loadVoices() {
             voices = window.speechSynthesis.getVoices();
             const config = voiceConfig[languageSelect.value];
-            
-            // Find matching voice
-            selectedVoice = voices.find(voice => 
-                config.langCodes.includes(voice.lang)
-            ) || voices.find(voice => 
-                voice.lang.startsWith(languageSelect.value)
-            ) || voices[0];
-    
-            console.log('Selected Voice:', selectedVoice);
+            selectedVoice = voices.find(voice => config.langCodes.includes(voice.lang)) || 
+                          voices.find(voice => voice.lang.startsWith(languageSelect.value)) || voices[0];
         }
-    
-        // Initialize voices
-        window.speechSynthesis.onvoiceschanged = loadVoices;
-    
-        // Handle language change
+
+        speedRange.addEventListener('input', (e) => {
+            const speed = parseFloat(e.target.value);
+            speedValue.textContent = `${Math.round(speed * 100)}%`;
+            languageSpeeds[languageSelect.value] = speed;
+        });
+
         languageSelect.addEventListener('change', () => {
             loadVoices();
             const config = voiceConfig[languageSelect.value];
             text.placeholder = config.fallbackText;
+            speedRange.value = languageSpeeds[languageSelect.value];
+            speedValue.textContent = `${Math.round(speedRange.value * 100)}%`;
         });
-    
-        // Convert button handler
-        convertBtn.addEventListener('click', async function () {
+
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+
+        convertBtn.addEventListener('click', function () {
             const speechSynth = window.speechSynthesis;
             const enteredText = text.value.trim();
             const error = document.querySelector('.error-para');
             const config = voiceConfig[languageSelect.value];
-    
+
             if (!enteredText) {
                 error.textContent = "Please enter some text to convert!";
                 return;
             }
-    
-            // Try system voices first
+
             if (selectedVoice) {
                 try {
                     const newUtter = new SpeechSynthesisUtterance(enteredText);
                     newUtter.voice = selectedVoice;
                     newUtter.lang = selectedVoice.lang;
+                    newUtter.rate = languageSpeeds[languageSelect.value];
                     
                     newUtter.onend = () => {
                         convertBtn.disabled = false;
                         convertBtn.textContent = "Play Converted Speech";
                     };
-    
+
                     speechSynth.speak(newUtter);
                     convertBtn.disabled = true;
                     convertBtn.textContent = "Playing...";
@@ -142,11 +127,11 @@
                     error.textContent = "System voice error: " + err.message;
                 }
             }
-            // Fallback to Google TTS API
             else if (config.ttsFallback) {
                 try {
                     const audio = new Audio();
                     audio.src = config.ttsFallback + encodeURIComponent(enteredText);
+                    audio.playbackRate = languageSpeeds[languageSelect.value];
                     audio.play();
                     
                     audio.onended = () => {
@@ -161,20 +146,9 @@
                     error.textContent = "TTS API error: " + err.message;
                 }
             } else {
-                error.textContent = "No TTS options available for this language!";
+                error.textContent = "No TTS options available!";
             }
         });
-    
-        // Debug: Show installed voices
-        window.showVoices = function() {
-            const voices = window.speechSynthesis.getVoices();
-            console.log("Available voices:");
-            voices.forEach(voice => {
-                console.log(`Name: ${voice.name} | Lang: ${voice.lang} | Default: ${voice.default}`);
-            });
-            alert(`${voices.length} voices found. Check console for details.`);
-        };
     </script>
-    
 </body>
 </html>
