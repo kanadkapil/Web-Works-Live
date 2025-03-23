@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-purple-50 to-blue-50 min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+            <!-- Header Section -->
+            <div class="text-center mb-10">
+                <h1 class="text-4xl font-bold text-gray-800 mb-3">
+                    Text to Speech Converter
+                </h1>
+                <h3 class="text-xl text-gray-600">
+                    Enter Text and Convert into Speech
+                </h3>
+            </div>
+
+            <!-- Main Content -->
+            <div class="space-y-6">
+                <textarea 
+                    id="textToConvert"
+                    placeholder="Enter text to convert into speech..."
+                    class="w-full h-48 px-4 py-3 text-lg border-2 border-gray-200 rounded-xl 
+                           focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200
+                           resize-none placeholder-gray-400"
+                ></textarea>
+
+                <p class="error-para text-red-500 text-sm h-4 text-center"></p>
+
+                <button 
+                    id="convertBtn"
+                    class="btn btn-primary w-full py-4 text-lg font-semibold
+                           transition-all duration-300 hover:scale-[1.02]"
+                >
+                    Play Converted Sound
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const text = document.getElementById("textToConvert");
+        const convertBtn = document.getElementById("convertBtn");
+
+        convertBtn.addEventListener('click', function () {
+            const speechSynth = window.speechSynthesis;
+            const enteredText = text.value;
+            const error = document.querySelector('.error-para');
+
+            if (!speechSynth.speaking && !enteredText.trim().length) {
+                error.textContent = `Nothing to Convert! Enter text in the text area.`;
+                return;
+            }
+            
+            if (!speechSynth.speaking && enteredText.trim().length) {
+                error.textContent = "";
+                const newUtter = new SpeechSynthesisUtterance(enteredText);
+                speechSynth.speak(newUtter);
+                convertBtn.textContent = "Sound is Playing...";
+                convertBtn.disabled = true;
+            }
+            
+            setTimeout(() => {
+                convertBtn.textContent = "Play Converted Sound";
+                convertBtn.disabled = false;
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
