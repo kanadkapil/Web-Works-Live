@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess the Color Game</title>
+  <!-- Include Tailwind CSS and DaisyUI -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/daisyui@1.8.0/dist/full.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f9fafb;
+    }
+    .game-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .color-box {
+      width: 200px;
+      height: 200px;
+      margin: 20px auto;
+      border-radius: 10px;
+    }
+    .scoreboard {
+      margin-top: 30px;
+      font-size: 1.5rem;
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+  </style>
+</head>
+<body class="py-10">
+
+  <div class="game-container">
+    <h1 class="text-3xl font-bold">Guess the Color Game</h1>
+    <p class="text-lg mt-2">Guess the color based on the RGB value below!</p>
+
+    <div class="color-box" id="colorBox"></div>
+
+    <p class="text-xl mt-4" id="rgbValue">RGB: (0, 0, 0)</p>
+
+    <div class="button-container">
+      <button id="option1" class="btn btn-secondary">Option 1</button>
+      <button id="option2" class="btn btn-secondary">Option 2</button>
+      <button id="option3" class="btn btn-secondary">Option 3</button>
+    </div>
+
+    <div class="scoreboard">
+      <p id="score">Score: 0</p>
+    </div>
+
+    <button id="nextRound" class="btn btn-primary mt-6">Next Round</button>
+  </div>
+
+  <script>
+    // Game variables
+    let score = 0;
+    let correctAnswerIndex;
+    const colors = [];
+    
+    // Generate a random RGB color
+    function getRandomColor() {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    // Generate 3 color options for the player
+    function generateColorOptions() {
+      const correctColor = getRandomColor();
+      const options = [correctColor];
+
+      // Add two incorrect colors
+      while (options.length < 3) {
+        const randomColor = getRandomColor();
+        if (!options.includes(randomColor)) {
+          options.push(randomColor);
+        }
+      }
+
+      // Shuffle the options
+      return options.sort(() => Math.random() - 0.5);
+    }
+
+    // Update the color box and options
+    function startNewRound() {
+      const colorOptions = generateColorOptions();
+      correctAnswerIndex = Math.floor(Math.random() * 3);
+      document.getElementById('colorBox').style.backgroundColor = colorOptions[correctAnswerIndex];
+      document.getElementById('rgbValue').innerText = `RGB: ${colorOptions[correctAnswerIndex]}`;
+
+      // Update options text
+      document.getElementById('option1').innerText = colorOptions[0];
+      document.getElementById('option2').innerText = colorOptions[1];
+      document.getElementById('option3').innerText = colorOptions[2];
+    }
+
+    // Handle the player's guess
+    function handleGuess(optionIndex) {
+      if (optionIndex === correctAnswerIndex) {
+        score += 10;
+        document.getElementById('score').innerText = `Score: ${score}`;
+        alert('Correct! Well done!');
+      } else {
+        alert('Oops! Try again!');
+      }
+    }
+
+    // Add event listeners for each option button
+    document.getElementById('option1').addEventListener('click', () => handleGuess(0));
+    document.getElementById('option2').addEventListener('click', () => handleGuess(1));
+    document.getElementById('option3').addEventListener('click', () => handleGuess(2));
+
+    // Start the first round
+    startNewRound();
+
+    // Handle next round button
+    document.getElementById('nextRound').addEventListener('click', startNewRound);
+
+  </script>
+
+</body>
+</html>
