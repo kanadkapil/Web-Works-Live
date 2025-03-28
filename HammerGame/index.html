@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whack-a-Mole Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(3, 120px);
+            grid-template-rows: repeat(3, 120px);
+            gap: 15px;
+            margin-bottom: 20px;
+            justify-items: center;
+        }
+
+        .hole {
+            width: 120px;
+            height: 120px;
+            background-color: #e5e7eb;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .hole:hover {
+            background-color: #d1d5db;
+        }
+
+        .mole {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background-color: #5c3c92;
+            border-radius: 50%;
+            transition: bottom 0.3s ease;
+            display: none;
+        }
+
+        .mole.show {
+            display: block;
+            bottom: 0;
+        }
+
+        .mole.hit {
+            background-color: #e11d48;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+        }
+
+        .scoreboard {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .timer {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .start-btn {
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .start-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="start-btn" id="startGameBtn">Start Game</button>
+
+    <div class="game-container hidden" id="gameContainer">
+        <!-- 9 holes for the Whack-a-Mole game -->
+        <div class="hole" data-index="0">
+            <div class="mole"></div>
+        </div>
+        <div class="hole" data-index="1">
+            <div class="mole"></div>
+        </div>
+        <div class="hole" data-index="2">
+            <div class="mole"></div>
+        </div>
+        <div class="hole" data-index="3">
+            <div class="mole"></div>
+        </div>
+        <div class="hole" data-index="4">
+            <div class="mole"></div>
+        </div>
+        <div class="hole" data-index="5">
+            <div class="mole"></div>
+        </div>
+        <div class="hole" data-index="6">
+            <div class="mole"></div>
+        </div>
+        <div class="hole" data-index="7">
+            <div class="mole"></div>
+        </div>
+        <div class="hole" data-index="8">
+            <div class="mole"></div>
+        </div>
+    </div>
+
+    <div class="scoreboard">
+        Score: <span id="score">0</span>
+    </div>
+    
+    <div class="timer" id="timer">Time Left: 30s</div>
+
+    <audio id="hitSound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+    <audio id="gameOverSound" src="https://www.soundjay.com/button/beep-09.wav" preload="auto"></audio>
+
+    <script>
+        const startBtn = document.getElementById("startGameBtn");
+        const gameContainer = document.getElementById("gameContainer");
+        const scoreDisplay = document.getElementById("score");
+        const timerDisplay = document.getElementById("timer");
+        const moles = document.querySelectorAll('.mole');
+        const holes = document.querySelectorAll('.hole');
+        const hitSound = document.getElementById("hitSound");
+        const gameOverSound = document.getElementById("gameOverSound");
+
+        let score = 0;
+        let timeLeft = 30;
+        let gameInterval;
+        let moleInterval;
+        let countdownInterval;
+
+        // Function to start the game
+        function startGame() {
+            score = 0;
+            timeLeft = 30;
+            scoreDisplay.textContent = score;
+            timerDisplay.textContent = `Time Left: ${timeLeft}s`;
+            startBtn.classList.add("hidden");
+            gameContainer.classList.remove("hidden");
+
+            // Show moles every 1-2 seconds
+            moleInterval = setInterval(showMole, Math.random() * 1000 + 1000);
+
+            // Countdown timer
+            countdownInterval = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = `Time Left: ${timeLeft}s`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(moleInterval);
+                    clearInterval(countdownInterval);
+                    gameOver();
+                }
+            }, 1000);
+        }
+
+        // Function to show a random mole
+        function showMole() {
+            const randomIndex = Math.floor(Math.random() * holes.length);
+            const mole = moles[randomIndex];
+            mole.classList.add('show');
+
+            setTimeout(() => {
+                mole.classList.remove('show');
+            }, 1000);
+        }
+
+        // Function to handle mole click (whack)
+        function whackMole(event) {
+            if (event.target.classList.contains('show')) {
+                event.target.classList.add('hit');
+                hitSound.play();
+                score++;
+                scoreDisplay.textContent = score;
+
+                // Remove hit class after animation
+                setTimeout(() => {
+                    event.target.classList.remove('hit');
+                }, 200);
+            }
+        }
+
+        // Add click event to all moles
+        moles.forEach(mole => mole.addEventListener('click', whackMole));
+
+        // Game Over function
+        function gameOver() {
+            gameOverSound.play();
+            alert(`Game Over! Your final score is: ${score}`);
+            startBtn.classList.remove("hidden");
+            gameContainer.classList.add("hidden");
+        }
+
+        // Start the game when the start button is clicked
+        startBtn.addEventListener('click', startGame);
+
+    </script>
+
+</body>
+</html>
