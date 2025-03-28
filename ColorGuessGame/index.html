@@ -1,128 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guess the Color Game</title>
-  <!-- Include Tailwind CSS and DaisyUI -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/daisyui@1.8.0/dist/full.js"></script>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f9fafb;
-    }
-    .game-container {
-      text-align: center;
-      margin-top: 50px;
-    }
-    .color-box {
-      width: 200px;
-      height: 200px;
-      margin: 20px auto;
-      border-radius: 10px;
-    }
-    .scoreboard {
-      margin-top: 30px;
-      font-size: 1.5rem;
-    }
-    .button-container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Color Game</title>
+    <!-- Include Tailwind CSS and DaisyUI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@1.8.0/dist/full.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9fafb;
+        }
+
+        .game-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .color-box {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            border-radius: 10px;
+        }
+
+        .scoreboard,
+        .difficulty,
+        .timer {
+            margin-top: 30px;
+            font-size: 1.25rem;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .game-over {
+            display: none;
+            text-align: center;
+        }
+
+        .game-over.active {
+            display: block;
+        }
+    </style>
 </head>
+
 <body class="py-10">
 
-  <div class="game-container">
-    <h1 class="text-3xl font-bold">Guess the Color Game</h1>
-    <p class="text-lg mt-2">Guess the color based on the RGB value below!</p>
+    <div class="game-container">
+        <h1 class="text-3xl font-bold">Guess the Color Game</h1>
+        <p class="text-lg mt-2">Guess the color based on the RGB value below!</p>
 
-    <div class="color-box" id="colorBox"></div>
+        <!-- Color Box -->
+        <div class="color-box" id="colorBox"></div>
 
-    <p class="text-xl mt-4" id="rgbValue">RGB: (0, 0, 0)</p>
+        <!-- RGB Display -->
+        <p class="text-xl mt-4" id="rgbValue">RGB: (0, 0, 0)</p>
 
-    <div class="button-container">
-      <button id="option1" class="btn btn-secondary">Option 1</button>
-      <button id="option2" class="btn btn-secondary">Option 2</button>
-      <button id="option3" class="btn btn-secondary">Option 3</button>
+        <!-- Options -->
+        <div class="button-container">
+            <button id="option1" class="btn btn-secondary">Option 1</button>
+            <button id="option2" class="btn btn-secondary">Option 2</button>
+            <button id="option3" class="btn btn-secondary">Option 3</button>
+        </div>
+
+        <!-- Difficulty Level Selection -->
+        <div class="difficulty">
+            <p class="font-medium">Select Difficulty:</p>
+            <button id="easy" class="btn btn-primary mx-2">Easy</button>
+            <button id="medium" class="btn btn-primary mx-2">Medium</button>
+            <button id="hard" class="btn btn-primary mx-2">Hard</button>
+        </div>
+
+        <!-- Timer and Scoreboard -->
+        <div class="scoreboard">
+            <p id="score">Score: 0</p>
+            <p id="timeRemaining">Time Left: 10s</p>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div class="game-over" id="gameOver">
+            <h2 class="text-2xl">Game Over!</h2>
+            <p>Your Score: <span id="finalScore">0</span></p>
+            <p id="highScoreMessage"></p>
+            <button id="playAgain" class="btn btn-primary mt-4">Play Again</button>
+        </div>
+
+        <!-- Next Round Button -->
+        <button id="nextRound" class="btn btn-primary mt-6 hidden">Next Round</button>
     </div>
 
-    <div class="scoreboard">
-      <p id="score">Score: 0</p>
-    </div>
+    <script>
+        // Game variables
+        let score = 0;
+        let timeRemaining = 10;
+        let correctAnswerIndex;
+        let gameInterval;
+        let timerInterval;
+        let difficulty = 'easy';
+        let highScore = 0;
 
-    <button id="nextRound" class="btn btn-primary mt-6">Next Round</button>
-  </div>
+        // Difficulty Settings
+        const difficultySettings = {
+            easy: 10,
+            medium: 7,
+            hard: 5
+        };
 
-  <script>
-    // Game variables
-    let score = 0;
-    let correctAnswerIndex;
-    const colors = [];
-    
-    // Generate a random RGB color
-    function getRandomColor() {
-      const r = Math.floor(Math.random() * 256);
-      const g = Math.floor(Math.random() * 256);
-      const b = Math.floor(Math.random() * 256);
-      return `rgb(${r}, ${g}, ${b})`;
-    }
-
-    // Generate 3 color options for the player
-    function generateColorOptions() {
-      const correctColor = getRandomColor();
-      const options = [correctColor];
-
-      // Add two incorrect colors
-      while (options.length < 3) {
-        const randomColor = getRandomColor();
-        if (!options.includes(randomColor)) {
-          options.push(randomColor);
+        // Generate a random RGB color
+        function getRandomColor() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
         }
-      }
 
-      // Shuffle the options
-      return options.sort(() => Math.random() - 0.5);
-    }
+        // Generate 3 color options for the player
+        function generateColorOptions() {
+            const correctColor = getRandomColor();
+            const options = [correctColor];
+            while (options.length < 3) {
+                const randomColor = getRandomColor();
+                if (!options.includes(randomColor)) {
+                    options.push(randomColor);
+                }
+            }
+            return options.sort(() => Math.random() - 0.5);
+        }
 
-    // Update the color box and options
-    function startNewRound() {
-      const colorOptions = generateColorOptions();
-      correctAnswerIndex = Math.floor(Math.random() * 3);
-      document.getElementById('colorBox').style.backgroundColor = colorOptions[correctAnswerIndex];
-      document.getElementById('rgbValue').innerText = `RGB: ${colorOptions[correctAnswerIndex]}`;
+        // Start new round
+        function startNewRound() {
+            if (gameInterval) clearInterval(gameInterval);
+            if (timerInterval) clearInterval(timerInterval);
 
-      // Update options text
-      document.getElementById('option1').innerText = colorOptions[0];
-      document.getElementById('option2').innerText = colorOptions[1];
-      document.getElementById('option3').innerText = colorOptions[2];
-    }
+            timeRemaining = difficultySettings[difficulty];
+            document.getElementById('timeRemaining').innerText = `Time Left: ${timeRemaining}s`;
 
-    // Handle the player's guess
-    function handleGuess(optionIndex) {
-      if (optionIndex === correctAnswerIndex) {
-        score += 10;
-        document.getElementById('score').innerText = `Score: ${score}`;
-        alert('Correct! Well done!');
-      } else {
-        alert('Oops! Try again!');
-      }
-    }
+            const colorOptions = generateColorOptions();
+            correctAnswerIndex = Math.floor(Math.random() * 3);
+            document.getElementById('colorBox').style.backgroundColor = colorOptions[correctAnswerIndex];
+            document.getElementById('rgbValue').innerText = `RGB: ${colorOptions[correctAnswerIndex]}`;
 
-    // Add event listeners for each option button
-    document.getElementById('option1').addEventListener('click', () => handleGuess(0));
-    document.getElementById('option2').addEventListener('click', () => handleGuess(1));
-    document.getElementById('option3').addEventListener('click', () => handleGuess(2));
+            document.getElementById('option1').innerText = colorOptions[0];
+            document.getElementById('option2').innerText = colorOptions[1];
+            document.getElementById('option3').innerText = colorOptions[2];
 
-    // Start the first round
-    startNewRound();
+            startTimer();
+        }
 
-    // Handle next round button
-    document.getElementById('nextRound').addEventListener('click', startNewRound);
+        // Timer countdown
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                document.getElementById('timeRemaining').innerText = `Time Left: ${timeRemaining}s`;
 
-  </script>
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    gameOver();
+                }
+            }, 1000);
+        }
+
+        // Handle player's guess
+        function handleGuess(optionIndex) {
+            if (optionIndex === correctAnswerIndex) {
+                score += 10;
+                document.getElementById('score').innerText = `Score: ${score}`;
+                alert('Correct! Well done!');
+            } else {
+                alert('Oops! Try again!');
+            }
+            document.getElementById('nextRound').classList.remove('hidden');
+        }
+
+        // Display game over screen
+        function gameOver() {
+            document.getElementById('finalScore').innerText = score;
+            if (score > highScore) {
+                highScore = score;
+                document.getElementById('highScoreMessage').innerText = `New High Score: ${highScore}`;
+            } else {
+                document.getElementById('highScoreMessage').innerText = `High Score: ${highScore}`;
+            }
+            document.getElementById('gameOver').classList.add('active');
+            document.getElementById('nextRound').classList.add('hidden');
+        }
+
+        // Play again button
+        document.getElementById('playAgain').addEventListener('click', () => {
+            score = 0;
+            document.getElementById('score').innerText = `Score: ${score}`;
+            document.getElementById('gameOver').classList.remove('active');
+            startNewRound();
+        });
+
+        // Next round button
+        document.getElementById('nextRound').addEventListener('click', () => {
+            startNewRound();
+            document.getElementById('nextRound').classList.add('hidden');
+        });
+
+        // Difficulty level selection
+        document.getElementById('easy').addEventListener('click', () => {
+            difficulty = 'easy';
+            startNewRound();
+            document.getElementById('difficulty').style.display = 'none';
+        });
+
+        document.getElementById('medium').addEventListener('click', () => {
+            difficulty = 'medium';
+            startNewRound();
+            document.getElementById('difficulty').style.display = 'none';
+        });
+
+        document.getElementById('hard').addEventListener('click', () => {
+            difficulty = 'hard';
+            startNewRound();
+            document.getElementById('difficulty').style.display = 'none';
+        });
+
+        // Option buttons event listeners
+        document.getElementById('option1').addEventListener('click', () => handleGuess(0));
+        document.getElementById('option2').addEventListener('click', () => handleGuess(1));
+        document.getElementById('option3').addEventListener('click', () => handleGuess(2));
+
+    </script>
 
 </body>
+
 </html>
