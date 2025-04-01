@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Windows Command Prompt Commands</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body,
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        span {
+            font-family: "Poppins", sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">Windows Command Prompt Commands</h1>
+
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+            <thead class="bg-blue-600 text-white">
+                <tr>
+                    <th class="px-4 py-2 text-left">Command</th>
+                    <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="px-4 py-2 border-b">`dir`</td>
+                    <td class="px-4 py-2 border-b">Lists the files and folders in the current directory.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`cd`</td>
+                    <td class="px-4 py-2 border-b">Changes the directory. Example: `cd C:\Users\Username\Documents`.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`cls`</td>
+                    <td class="px-4 py-2 border-b">Clears the screen.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`exit`</td>
+                    <td class="px-4 py-2 border-b">Closes the Command Prompt window.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`echo`</td>
+                    <td class="px-4 py-2 border-b">Displays a message or turns command echoing on/off. Example: `echo
+                        Hello World`.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`pause`</td>
+                    <td class="px-4 py-2 border-b">Pauses the command line processing and waits for a key press.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`mkdir`</td>
+                    <td class="px-4 py-2 border-b">Creates a new directory (folder). Example: `mkdir NewFolder`.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`rmdir`</td>
+                    <td class="px-4 py-2 border-b">Removes a directory. Example: `rmdir OldFolder`.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`del`</td>
+                    <td class="px-4 py-2 border-b">Deletes a file. Example: `del file.txt`.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`copy`</td>
+                    <td class="px-4 py-2 border-b">Copies files from one location to another. Example: `copy file.txt
+                        D:\Backup`.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`move`</td>
+                    <td class="px-4 py-2 border-b">Moves files from one location to another. Example: `move file.txt
+                        D:\Backup`.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`ren`</td>
+                    <td class="px-4 py-2 border-b">Renames a file or folder. Example: `ren oldname.txt newname.txt`.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`systeminfo`</td>
+                    <td class="px-4 py-2 border-b">Displays detailed information about the system.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`hostname`</td>
+                    <td class="px-4 py-2 border-b">Displays the computer's hostname.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`tasklist`</td>
+                    <td class="px-4 py-2 border-b">Displays a list of all running processes.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`taskkill`</td>
+                    <td class="px-4 py-2 border-b">Ends a running process. Example: `taskkill /PID 1234`.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`ipconfig`</td>
+                    <td class="px-4 py-2 border-b">Displays IP configuration of the computer.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`ping`</td>
+                    <td class="px-4 py-2 border-b">Tests the connection to a remote network host. Example: `ping
+                        google.com`.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`chkdsk`</td>
+                    <td class="px-4 py-2 border-b">Checks the disk for errors.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`sfc /scannow`</td>
+                    <td class="px-4 py-2 border-b">Scans and repairs system files.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`netstat`</td>
+                    <td class="px-4 py-2 border-b">Displays active network connections.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`tracert`</td>
+                    <td class="px-4 py-2 border-b">Traces the route to a network host. Example: `tracert google.com`.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`nslookup`</td>
+                    <td class="px-4 py-2 border-b">Queries DNS servers for domain information.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`netsh`</td>
+                    <td class="px-4 py-2 border-b">Configures network settings.</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 border-b">`ftp`</td>
+                    <td class="px-4 py-2 border-b">Starts FTP client to transfer files.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
