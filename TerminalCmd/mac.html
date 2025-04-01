@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac Commands</title>
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+        <!-- Navbar -->
+        <nav class="bg-blue-600 p-4 shadow-md mb-10">
+            <div class="max-w-4xl mx-auto flex justify-between items-center">
+                <!-- Logo or Title -->
+                <a href="index.html" class="text-white text-2xl font-bold">Command Reference</a>
+                
+                <!-- Hamburger Menu Button for Mobile -->
+                <div class="lg:hidden">
+                    <button id="navbar-toggler" class="text-white">
+                        <i class="fas fa-bars"></i> <!-- Hamburger icon -->
+                    </button>
+                </div>
+    
+                <!-- Links for Desktop and Mobile -->
+                <div class="hidden lg:flex space-x-6">
+                    <a href="windows.html" class="btn btn-primary">Windows Commands</a>
+                    <a href="linux.html" class="btn btn-secondary">Linux Commands</a>
+                    <a href="mac.html" class="btn btn-accent">Mac Commands</a>
+                </div>
+            </div>
+        </nav>
+    
+        <!-- Dropdown Menu for Mobile -->
+        <div id="navbar-menu" class="lg:hidden hidden bg-blue-600 p-4 space-y-4">
+            <a href="windows.html" class="btn btn-primary w-full">Windows Commands</a>
+            <a href="linux.html" class="btn btn-secondary w-full">Linux Commands</a>
+            <a href="mac.html" class="btn btn-accent w-full">Mac Commands</a>
+        </div>
+    
+    
+        <script>
+            // Toggle for mobile dropdown menu
+            const navbarToggler = document.getElementById("navbar-toggler");
+            const navbarMenu = document.getElementById("navbar-menu");
+    
+            navbarToggler.addEventListener("click", () => {
+                navbarMenu.classList.toggle("hidden");
+            });
+        </script>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-bold text-blue-600 mb-6">Mac Terminal Commands</h1>
+
+        <!-- List of Commands -->
+        <div class="overflow-x-auto bg-white p-6 rounded-lg shadow-md">
+            <table class="table table-zebra w-full text-sm">
+                <thead class="bg-blue-600 text-white">
+                    <tr>
+                        <th class="px-4 py-2">Command</th>
+                        <th class="px-4 py-2">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="px-4 py-2">`ls`</td>
+                        <td class="px-4 py-2">Lists the contents of a directory.</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">`cd`</td>
+                        <td class="px-4 py-2">Changes the current directory.</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">`clear`</td>
+                        <td class="px-4 py-2">Clears the terminal screen.</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">`mkdir`</td>
+                        <td class="px-4 py-2">Creates a new directory.</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">`rm`</td>
+                        <td class="px-4 py-2">Removes a file or directory.</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">`cp`</td>
+                        <td class="px-4 py-2">Copies a file or directory.</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">`mv`</td>
+                        <td class="px-4 py-2">Moves a file or directory.</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">`top`</td>
+                        <td class="px-4 py-2">Displays the running processes on your system.</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">`df`</td>
+                        <td class="px-4 py-2">Displays disk space usage for mounted file systems.</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">`ifconfig`</td>
+                        <td class="px-4 py-2">Displays the network interfaces and their settings.</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">`chmod`</td>
+                        <td class="px-4 py-2">Changes the permissions of a file or directory.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Back Button -->
+        <div class="mt-6">
+            <a href="index.html">
+                <button class="btn btn-primary">Back to Main Page</button>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>
