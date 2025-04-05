@@ -84,6 +84,7 @@
         <div class="mb-6">
             <button id="reset" class="transition-all">Reset Game</button>
             <button id="toggle-mode" class="ml-4">Toggle Dark Mode</button>
+            <button id="ai-toggle" class="ml-4">Play vs AI</button>
         </div>
 
         <p id="message" class="message mt-4"></p>
@@ -94,6 +95,7 @@
         const boardElement = document.getElementById("game-board");
         const resetButton = document.getElementById("reset");
         const toggleModeButton = document.getElementById("toggle-mode");
+        const aiToggleButton = document.getElementById("ai-toggle");
         const messageElement = document.getElementById("message");
         const scoreElement = document.getElementById("score");
         const playerXInput = document.getElementById("player-x");
@@ -104,6 +106,7 @@
         let scoreX = 0;
         let scoreO = 0;
         let winningCombination = [];
+        let isAIMode = false; // AI Mode Toggle
 
         function updateScore() {
             scoreElement.textContent = `Player X: ${scoreX} | Player O: ${scoreO}`;
@@ -148,6 +151,11 @@
             } else {
                 currentPlayer = currentPlayer === "X" ? "O" : "X"; // Switch player
                 messageElement.textContent = `${currentPlayer}'s turn`;
+
+                // AI makes a move if it's the AI's turn
+                if (isAIMode && currentPlayer === "O") {
+                    setTimeout(aiMove, 500);
+                }
             }
         }
 
@@ -172,6 +180,26 @@
             });
         }
 
+        function aiMove() {
+            let availableMoves = board.map((value, index) => value === null ? index : null).filter(value => value !== null);
+            if (availableMoves.length === 0) return;
+            let move = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+            board[move] = "O";
+            renderBoard();
+            const winner = checkWinner();
+            if (winner) {
+                highlightWinningCells();
+                scoreO++;
+                messageElement.textContent = `AI (O) wins! 🎉`;
+                updateScore();
+            } else if (board.every(cell => cell)) {
+                messageElement.textContent = "It's a draw! 🤔";
+            } else {
+                currentPlayer = "X"; // Switch back to Player X after AI's move
+                messageElement.textContent = `${currentPlayer}'s turn`;
+            }
+        }
+
         function resetGame() {
             board = Array(9).fill(null);
             currentPlayer = "X";
@@ -187,8 +215,15 @@
             document.body.classList.toggle('text-white');
         }
 
+        function toggleAIMode() {
+            isAIMode = !isAIMode;
+            aiToggleButton.textContent = isAIMode ? "Play vs Player" : "Play vs AI";
+            resetGame();
+        }
+
         resetButton.addEventListener("click", resetGame);
         toggleModeButton.addEventListener("click", toggleMode);
+        aiToggleButton.addEventListener("click", toggleAIMode);
 
         renderBoard();
         updateScore();
