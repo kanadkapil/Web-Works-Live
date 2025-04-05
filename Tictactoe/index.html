@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+        }
+        .cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            background-color: #f7fafc;
+            border: 2px solid #e2e8f0;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        .cell.x {
+            color: #1e40af;
+        }
+        .cell.o {
+            color: #d53f8c;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+
+    <div class="text-center">
+        <h1 class="text-3xl font-semibold mb-4">Tic-Tac-Toe Game</h1>
+        <div id="game-board" class="board mb-4"></div>
+        <button id="reset" class="bg-blue-500 text-white py-2 px-4 rounded-md">Reset Game</button>
+        <p id="message" class="mt-4 text-xl"></p>
+    </div>
+
+    <script>
+        const boardElement = document.getElementById("game-board");
+        const resetButton = document.getElementById("reset");
+        const messageElement = document.getElementById("message");
+        let currentPlayer = "X"; // X always starts
+        let board = Array(9).fill(null); // 3x3 board
+
+        function checkWinner() {
+            const winPatterns = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
+
+            for (const [a, b, c] of winPatterns) {
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    return board[a];
+                }
+            }
+            return null;
+        }
+
+        function handleClick(index) {
+            if (board[index] || checkWinner()) return; // If the cell is already filled or there's a winner, do nothing
+
+            board[index] = currentPlayer;
+            renderBoard();
+            const winner = checkWinner();
+            if (winner) {
+                messageElement.textContent = `${winner} wins!`;
+            } else if (board.every(cell => cell)) {
+                messageElement.textContent = "It's a draw!";
+            } else {
+                currentPlayer = currentPlayer === "X" ? "O" : "X"; // Switch player
+            }
+        }
+
+        function renderBoard() {
+            boardElement.innerHTML = "";
+            board.forEach((cell, index) => {
+                const cellElement = document.createElement("div");
+                cellElement.classList.add("cell");
+                if (cell) {
+                    cellElement.classList.add(cell.toLowerCase());
+                    cellElement.textContent = cell;
+                }
+                cellElement.addEventListener("click", () => handleClick(index));
+                boardElement.appendChild(cellElement);
+            });
+        }
+
+        function resetGame() {
+            board = Array(9).fill(null);
+            currentPlayer = "X";
+            messageElement.textContent = "";
+            renderBoard();
+        }
+
+        resetButton.addEventListener("click", resetGame);
+
+        renderBoard();
+    </script>
+
+</body>
+</html>
