@@ -41,7 +41,7 @@
             font-weight: 600;
             color: #2d3748;
         }
-        #reset, #toggle-mode {
+        #reset, #toggle-mode, #ai-toggle, #ai-difficulty {
             background-color: #38b2ac;
             color: white;
             padding: 10px 20px;
@@ -52,7 +52,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        #reset:hover, #toggle-mode:hover {
+        #reset:hover, #toggle-mode:hover, #ai-toggle:hover, #ai-difficulty:hover {
             background-color: #319795;
         }
         .highlight {
@@ -85,6 +85,11 @@
             <button id="reset" class="transition-all">Reset Game</button>
             <button id="toggle-mode" class="ml-4">Toggle Dark Mode</button>
             <button id="ai-toggle" class="ml-4">Play vs AI</button>
+            <select id="ai-difficulty" class="ml-4 p-2 rounded bg-white">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
         </div>
 
         <p id="message" class="message mt-4"></p>
@@ -96,6 +101,7 @@
         const resetButton = document.getElementById("reset");
         const toggleModeButton = document.getElementById("toggle-mode");
         const aiToggleButton = document.getElementById("ai-toggle");
+        const aiDifficultySelect = document.getElementById("ai-difficulty");
         const messageElement = document.getElementById("message");
         const scoreElement = document.getElementById("score");
         const playerXInput = document.getElementById("player-x");
@@ -107,6 +113,7 @@
         let scoreO = 0;
         let winningCombination = [];
         let isAIMode = false; // AI Mode Toggle
+        let aiDifficulty = "easy"; // Default difficulty
 
         function updateScore() {
             scoreElement.textContent = `Player X: ${scoreX} | Player O: ${scoreO}`;
@@ -154,7 +161,7 @@
 
                 // AI makes a move if it's the AI's turn
                 if (isAIMode && currentPlayer === "O") {
-                    setTimeout(aiMove, 500);
+                    setTimeout(() => aiMove(aiDifficulty), 500);
                 }
             }
         }
@@ -180,10 +187,15 @@
             });
         }
 
-        function aiMove() {
-            let availableMoves = board.map((value, index) => value === null ? index : null).filter(value => value !== null);
-            if (availableMoves.length === 0) return;
-            let move = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+        function aiMove(difficulty) {
+            let move;
+            if (difficulty === "easy") {
+                move = easyAI();
+            } else if (difficulty === "medium") {
+                move = mediumAI();
+            } else if (difficulty === "hard") {
+                move = hardAI();
+            }
             board[move] = "O";
             renderBoard();
             const winner = checkWinner();
@@ -198,6 +210,79 @@
                 currentPlayer = "X"; // Switch back to Player X after AI's move
                 messageElement.textContent = `${currentPlayer}'s turn`;
             }
+        }
+
+        // AI Move Logic for Easy Difficulty (Random move)
+        function easyAI() {
+            let availableMoves = board.map((value, index) => value === null ? index : null).filter(value => value !== null);
+            return availableMoves[Math.floor(Math.random() * availableMoves.length)];
+        }
+
+        // AI Move Logic for Medium Difficulty (Block winning move)
+        function mediumAI() {
+            let availableMoves = board.map((value, index) => value === null ? index : null).filter(value => value !== null);
+            
+            // Block winning move
+            for (const [a, b, c] of getWinningPatterns()) {
+                if (board[a] === board[b] && board[c] === null && board[a] === "O") {
+                    return c;
+                }
+            }
+            return easyAI(); // Fallback to random move if no winning move to block
+        }
+
+        // AI Move Logic for Hard Difficulty (Minimax Algorithm)
+        function hardAI() {
+            // Minimax algorithm for optimal play
+            const bestMove = minimax(board, "O");
+            return bestMove.index;
+        }
+
+        // Minimax Algorithm Implementation
+        function minimax(board, player) {
+            const availableMoves = board.map((val, index) => val === null ? index : null).filter(val => val !== null);
+            
+            // Check if the current board state is a win or loss
+            if (checkWinner()) {
+                return { score: player === "O" ? -1 : 1 };
+            }
+            
+            if (availableMoves.length === 0) {
+                return { score: 0 }; // Draw situation
+            }
+            
+            const moves = [];
+            
+            // Evaluate each available move
+            for (let move of availableMoves) {
+                board[move] = player;
+                let result = minimax(board, player === "O" ? "X" : "O"); // Switch player
+                board[move] = null;
+                moves.push({ index: move, score: result.score });
+            }
+
+            let bestMove;
+            if (player === "O") {
+                bestMove = moves.reduce((best, move) => (move.score < best.score ? move : best));
+            } else {
+                bestMove = moves.reduce((best, move) => (move.score > best.score ? move : best));
+            }
+            
+            return bestMove;
+        }
+
+        // Helper function to return possible winning patterns
+        function getWinningPatterns() {
+            return [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
         }
 
         function resetGame() {
@@ -220,6 +305,10 @@
             aiToggleButton.textContent = isAIMode ? "Play vs Player" : "Play vs AI";
             resetGame();
         }
+
+        aiDifficultySelect.addEventListener("change", (e) => {
+            aiDifficulty = e.target.value;
+        });
 
         resetButton.addEventListener("click", resetGame);
         toggleModeButton.addEventListener("click", toggleMode);
