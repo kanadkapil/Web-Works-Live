@@ -4,40 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-Tac-Toe Game</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com" defer></script>
+     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         .board {
             display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            gap: 5px;
+            grid-template-columns: repeat(3, 120px);
+            grid-template-rows: repeat(3, 120px);
+            gap: 10px;
         }
         .cell {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100px;
-            height: 100px;
-            background-color: #f7fafc;
-            border: 2px solid #e2e8f0;
-            font-size: 2rem;
+            width: 120px;
+            height: 120px;
+            background-color: #f9fafb;
+            border-radius: 8px;
+            font-size: 3rem;
             cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .cell:hover {
+            background-color: #e2e8f0;
+            transform: scale(1.05);
         }
         .cell.x {
             color: #1e40af;
+            font-weight: bold;
         }
         .cell.o {
             color: #d53f8c;
+            font-weight: bold;
+        }
+        .message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        #reset {
+            background-color: #38b2ac;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #reset:hover {
+            background-color: #319795;
         }
     </style>
 </head>
-<body class="bg-gray-100 h-screen flex items-center justify-center">
+<body class="bg-gradient-to-br from-blue-100 to-teal-100 h-screen flex items-center justify-center">
 
     <div class="text-center">
-        <h1 class="text-3xl font-semibold mb-4">Tic-Tac-Toe Game</h1>
-        <div id="game-board" class="board mb-4"></div>
-        <button id="reset" class="bg-blue-500 text-white py-2 px-4 rounded-md">Reset Game</button>
-        <p id="message" class="mt-4 text-xl"></p>
+        <h1 class="text-4xl font-extrabold text-gray-800 mb-6">Tic-Tac-Toe</h1>
+        <div id="game-board" class="board mb-6"></div>
+        <button id="reset" class="transition-all">Reset Game</button>
+        <p id="message" class="message mt-4"></p>
     </div>
 
     <script>
@@ -74,11 +101,12 @@
             renderBoard();
             const winner = checkWinner();
             if (winner) {
-                messageElement.textContent = `${winner} wins!`;
+                messageElement.textContent = `${winner} wins! 🎉`;
             } else if (board.every(cell => cell)) {
-                messageElement.textContent = "It's a draw!";
+                messageElement.textContent = "It's a draw! 🤔";
             } else {
                 currentPlayer = currentPlayer === "X" ? "O" : "X"; // Switch player
+                messageElement.textContent = `${currentPlayer}'s turn`;
             }
         }
 
@@ -86,7 +114,7 @@
             boardElement.innerHTML = "";
             board.forEach((cell, index) => {
                 const cellElement = document.createElement("div");
-                cellElement.classList.add("cell");
+                cellElement.classList.add("cell", "transition-all", "hover:scale-105");
                 if (cell) {
                     cellElement.classList.add(cell.toLowerCase());
                     cellElement.textContent = cell;
@@ -99,7 +127,7 @@
         function resetGame() {
             board = Array(9).fill(null);
             currentPlayer = "X";
-            messageElement.textContent = "";
+            messageElement.textContent = `${currentPlayer}'s turn`;
             renderBoard();
         }
 
