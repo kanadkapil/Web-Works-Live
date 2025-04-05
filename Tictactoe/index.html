@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-Tac-Toe Game</title>
-    <script src="https://cdn.tailwindcss.com" defer></script>
-     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .board {
             display: grid;
@@ -42,7 +41,7 @@
             font-weight: 600;
             color: #2d3748;
         }
-        #reset {
+        #reset, #toggle-mode {
             background-color: #38b2ac;
             color: white;
             padding: 10px 20px;
@@ -53,8 +52,19 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        #reset:hover {
+        #reset:hover, #toggle-mode:hover {
             background-color: #319795;
+        }
+        .highlight {
+            animation: highlight 1s ease-out;
+        }
+        @keyframes highlight {
+            0% {
+                background-color: rgba(53, 137, 204, 0.5);
+            }
+            100% {
+                background-color: transparent;
+            }
         }
     </style>
 </head>
@@ -62,17 +72,42 @@
 
     <div class="text-center">
         <h1 class="text-4xl font-extrabold text-gray-800 mb-6">Tic-Tac-Toe</h1>
+        
+        <!-- Player names input -->
+        <div class="mb-4">
+            <input type="text" id="player-x" placeholder="Player 1 (X)" class="border p-2 rounded mb-2" />
+            <input type="text" id="player-o" placeholder="Player 2 (O)" class="border p-2 rounded" />
+        </div>
+        
         <div id="game-board" class="board mb-6"></div>
-        <button id="reset" class="transition-all">Reset Game</button>
+
+        <div class="mb-6">
+            <button id="reset" class="transition-all">Reset Game</button>
+            <button id="toggle-mode" class="ml-4">Toggle Dark Mode</button>
+        </div>
+
         <p id="message" class="message mt-4"></p>
+        <div id="score" class="text-lg mt-4 text-gray-800"></div>
     </div>
 
     <script>
         const boardElement = document.getElementById("game-board");
         const resetButton = document.getElementById("reset");
+        const toggleModeButton = document.getElementById("toggle-mode");
         const messageElement = document.getElementById("message");
+        const scoreElement = document.getElementById("score");
+        const playerXInput = document.getElementById("player-x");
+        const playerOInput = document.getElementById("player-o");
+
         let currentPlayer = "X"; // X always starts
         let board = Array(9).fill(null); // 3x3 board
+        let scoreX = 0;
+        let scoreO = 0;
+        let winningCombination = [];
+
+        function updateScore() {
+            scoreElement.textContent = `Player X: ${scoreX} | Player O: ${scoreO}`;
+        }
 
         function checkWinner() {
             const winPatterns = [
@@ -88,6 +123,7 @@
 
             for (const [a, b, c] of winPatterns) {
                 if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    winningCombination = [a, b, c];
                     return board[a];
                 }
             }
@@ -100,8 +136,13 @@
             board[index] = currentPlayer;
             renderBoard();
             const winner = checkWinner();
+
             if (winner) {
+                highlightWinningCells();
+                if (winner === "X") scoreX++;
+                else scoreO++;
                 messageElement.textContent = `${winner} wins! 🎉`;
+                updateScore();
             } else if (board.every(cell => cell)) {
                 messageElement.textContent = "It's a draw! 🤔";
             } else {
@@ -124,16 +165,33 @@
             });
         }
 
+        function highlightWinningCells() {
+            winningCombination.forEach(index => {
+                const cells = document.querySelectorAll(".cell");
+                cells[index].classList.add("highlight");
+            });
+        }
+
         function resetGame() {
             board = Array(9).fill(null);
             currentPlayer = "X";
+            winningCombination = [];
             messageElement.textContent = `${currentPlayer}'s turn`;
             renderBoard();
         }
 
+        function toggleMode() {
+            document.body.classList.toggle('bg-gradient-to-br');
+            document.body.classList.toggle('from-gray-800');
+            document.body.classList.toggle('to-gray-900');
+            document.body.classList.toggle('text-white');
+        }
+
         resetButton.addEventListener("click", resetGame);
+        toggleModeButton.addEventListener("click", toggleMode);
 
         renderBoard();
+        updateScore();
     </script>
 
 </body>
