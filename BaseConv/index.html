@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex justify-center items-center">
+
+    <div class="bg-white shadow-xl rounded-lg p-6 w-96">
+        <h1 class="text-2xl font-semibold text-center mb-6">Base Converter</h1>
+
+        <div class="mb-4">
+            <label for="inputValue" class="block text-sm font-medium text-gray-700">Enter a number</label>
+            <input type="text" id="inputValue" class="mt-1 block w-full px-4 py-2 rounded-md border border-gray-300" placeholder="Enter number" />
+        </div>
+
+        <div class="mb-4">
+            <label for="inputBase" class="block text-sm font-medium text-gray-700">Select input base</label>
+            <select id="inputBase" class="mt-1 block w-full px-4 py-2 rounded-md border border-gray-300">
+                <option value="10">Decimal</option>
+                <option value="2">Binary</option>
+                <option value="8">Octal</option>
+                <option value="16">Hexadecimal</option>
+            </select>
+        </div>
+
+        <button id="convertBtn" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
+            Convert
+        </button>
+
+        <div class="mt-6 space-y-4">
+            <div id="binaryOutput" class="text-gray-700 hidden">
+                <label class="block text-sm font-medium">Binary</label>
+                <input type="text" id="binaryResult" class="block w-full px-4 py-2 rounded-md border border-gray-300" readonly />
+            </div>
+            <div id="decimalOutput" class="text-gray-700 hidden">
+                <label class="block text-sm font-medium">Decimal</label>
+                <input type="text" id="decimalResult" class="block w-full px-4 py-2 rounded-md border border-gray-300" readonly />
+            </div>
+            <div id="octalOutput" class="text-gray-700 hidden">
+                <label class="block text-sm font-medium">Octal</label>
+                <input type="text" id="octalResult" class="block w-full px-4 py-2 rounded-md border border-gray-300" readonly />
+            </div>
+            <div id="hexOutput" class="text-gray-700 hidden">
+                <label class="block text-sm font-medium">Hexadecimal</label>
+                <input type="text" id="hexResult" class="block w-full px-4 py-2 rounded-md border border-gray-300" readonly />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const convertBtn = document.getElementById('convertBtn');
+        const inputValue = document.getElementById('inputValue');
+        const inputBase = document.getElementById('inputBase');
+        
+        const binaryOutput = document.getElementById('binaryOutput');
+        const decimalOutput = document.getElementById('decimalOutput');
+        const octalOutput = document.getElementById('octalOutput');
+        const hexOutput = document.getElementById('hexOutput');
+        
+        const binaryResult = document.getElementById('binaryResult');
+        const decimalResult = document.getElementById('decimalResult');
+        const octalResult = document.getElementById('octalResult');
+        const hexResult = document.getElementById('hexResult');
+        
+        convertBtn.addEventListener('click', () => {
+            const value = inputValue.value.trim();
+            const base = parseInt(inputBase.value);
+            let number;
+
+            // Convert the input value to decimal
+            if (base === 2) {
+                number = parseInt(value, 2); // Binary to Decimal
+            } else if (base === 8) {
+                number = parseInt(value, 8); // Octal to Decimal
+            } else if (base === 16) {
+                number = parseInt(value, 16); // Hexadecimal to Decimal
+            } else {
+                number = parseInt(value, 10); // Decimal
+            }
+
+            // Show the results in other bases
+            binaryResult.value = number.toString(2);
+            decimalResult.value = number.toString(10);
+            octalResult.value = number.toString(8);
+            hexResult.value = number.toString(16).toUpperCase();
+
+            // Display the output divs
+            binaryOutput.classList.remove('hidden');
+            decimalOutput.classList.remove('hidden');
+            octalOutput.classList.remove('hidden');
+            hexOutput.classList.remove('hidden');
+        });
+    </script>
+
+</body>
+</html>
