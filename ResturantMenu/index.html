@@ -2,81 +2,128 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Cafe Menu</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customizable Cafe Menu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body class="bg-cover bg-center min-h-screen text-black" 
+<body class="bg-cover bg-center min-h-screen text-black"
     style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93')">
-    <div class="bg-[#d2b48c] mb-20 bg-opacity-60 w-full max-w-md mx-auto mt-10 rounded-lg shadow-xl p-6">
-        <h1 class="text-3xl font-extrabold text-center mb-1">CAMPER CAFE</h1>
-        <p class="italic text-center text-sm mb-4">Est. 2020</p>
-        <hr class="border-b-[1.5px] border-red-800 mb-4">
 
-        <div id="menu-container" ></div>
+    <main class="bg-[#d2b48c] bg-opacity-70 max-w-2xl mx-auto mt-10 mb-20 rounded-lg shadow-xl p-6">
+        <header class="text-center mb-6">
+            <h1 class="text-3xl font-extrabold">CUSTOM CAFE MENU</h1>
+            <p class="italic text-sm">Design your own</p>
+            <hr class="border-b-[1.5px] border-red-800 mt-3" />
+        </header>
 
-        <hr class="border-b-[1.5px] border-red-800 mt-4 mb-2">
-        <div class="text-center text-xs">
-            <a href="#" class="underline font-semibold">Visit our website</a>
-            <p>123 Free Code Camp Drive</p>
+        <!-- Add Category Form -->
+        <div class="mb-6">
+            <h2 class="text-lg font-semibold mb-2">Add New Category</h2>
+            <div class="flex flex-col md:flex-row gap-2">
+                <input id="new-category" type="text" placeholder="Category Name" class="input input-bordered flex-1" />
+                <input id="new-icon" type="text" placeholder="Emoji/Icon (e.g. ☕)" class="input input-bordered w-24" />
+                <button onclick="addCategory()" class="btn btn-primary">Add</button>
+            </div>
         </div>
-    </div>
+
+        <!-- Add Item Form -->
+        <div class="mb-6">
+            <h2 class="text-lg font-semibold mb-2">Add Item to Category</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                <select id="category-select" class="select select-bordered w-full">
+                    <option disabled selected>Select Category</option>
+                </select>
+                <input id="item-name" type="text" placeholder="Item Name" class="input input-bordered w-full" />
+                <input id="item-price" type="number" placeholder="Price" class="input input-bordered w-full" />
+            </div>
+            <button onclick="addItem()" class="btn btn-success mt-2">Add Item</button>
+        </div>
+
+        <!-- Menu Display -->
+        <section id="menu-container"></section>
+
+        <footer class="text-center text-xs mt-6">
+            <hr class="border-b-[1.5px] border-red-800 mb-2" />
+            <a href="#" class="underline font-semibold block">Visit our website</a>
+            <address>69 East Wood, Camper Road, LA, California</address>
+        </footer>
+    </main>
 
     <script>
-        const menuData = [
-            {
-                category: "Coffee",
-                icon: "\u2615", // ☕
-                items: [
-                    { name: "French Vanilla", price: 3.00 },
-                    { name: "Caramel Macchiato", price: 3.75 },
-                    { name: "Pumpkin Spice", price: 3.50 },
-                    { name: "Hazelnut", price: 4.00 },
-                    { name: "Mocha", price: 4.50 },
-                ]
-            },
-            {
-                category: "Desserts",
-                icon: "\uD83C\uDF70", // 🍰
-                items: [
-                    { name: "Donut", price: 1.50 },
-                    { name: "Cherry Pie", price: 2.75 },
-                    { name: "Cheesecake", price: 3.00 },
-                    { name: "Cinnamon Roll", price: 2.50 },
-                ]
-            }
-        ];
+        let menuData = [];
 
-        const container = document.getElementById("menu-container");
+        const formatPrice = price => new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD'
+        }).format(price);
 
-        menuData.forEach(section => {
-            const sectionEl = document.createElement("div");
-            sectionEl.classList.add("mb-6");
-
-            const title = document.createElement("h2");
-            title.classList.add("text-2xl", "font-extrabold", "text-center");
-            title.textContent = section.category;
-
-            const icon = document.createElement("div");
-            icon.classList.add("text-center", "text-xl", "mb-2");
-            icon.textContent = section.icon;
-
-            const list = document.createElement("ul");
-            section.items.forEach(item => {
-                const li = document.createElement("li");
-                li.classList.add("flex", "justify-between", "px-4", "text-[16px]");
-                li.innerHTML = `<span>${item.name}</span><span>${item.price.toFixed(2)}</span>`;
-                list.appendChild(li);
+        function updateCategoryOptions() {
+            const select = document.getElementById("category-select");
+            select.innerHTML = '<option disabled selected>Select Category</option>';
+            menuData.forEach((cat, index) => {
+                const opt = document.createElement("option");
+                opt.value = index;
+                opt.textContent = cat.category;
+                select.appendChild(opt);
             });
+        }
 
-            sectionEl.appendChild(title);
-            sectionEl.appendChild(icon);
-            sectionEl.appendChild(list);
-            container.appendChild(sectionEl);
-        });
+        function renderMenu() {
+            const container = document.getElementById("menu-container");
+            container.innerHTML = "";
+            menuData.forEach(({ category, icon, items }) => {
+                const section = document.createElement("section");
+                section.className = "mb-6";
+                section.innerHTML = `
+          <h2 class="text-2xl font-extrabold text-center">${category}</h2>
+          <div class="text-center text-xl mb-2">${icon}</div>
+          <ul class="space-y-1">
+            ${items.map(item => `
+              <li class="flex justify-between px-4 text-[16px]">
+                <span>${item.name}</span>
+                <span>${formatPrice(item.price)}</span>
+              </li>`).join('')}
+          </ul>`;
+                container.appendChild(section);
+            });
+        }
+
+        function addCategory() {
+            const categoryInput = document.getElementById("new-category");
+            const iconInput = document.getElementById("new-icon");
+            const category = categoryInput.value.trim();
+            const icon = iconInput.value.trim() || "🍽️";
+
+            if (category) {
+                menuData.push({ category, icon, items: [] });
+                categoryInput.value = "";
+                iconInput.value = "";
+                updateCategoryOptions();
+                renderMenu();
+            } else {
+                alert("Please enter a category name.");
+            }
+        }
+
+        function addItem() {
+            const select = document.getElementById("category-select");
+            const itemName = document.getElementById("item-name").value.trim();
+            const itemPrice = parseFloat(document.getElementById("item-price").value.trim());
+
+            const selectedIndex = select.value;
+
+            if (selectedIndex !== "" && itemName && !isNaN(itemPrice)) {
+                menuData[selectedIndex].items.push({ name: itemName, price: itemPrice });
+                document.getElementById("item-name").value = "";
+                document.getElementById("item-price").value = "";
+                renderMenu();
+            } else {
+                alert("Please fill in all fields correctly.");
+            }
+        }
     </script>
 </body>
 
