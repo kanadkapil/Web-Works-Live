@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cafe Menu Manager</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+  <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+    <h1 class="text-3xl font-bold text-center mb-6">Cafe Menu Manager</h1>
+
+    <!-- Add Category -->
+    <div class="mb-4">
+      <input id="categoryInput" type="text" placeholder="Add Category (e.g., Drinks)" class="border p-2 rounded w-2/3">
+      <button onclick="addCategory()" class="bg-blue-500 text-white px-4 py-2 rounded ml-2 hover:bg-blue-600">Add Category</button>
+    </div>
+
+    <!-- Menu Display -->
+    <div id="menuContainer"></div>
+  </div>
+
+  <script>
+    const menuData = {};
+
+    function addCategory() {
+      const categoryInput = document.getElementById("categoryInput");
+      const category = categoryInput.value.trim();
+
+      if (category && !menuData[category]) {
+        menuData[category] = [];
+        categoryInput.value = "";
+        renderMenu();
+      }
+    }
+
+    function addItem(category) {
+      const itemName = document.getElementById(`itemName-${category}`).value.trim();
+      const itemPrice = parseFloat(document.getElementById(`itemPrice-${category}`).value.trim());
+
+      if (itemName && !isNaN(itemPrice)) {
+        menuData[category].push({ name: itemName, price: itemPrice });
+        renderMenu();
+      }
+    }
+
+    function renderMenu() {
+      const menuContainer = document.getElementById("menuContainer");
+      menuContainer.innerHTML = "";
+
+      for (let category in menuData) {
+        const categoryDiv = document.createElement("div");
+        categoryDiv.classList.add("mb-6", "border-b", "pb-4");
+
+        categoryDiv.innerHTML = `
+          <h2 class="text-xl font-semibold mb-2">${category}</h2>
+          <div class="mb-3 flex space-x-2">
+            <input id="itemName-${category}" type="text" placeholder="Item name" class="border p-2 rounded w-1/3">
+            <input id="itemPrice-${category}" type="number" placeholder="Price" class="border p-2 rounded w-1/4">
+            <button onclick="addItem('${category}')" class="bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600">Add Item</button>
+          </div>
+          <ul class="pl-5 list-disc">
+            ${menuData[category].map(item => `
+              <li>${item.name} - $${item.price.toFixed(2)}</li>
+            `).join("")}
+          </ul>
+        `;
+
+        menuContainer.appendChild(categoryDiv);
+      }
+    }
+  </script>
+</body>
+</html>
