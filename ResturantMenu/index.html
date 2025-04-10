@@ -12,12 +12,35 @@
 <body class="bg-cover bg-center min-h-screen text-black"
     style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93')">
 
-    <main class="bg-[#d2b48c] bg-opacity-70 max-w-2xl mx-auto mt-10 mb-20 rounded-lg shadow-xl p-6">
+    <main class="bg-[#d2b48c] bg-opacity-70 max-w-2xl mx-auto mt-10 mb-20 rounded-lg shadow-xl p-6 transition-all"
+        id="main-box">
         <header class="text-center mb-6">
-            <h1 class="text-3xl font-extrabold">CUSTOM CAFE MENU</h1>
+            <h1 class="text-3xl font-extrabold" id="restaurant-title">CUSTOM CAFE MENU</h1>
             <p class="italic text-sm">Design your own</p>
             <hr class="border-b-[1.5px] border-red-800 mt-3" />
         </header>
+
+        <!-- Customization Options -->
+        <div class="mb-8">
+            <h2 class="text-lg font-semibold mb-2">Customize Appearance</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <input id="restaurant-name" type="text" placeholder="Restaurant Name"
+                    class="input input-bordered w-full" />
+                <input id="bg-url" type="text" placeholder="Background Image URL" class="input input-bordered w-full" />
+            </div>
+            <div class="flex flex-col md:flex-row gap-4 mt-3 items-center">
+                <label class="flex-1">
+                    Blur:
+                    <input id="blur-range" type="range" min="0" max="20" value="0" class="range range-xs" />
+                </label>
+                <label class="flex-1">
+                    Menu Opacity:
+                    <input id="opacity-range" type="range" min="0.1" max="1" step="0.1" value="0.7"
+                        class="range range-xs" />
+                </label>
+            </div>
+            <button onclick="applyCustomization()" class="btn btn-accent mt-4 w-full">Apply Customization</button>
+        </div>
 
         <!-- Add Category Form -->
         <div class="mb-6">
@@ -78,7 +101,7 @@
                 const section = document.createElement("section");
                 section.className = "mb-6";
                 section.innerHTML = `
-          <h2 class="text-2xl font-extrabold text-center">${category}    ${icon}</h2>
+          <h2 class="text-2xl font-extrabold text-center">${category} ${icon}</h2>
           <ul class="space-y-1">
             ${items.map(item => `
               <li class="flex justify-between px-4 text-[16px]">
@@ -122,6 +145,28 @@
             } else {
                 alert("Please fill in all fields correctly.");
             }
+        }
+
+        function applyCustomization() {
+            const newName = document.getElementById("restaurant-name").value.trim();
+            const newBg = document.getElementById("bg-url").value.trim();
+            const blurValue = document.getElementById("blur-range").value;
+            const opacityValue = document.getElementById("opacity-range").value;
+
+            // Change restaurant title
+            if (newName) {
+                document.getElementById("restaurant-title").textContent = newName.toUpperCase();
+            }
+
+            // Change background image
+            if (newBg) {
+                document.body.style.backgroundImage = `url('${newBg}')`;
+            }
+
+            // Update blur and opacity styles
+            const mainBox = document.getElementById("main-box");
+            mainBox.style.backdropFilter = `blur(${blurValue}px)`;
+            mainBox.style.backgroundColor = `rgba(210, 180, 140, ${opacityValue})`;
         }
     </script>
 </body>
