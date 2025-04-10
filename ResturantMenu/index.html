@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Cafe Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="bg-cover bg-center min-h-screen text-black" 
+    style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93')">
+    <div class="bg-[#d2b48c] mb-20 bg-opacity-60 w-full max-w-md mx-auto mt-10 rounded-lg shadow-xl p-6">
+        <h1 class="text-3xl font-extrabold text-center mb-1">CAMPER CAFE</h1>
+        <p class="italic text-center text-sm mb-4">Est. 2020</p>
+        <hr class="border-b-[1.5px] border-red-800 mb-4">
+
+        <div id="menu-container" ></div>
+
+        <hr class="border-b-[1.5px] border-red-800 mt-4 mb-2">
+        <div class="text-center text-xs">
+            <a href="#" class="underline font-semibold">Visit our website</a>
+            <p>123 Free Code Camp Drive</p>
+        </div>
+    </div>
+
+    <script>
+        const menuData = [
+            {
+                category: "Coffee",
+                icon: "\u2615", // ☕
+                items: [
+                    { name: "French Vanilla", price: 3.00 },
+                    { name: "Caramel Macchiato", price: 3.75 },
+                    { name: "Pumpkin Spice", price: 3.50 },
+                    { name: "Hazelnut", price: 4.00 },
+                    { name: "Mocha", price: 4.50 },
+                ]
+            },
+            {
+                category: "Desserts",
+                icon: "\uD83C\uDF70", // 🍰
+                items: [
+                    { name: "Donut", price: 1.50 },
+                    { name: "Cherry Pie", price: 2.75 },
+                    { name: "Cheesecake", price: 3.00 },
+                    { name: "Cinnamon Roll", price: 2.50 },
+                ]
+            }
+        ];
+
+        const container = document.getElementById("menu-container");
+
+        menuData.forEach(section => {
+            const sectionEl = document.createElement("div");
+            sectionEl.classList.add("mb-6");
+
+            const title = document.createElement("h2");
+            title.classList.add("text-2xl", "font-extrabold", "text-center");
+            title.textContent = section.category;
+
+            const icon = document.createElement("div");
+            icon.classList.add("text-center", "text-xl", "mb-2");
+            icon.textContent = section.icon;
+
+            const list = document.createElement("ul");
+            section.items.forEach(item => {
+                const li = document.createElement("li");
+                li.classList.add("flex", "justify-between", "px-4", "text-[16px]");
+                li.innerHTML = `<span>${item.name}</span><span>${item.price.toFixed(2)}</span>`;
+                list.appendChild(li);
+            });
+
+            sectionEl.appendChild(title);
+            sectionEl.appendChild(icon);
+            sectionEl.appendChild(list);
+            container.appendChild(sectionEl);
+        });
+    </script>
+</body>
+
+</html>
