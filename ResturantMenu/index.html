@@ -24,7 +24,7 @@
             <h2 class="text-lg font-semibold mb-2">Add New Category</h2>
             <div class="flex flex-col md:flex-row gap-2">
                 <input id="new-category" type="text" placeholder="Category Name" class="input input-bordered flex-1" />
-                <input id="new-icon" type="text" placeholder="Emoji/Icon (e.g. ☕)" class="input input-bordered w-24" />
+                <input id="new-icon" type="text" placeholder="Emoji" class="input input-bordered w-24" />
                 <button onclick="addCategory()" class="btn btn-primary">Add</button>
             </div>
         </div>
@@ -78,8 +78,7 @@
                 const section = document.createElement("section");
                 section.className = "mb-6";
                 section.innerHTML = `
-          <h2 class="text-2xl font-extrabold text-center">${category}</h2>
-          <div class="text-center text-xl mb-2">${icon}</div>
+          <h2 class="text-2xl font-extrabold text-center">${category}    ${icon}</h2>
           <ul class="space-y-1">
             ${items.map(item => `
               <li class="flex justify-between px-4 text-[16px]">
