@@ -15,7 +15,6 @@
 
 <body class="bg-cover bg-center min-h-screen text-black"
     style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93')">
-
     <main class="bg-[#d2b48c] bg-opacity-70 max-w-2xl mx-auto mt-10 mb-20 rounded-lg shadow-xl p-6 transition-all"
         id="main-box">
         <header class="text-center mb-6">
@@ -47,10 +46,6 @@
                 <input id="restaurant-website" type="text" placeholder="Website URL"
                     class="input input-bordered w-full" />
                 <input id="restaurant-address" type="text" placeholder="Address" class="input input-bordered w-full" />
-            </div>
-            <div class="mt-4">
-                <label for="menu-color" class="block font-semibold">Select Menu Card Color</label>
-                <input type="color" id="menu-color" class="input input-bordered w-full mt-2" />
             </div>
             <button onclick="applyCustomization()" class="btn btn-accent mt-4 w-full">Apply Customization</button>
         </div>
@@ -93,6 +88,10 @@
             <button onclick="downloadAsJPEG()" class="btn btn-outline btn-info">Download as JPEG</button>
             <button onclick="downloadAsPDF()" class="btn btn-outline btn-secondary">Download as PDF</button>
         </div>
+
+        <!-- Go to Full Menu Button -->
+        <button onclick="goToFullMenu()" class="btn btn-outline btn-primary mt-6 w-full">Go to Full Menu</button>
+
     </main>
 
     <script>
@@ -123,7 +122,7 @@
                 section.innerHTML = `
           <h2 class="text-2xl font-extrabold text-center">${category} ${icon}</h2>
           <ul class="space-y-1">
-            ${items.map(item => `
+            ${items.map(item => ` 
               <li class="flex justify-between px-4 text-[16px]">
                 <span>${item.name}</span>
                 <span>${formatPrice(item.price)}</span>
@@ -174,7 +173,6 @@
             const opacityValue = document.getElementById("opacity-range").value;
             const address = document.getElementById("restaurant-address").value.trim();
             const website = document.getElementById("restaurant-website").value.trim();
-            const menuColor = document.getElementById("menu-color").value;
 
             if (newName) {
                 document.getElementById("restaurant-title").textContent = newName.toUpperCase();
@@ -188,10 +186,6 @@
             mainBox.style.backdropFilter = `blur(${blurValue}px)`;
             mainBox.style.backgroundColor = `rgba(210, 180, 140, ${opacityValue})`;
 
-            if (menuColor) {
-                document.getElementById("menu-container").style.backgroundColor = menuColor; // Apply the color to the menu container
-            }
-
             if (address) {
                 document.getElementById("footer-address").textContent = address;
             }
@@ -203,19 +197,30 @@
             }
         }
 
+        // Function to save the current menu to localStorage and navigate to the new page
+        function goToFullMenu() {
+            // Save the menu data to localStorage
+            localStorage.setItem("menuData", JSON.stringify(menuData));
+
+            // Navigate to the new page (full menu page)
+            window.location.href = "menuDisplay.html";
+        }
+
+        // Function to download as JPEG
         function downloadAsJPEG() {
             html2canvas(document.getElementById("main-box"), {
                 scale: 2,  // Increase the scale for better quality
             }).then(canvas => {
                 const link = document.createElement("a");
-                link.download = "menu-card.jpeg";
-                link.href = canvas.toDataURL("image/jpeg");
-                link.click();
+                link.download = "menu-card.jpeg";  // Name of the downloaded image
+                link.href = canvas.toDataURL("image/jpeg");  // Image in JPEG format
+                link.click();  // Trigger the download
             }).catch(error => {
                 console.error("Error downloading as JPEG:", error);
             });
         }
 
+        // Function to download as PDF
         function downloadAsPDF() {
             const { jsPDF } = window.jspdf;
 
@@ -229,7 +234,7 @@
                 const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
                 pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-                pdf.save("menu-card.pdf");
+                pdf.save("menu-card.pdf");  // Save as PDF
             }).catch(error => {
                 console.error("Error downloading as PDF:", error);
             });
