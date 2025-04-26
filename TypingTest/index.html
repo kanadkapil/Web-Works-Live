@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Blaze</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        main: '#e2b714',
+                        sub: '#646669',
+                        error: '#ca4754',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-[#1a1a1a] min-h-screen flex items-center">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8 text-sub">
+            <div class="join">
+                <button class="join-item btn btn-sm" data-mode="15">15s</button>
+                <button class="join-item btn btn-sm" data-mode="30">30s</button>
+                <button class="join-item btn btn-sm" data-mode="60">60s</button>
+            </div>
+
+            <div class="flex gap-4">
+                <div class="stat place-items-center">
+                    <div class="stat-value text-main">0</div>
+                    <div class="stat-title">wpm</div>
+                </div>
+                <div class="stat place-items-center">
+                    <div class="stat-value text-main">100%</div>
+                    <div class="stat-title">acc</div>
+                </div>
+                <div class="stat place-items-center">
+                    <div class="stat-value text-main">15</div>
+                    <div class="stat-title">time</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Area -->
+        <div class="relative bg-base-200 rounded-lg p-6">
+            <div id="text-display" class="text-2xl leading-relaxed opacity-50 transition-opacity text-gray-300"></div>
+            <textarea id="user-input" class="absolute inset-0 w-full h-full opacity-0 p-6 caret-main"
+                autofocus></textarea>
+        </div>
+
+        <!-- Result Modal -->
+        <dialog id="result-modal" class="modal">
+            <div class="modal-box bg-base-200">
+                <h3 class="font-bold text-2xl text-main mb-6">Test Complete!</h3>
+
+                <div class="flex justify-center gap-8 mb-8">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-main" id="result-wpm">0</div>
+                        <div class="text-sub">wpm</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-main" id="result-accuracy">100%</div>
+                        <div class="text-sub">accuracy</div>
+                    </div>
+                </div>
+
+                <div class="modal-action justify-center">
+                    <button id="retry-btn" class="btn btn-primary">
+                        Retry (Ctrl + Enter)
+                    </button>
+                </div>
+            </div>
+        </dialog>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

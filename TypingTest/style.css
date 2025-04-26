@@ -1,0 +1,132 @@
+:root {
+    --bg-color: #1a1a1a;
+    --main-color: #e2b714;
+    --caret-color: #e2b714;
+    --sub-color: #646669;
+    --text-color: #d1d0c5;
+    --error-color: #ca4754;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Roboto Mono', monospace;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+}
+
+.modes {
+    display: flex;
+    gap: 1rem;
+}
+
+.mode {
+    background: none;
+    border: none;
+    color: var(--sub-color);
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+}
+
+.mode.active {
+    color: var(--main-color);
+    background: rgba(226, 183, 20, 0.1);
+}
+
+#test-container {
+    position: relative;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#text-display {
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    text-align: left;
+    word-break: break-all;
+}
+
+#text-display.active {
+    opacity: 1;
+}
+
+#user-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: default;
+    caret-color: var(--caret-color);
+}
+
+.word {
+    display: inline-block;
+    margin: 0 0.3rem;
+}
+
+.letter {
+    position: relative;
+}
+
+.letter.correct {
+    color: var(--text-color);
+}
+
+.letter.incorrect {
+    color: var(--error-color);
+}
+
+.letter.extra {
+    color: var(--error-color);
+    text-decoration: underline;
+}
+
+.result-screen {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.5rem;
+}
+
+.result-stats {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.stat .value {
+    font-size: 2.5rem;
+    color: var(--main-color);
+}
+
+.stat .label {
+    color: var(--sub-color);
+    font-size: 0.9rem;
+}
+
+.hidden {
+    display: none;
+}
