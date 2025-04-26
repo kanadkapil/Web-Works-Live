@@ -64,12 +64,17 @@
                     <input type="range" id="volume" min="0" max="1" step="0.01" value="1"
                         class="range range-primary w-64">
                 </div>
-
                 <!-- Recording Controls -->
                 <div class="flex gap-2 mt-4">
                     <button id="recordBtn" class="btn btn-outline btn-warning">Start Recording</button>
                     <button id="playBtn" class="btn btn-outline btn-success" disabled>Play</button>
                     <button id="clearBtn" class="btn btn-outline btn-error" disabled>Clear</button>
+                </div>
+
+                <!-- Loop Toggle -->
+                <div class="mt-2 flex items-center gap-2">
+                    <label class="label-text">Loop:</label>
+                    <input type="checkbox" id="loopToggle" class="toggle toggle-success" />
                 </div>
 
                 <div class="badge badge-info gap-2 mt-4">
@@ -86,6 +91,8 @@
             let isRecording = false;
             let recordStartTime = 0;
             let recordedSequence = [];
+            let loopEnabled = false;
+            let loopInterval;
 
             const display = document.getElementById('display');
             const volumeControl = document.getElementById('volume');
@@ -93,6 +100,7 @@
             const recordBtn = document.getElementById('recordBtn');
             const playBtn = document.getElementById('playBtn');
             const clearBtn = document.getElementById('clearBtn');
+            const loopToggle = document.getElementById('loopToggle');
 
             powerToggle.addEventListener('change', (e) => {
                 power = e.target.checked;
@@ -134,7 +142,7 @@
 
             volumeControl.dispatchEvent(new Event('input'));
 
-            // Recording Controls
+            // Recording
             recordBtn.addEventListener('click', () => {
                 isRecording = !isRecording;
 
@@ -144,6 +152,7 @@
                     recordBtn.classList.add('btn-active');
                     recordBtn.innerText = "Stop Recording";
                     display.innerText = "Recording...";
+                    stopLoop();
                 } else {
                     recordBtn.classList.remove('btn-active');
                     recordBtn.innerText = "Start Recording";
@@ -153,26 +162,56 @@
                 }
             });
 
+            // Playback
             playBtn.addEventListener('click', () => {
                 if (!power || recordedSequence.length === 0) return;
-
                 display.innerText = "Playing recording...";
+                stopLoop(); // prevent overlap
+
+                playSequence();
+
+                if (loopEnabled) {
+                    const totalDuration = recordedSequence[recordedSequence.length - 1].time;
+                    loopInterval = setInterval(playSequence, totalDuration);
+                }
+            });
+
+            // Clear recording
+            clearBtn.addEventListener('click', () => {
+                recordedSequence = [];
+                display.innerText = "Recording Cleared";
+                playBtn.disabled = true;
+                clearBtn.disabled = true;
+                stopLoop();
+            });
+
+            // Loop toggle
+            loopToggle.addEventListener('change', (e) => {
+                loopEnabled = e.target.checked;
+                display.innerText = loopEnabled ? "Loop Enabled" : "Loop Disabled";
+            });
+
+            // Utility to stop loop
+            function stopLoop() {
+                if (loopInterval) {
+                    clearInterval(loopInterval);
+                    loopInterval = null;
+                }
+            }
+
+            // Playback logic
+            function playSequence() {
+                if (!power) return;
                 recordedSequence.forEach(note => {
                     setTimeout(() => {
                         const pad = document.querySelector(`[data-key="${note.key}"]`);
                         if (pad) playAudio(pad);
                     }, note.time);
                 });
-            });
-
-            clearBtn.addEventListener('click', () => {
-                recordedSequence = [];
-                display.innerText = "Recording Cleared";
-                playBtn.disabled = true;
-                clearBtn.disabled = true;
-            });
+            }
         });
     </script>
+
 </body>
 
 </html>
