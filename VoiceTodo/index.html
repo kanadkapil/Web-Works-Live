@@ -47,12 +47,21 @@
         const list = document.getElementById('todo-list');
         const status = document.getElementById('status');
 
+        function updateTaskNumbers() {
+            const items = list.querySelectorAll('li');
+            items.forEach((item, index) => {
+                const numberSpan = item.querySelector('.task-number');
+                numberSpan.textContent = `${index + 1}. `;
+            });
+        }
+
         function addTask(text) {
             const item = document.createElement('li');
 
             item.innerHTML = `
         <div class="flex items-center justify-between bg-indigo-50 px-4 py-3 rounded-lg shadow-sm hover:bg-indigo-100 transition group">
-          <span class="text-gray-800 flex-1 cursor-pointer truncate group-hover:text-indigo-700 task-text">${text}</span>
+          <span class="task-number font-bold text-indigo-500 mr-1"></span>
+          <span class="task-text text-gray-800 flex-1 cursor-pointer truncate group-hover:text-indigo-700">${text}</span>
           <button class="ml-3 text-red-500 hover:text-red-700" title="Delete">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -71,9 +80,11 @@
 
             deleteBtn.addEventListener('click', () => {
                 item.remove();
+                updateTaskNumbers();
             });
 
             list.appendChild(item);
+            updateTaskNumbers();
         }
 
         function startListening() {
