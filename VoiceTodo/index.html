@@ -17,6 +17,7 @@
             }
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 </head>
 
 <body
@@ -125,6 +126,14 @@
                 status.textContent = '❌ Error. Try again.';
             };
         }
+
+        // Enable drag-and-drop sorting
+        Sortable.create(list, {
+            animation: 150,
+            onEnd: () => {
+                updateTaskNumbers(); // Update index after reordering
+            }
+        });
     </script>
 </body>
 
