@@ -7,23 +7,42 @@
     <title>Voice To-Do List</title>
     <!-- ✅ Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        pulseSlow: 'pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
-<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-start pt-16 px-4">
-    <h1 class="text-4xl font-bold mb-6 text-gray-800">🎙️ Voice To-Do List</h1>
+<body
+    class="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 min-h-screen flex items-center justify-center px-4">
+    <div class="bg-white shadow-xl rounded-xl p-8 max-w-md w-full relative">
+        <h1 class="text-3xl font-bold text-center text-indigo-700 mb-6">🎙️ Voice To-Do List</h1>
 
-    <button onclick="startListening()"
-        class="mb-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-        Start Listening
-    </button>
+        <p id="status" class="text-gray-600 text-center mb-4">
+            Tap the mic and say: <span class="italic text-indigo-800">"Add [your task]"</span>
+        </p>
 
-    <p id="status" class="text-gray-600 mb-6 text-center max-w-md">
-        Click the button and say: <span class="italic text-gray-800">"Add [your task]"</span>
-    </p>
+        <ul id="todo-list" class="space-y-3">
+            <!-- Tasks go here -->
+        </ul>
 
-    <ul id="todo-list" class="w-full max-w-md space-y-2">
-        <!-- List items appear here -->
-    </ul>
+        <!-- Floating Mic Button -->
+        <button onclick="startListening()"
+            class="absolute bottom-[-24px] left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-700 transition duration-300 animate-pulseSlow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 1v11m0 0v9m0-9a4 4 0 004-4V5a4 4 0 10-8 0v3a4 4 0 004 4z" />
+            </svg>
+        </button>
+    </div>
 
     <script>
         const list = document.getElementById('todo-list');
@@ -31,8 +50,13 @@
 
         function addTask(text) {
             const item = document.createElement('li');
-            item.textContent = text;
-            item.className = 'bg-white px-4 py-2 rounded shadow cursor-pointer hover:bg-green-100 transition';
+            item.innerHTML = `
+        <div class="flex items-center justify-between bg-indigo-50 px-4 py-3 rounded-lg shadow-sm hover:bg-indigo-100 transition cursor-pointer">
+          <span class="text-gray-800">${text}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+        </div>`;
             item.onclick = () => item.classList.toggle('line-through');
             list.appendChild(item);
         }
@@ -46,18 +70,17 @@
             const recognition = new webkitSpeechRecognition();
             recognition.lang = 'en-US';
             recognition.start();
-
             status.textContent = "🎧 Listening...";
 
             recognition.onresult = (event) => {
                 const command = event.results[0][0].transcript.toLowerCase();
-                status.textContent = `You said: "${command}"`;
+                status.textContent = `✅ You said: "${command}"`;
 
                 if (command.startsWith('add ')) {
                     const task = command.replace('add ', '');
                     addTask(task);
                 } else {
-                    status.textContent = 'Say: "Add [task]"';
+                    status.textContent = '⚠️ Say: "Add [task]"';
                 }
             };
 
