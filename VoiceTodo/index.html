@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voice To-Do List</title>
+    <!-- ✅ Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-start pt-16 px-4">
+    <h1 class="text-4xl font-bold mb-6 text-gray-800">🎙️ Voice To-Do List</h1>
+
+    <button onclick="startListening()"
+        class="mb-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+        Start Listening
+    </button>
+
+    <p id="status" class="text-gray-600 mb-6 text-center max-w-md">
+        Click the button and say: <span class="italic text-gray-800">"Add [your task]"</span>
+    </p>
+
+    <ul id="todo-list" class="w-full max-w-md space-y-2">
+        <!-- List items appear here -->
+    </ul>
+
+    <script>
+        const list = document.getElementById('todo-list');
+        const status = document.getElementById('status');
+
+        function addTask(text) {
+            const item = document.createElement('li');
+            item.textContent = text;
+            item.className = 'bg-white px-4 py-2 rounded shadow cursor-pointer hover:bg-green-100 transition';
+            item.onclick = () => item.classList.toggle('line-through');
+            list.appendChild(item);
+        }
+
+        function startListening() {
+            if (!('webkitSpeechRecognition' in window)) {
+                alert("Speech Recognition not supported. Use Chrome.");
+                return;
+            }
+
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.start();
+
+            status.textContent = "🎧 Listening...";
+
+            recognition.onresult = (event) => {
+                const command = event.results[0][0].transcript.toLowerCase();
+                status.textContent = `You said: "${command}"`;
+
+                if (command.startsWith('add ')) {
+                    const task = command.replace('add ', '');
+                    addTask(task);
+                } else {
+                    status.textContent = 'Say: "Add [task]"';
+                }
+            };
+
+            recognition.onerror = () => {
+                status.textContent = '❌ Error. Try again.';
+            };
+        }
+    </script>
+</body>
+
+</html>
