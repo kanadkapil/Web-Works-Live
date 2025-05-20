@@ -4,212 +4,157 @@
 <head>
     <meta charset="UTF-8">
     <title>Brainfuck Interpreter</title>
-    <style>
-        body {
-            font-family: monospace;
-            background-color: #f9f9f9;
-            padding: 20px;
-            max-width: 900px;
-            margin: auto;
-        }
-
-        textarea,
-        input,
-        button,
-        pre {
-            width: 100%;
-            box-sizing: border-box;
-            font-family: monospace;
-            margin-top: 10px;
-        }
-
-        #output {
-            background: #222;
-            color: #0f0;
-            padding: 10px;
-            min-height: 50px;
-        }
-
-        .memory {
-            background: #eee;
-            font-size: 14px;
-            padding: 10px;
-            margin-top: 10px;
-        }
-
-        .memory span {
-            display: inline-block;
-            width: 50px;
-            padding: 5px;
-            margin: 2px;
-            text-align: center;
-            border-radius: 5px;
-        }
-
-        .pointer {
-            background: #000;
-            color: #fff;
-            font-weight: bold;
-        }
-
-        .instructions {
-            background: #eef;
-            padding: 15px;
-            border-radius: 5px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-
-        td {
-            padding: 5px;
-            border-bottom: 1px solid #ccc;
-        }
-
-        code {
-            background: #ddd;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="font-mono bg-gray-50 p-6 max-w-3xl mx-auto">
 
-    <h1>🧠 Brainfuck Interpreter</h1>
+    <h1 class="text-3xl font-bold text-center mb-6">🧠 Brainfuck Interpreter</h1>
 
-    <label for="code"><strong>Enter Brainfuck Code:</strong></label>
-    <textarea id="code"
-        rows="10">++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.</textarea>
+    <label for="code" class="block text-lg font-medium">Enter Brainfuck Code:</label>
+    <textarea id="code" rows="10"
+        class="w-full mt-2 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Enter Brainfuck code here">++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.</textarea>
 
-    <label for="input"><strong>Program Input (for ',' command):</strong></label>
-    <input id="input" type="text" placeholder="Type any input characters here">
+    <label for="input" class="block text-lg font-medium mt-4">Program Input (for ',' command):</label>
+    <input id="input" type="text"
+        class="w-full mt-2 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Type any input characters here">
 
-    <button onclick="runBrainfuck()">Run 🏃</button>
+    <button onclick="runBrainfuck()"
+        class="mt-4 w-full p-3 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        Run 🏃
+    </button>
 
-    <h3>Output:</h3>
-    <pre id="output">(Your output will appear here)</pre>
+    <h3 class="text-xl font-semibold mt-6">Output:</h3>
+    <pre id="output"
+        class="bg-gray-900 text-green-500 p-4 rounded-md min-h-[50px] mt-2">(Your output will appear here)</pre>
 
-    <h3>Memory Tape (first 10 cells):</h3>
-    <div class="memory" id="memory"></div>
+    <h3 class="text-xl font-semibold mt-6">Memory Tape (first 10 cells):</h3>
+    <div class="memory bg-gray-200 p-4 mt-2 rounded-md" id="memory"></div>
 
-    <br>
-    <br>
-    <br>
+    <br><br><br>
 
     <!-- Documentation -->
-    <h2>📘 How to Use the Brainfuck Interpreter</h2>
-    <div class="instructions">
-        <ul>
+    <h2 class="text-2xl font-semibold mt-8">📘 How to Use the Brainfuck Interpreter</h2>
+    <div class="instructions bg-blue-50 p-6 rounded-md mt-4">
+        <ul class="list-disc pl-6 space-y-2">
             <li><strong>Step 1:</strong> Enter your Brainfuck code in the textarea above.</li>
-            <li><strong>Step 2:</strong> If your code uses <code>,</code> for input, type the input string in the second
-                box.</li>
+            <li><strong>Step 2:</strong> If your code uses <code class="bg-gray-200 p-1 rounded-md">,</code> for input,
+                type the input string in the second box.</li>
             <li><strong>Step 3:</strong> Click <strong>"Run"</strong> to execute your code and see the output.</li>
         </ul>
     </div>
 
-    <h2>🧠 Brainfuck Commands</h2>
-    <div class="instructions">
-        <table>
+    <h2 class="text-2xl font-semibold mt-8">🧠 Brainfuck Commands</h2>
+    <div class="instructions bg-blue-50 p-6 rounded-md mt-4">
+        <table class="w-full text-sm text-left">
             <tr>
-                <td><code>&gt;</code></td>
-                <td>Move pointer to the right</td>
+                <td class="p-2"><code class="bg-gray-200 p-1 rounded-md">&gt;</code></td>
+                <td class="p-2">Move pointer to the right</td>
             </tr>
             <tr>
-                <td><code>&lt;</code></td>
-                <td>Move pointer to the left</td>
+                <td class="p-2"><code class="bg-gray-200 p-1 rounded-md">&lt;</code></td>
+                <td class="p-2">Move pointer to the left</td>
             </tr>
             <tr>
-                <td><code>+</code></td>
-                <td>Increment value at current cell</td>
+                <td class="p-2"><code class="bg-gray-200 p-1 rounded-md">+</code></td>
+                <td class="p-2">Increment value at current cell</td>
             </tr>
             <tr>
-                <td><code>-</code></td>
-                <td>Decrement value at current cell</td>
+                <td class="p-2"><code class="bg-gray-200 p-1 rounded-md">-</code></td>
+                <td class="p-2">Decrement value at current cell</td>
             </tr>
             <tr>
-                <td><code>.</code></td>
-                <td>Output character at current cell</td>
+                <td class="p-2"><code class="bg-gray-200 p-1 rounded-md">.</code></td>
+                <td class="p-2">Output character at current cell</td>
             </tr>
             <tr>
-                <td><code>,</code></td>
-                <td>Input character into current cell</td>
+                <td class="p-2"><code class="bg-gray-200 p-1 rounded-md">,</code></td>
+                <td class="p-2">Input character into current cell</td>
             </tr>
             <tr>
-                <td><code>[</code></td>
-                <td>Start loop (jump forward if value is 0)</td>
+                <td class="p-2"><code class="bg-gray-200 p-1 rounded-md">[</code></td>
+                <td class="p-2">Start loop (jump forward if value is 0)</td>
             </tr>
             <tr>
-                <td><code>]</code></td>
-                <td>End loop (jump back if value is not 0)</td>
+                <td class="p-2"><code class="bg-gray-200 p-1 rounded-md">]</code></td>
+                <td class="p-2">End loop (jump back if value is not 0)</td>
             </tr>
         </table>
     </div>
 
-    <h2>✅ Example</h2>
-    <div class="instructions">
+    <h2 class="text-2xl font-semibold mt-8">✅ Example</h2>
+    <div class="instructions bg-blue-50 p-6 rounded-md mt-4">
         <p><strong>Hello World in Brainfuck:</strong></p>
-        <pre>++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.</pre>
-        <p>This prints: <code>Hello World!</code></p>
+        <pre
+            class="bg-gray-100 p-4 rounded-md">++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.</pre>
+        <p>This prints: <code class="bg-gray-200 p-1 rounded-md">Hello World!</code></p>
     </div>
 
-    <h2>🔤 How to Type Individual Characters in Brainfuck</h2>
-    <div class="instructions">
-        <p>Characters in Brainfuck are printed using their ASCII values. Use <code>+</code> to increase the value and
-            <code>.</code> to print.</p>
-        <table>
+    <h2 class="text-2xl font-semibold mt-8">🔤 How to Type Individual Characters in Brainfuck</h2>
+    <div class="instructions bg-blue-50 p-6 rounded-md mt-4">
+        <p>Characters in Brainfuck are printed using their ASCII values. Use <code
+                class="bg-gray-200 p-1 rounded-md">+</code> to increase the value and <code
+                class="bg-gray-200 p-1 rounded-md">.</code> to print.</p>
+        <table class="w-full text-sm text-left">
             <tr>
-                <td><strong>Character</strong></td>
-                <td><strong>ASCII</strong></td>
-                <td><strong>Brainfuck</strong></td>
+                <td class="p-2"><strong>Character</strong></td>
+                <td class="p-2"><strong>ASCII</strong></td>
+                <td class="p-2"><strong>Brainfuck</strong></td>
             </tr>
             <tr>
-                <td>A</td>
-                <td>65</td>
-                <td><code>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.</code></td>
-            </tr>
-            <tr>
-                <td>B</td>
-                <td>66</td>
-                <td><code>++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.</code></td>
-            </tr>
-            <tr>
-                <td>a</td>
-                <td>97</td>
-                <td><code>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.</code>
+                <td class="p-2">A</td>
+                <td class="p-2">65</td>
+                <td class="p-2"><code
+                        class="bg-gray-200 p-1 rounded-md">+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.</code>
                 </td>
             </tr>
             <tr>
-                <td>z</td>
-                <td>122</td>
-                <td><code>++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++..</code>
+                <td class="p-2">B</td>
+                <td class="p-2">66</td>
+                <td class="p-2"><code
+                        class="bg-gray-200 p-1 rounded-md">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.</code>
                 </td>
             </tr>
             <tr>
-                <td>0</td>
-                <td>48</td>
-                <td><code>++++++++++++++++++++++++++++++++++++++++++++++++.</code></td>
+                <td class="p-2">a</td>
+                <td class="p-2">97</td>
+                <td class="p-2"><code
+                        class="bg-gray-200 p-1 rounded-md">+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.</code>
+                </td>
             </tr>
             <tr>
-                <td>!</td>
-                <td>33</td>
-                <td><code>+++++++++++++++++++++++++++++++++.</code></td>
+                <td class="p-2">z</td>
+                <td class="p-2">122</td>
+                <td class="p-2"><code
+                        class="bg-gray-200 p-1 rounded-md">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++..</code>
+                </td>
             </tr>
             <tr>
-                <td>Space</td>
-                <td>32</td>
-                <td><code>++++++++++++++++++++++++++++++++.</code></td>
+                <td class="p-2">0</td>
+                <td class="p-2">48</td>
+                <td class="p-2"><code
+                        class="bg-gray-200 p-1 rounded-md">++++++++++++++++++++++++++++++++++++++++++++++++.</code></td>
             </tr>
             <tr>
-                <td>Newline</td>
-                <td>10</td>
-                <td><code>++++++++++.</code></td>
+                <td class="p-2">!</td>
+                <td class="p-2">33</td>
+                <td class="p-2"><code class="bg-gray-200 p-1 rounded-md">+++++++++++++++++++++++++++++++++.</code></td>
+            </tr>
+            <tr>
+                <td class="p-2">Space</td>
+                <td class="p-2">32</td>
+                <td class="p-2"><code class="bg-gray-200 p-1 rounded-md">++++++++++++++++++++++++++++++++.</code></td>
+            </tr>
+            <tr>
+                <td class="p-2">Newline</td>
+                <td class="p-2">10</td>
+                <td class="p-2"><code class="bg-gray-200 p-1 rounded-md">++++++++++.</code></td>
             </tr>
         </table>
-        <p>💡 Tip: Use loops like <code>++++++++++[>+++++++<-]</code> to build values faster!</p>
+        <p class="mt-2">💡 Tip: Use loops like <code class="bg-gray-200 p-1 rounded-md">++++++++++[>+++++++<-]</code> to
+            build values faster!</p>
     </div>
 
     <script>
@@ -268,11 +213,12 @@
             for (let i = 0; i < 10; i++) {
                 const cell = document.createElement("span");
                 cell.textContent = tape[i];
-                if (i === pointer) cell.classList.add("pointer");
+                if (i === pointer) cell.classList.add("bg-black", "text-white", "font-bold", "px-2", "rounded-md");
                 memoryDiv.appendChild(cell);
             }
         }
     </script>
 
-    <!-- (Documentation remains same below here) -->
-    <!-- You can append the How to Use, ASCII chart, etc. from previous versions -->
+</body>
+
+</html>
