@@ -30,10 +30,26 @@
             min-height: 50px;
         }
 
-        h1,
-        h2,
-        h3 {
-            margin-top: 30px;
+        .memory {
+            background: #eee;
+            font-size: 14px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .memory span {
+            display: inline-block;
+            width: 50px;
+            padding: 5px;
+            margin: 2px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .pointer {
+            background: #000;
+            color: #fff;
+            font-weight: bold;
         }
 
         .instructions {
@@ -77,46 +93,12 @@
     <h3>Output:</h3>
     <pre id="output">(Your output will appear here)</pre>
 
-    <script>
-        function runBrainfuck() {
-            const code = document.getElementById("code").value;
-            const input = document.getElementById("input").value;
-            const output = document.getElementById("output");
+    <h3>Memory Tape (first 10 cells):</h3>
+    <div class="memory" id="memory"></div>
 
-            const tape = new Array(30000).fill(0);
-            let ptr = 0, ip = 0, inputPtr = 0;
-            let out = "";
-
-            const jumpMap = {};
-            const tempStack = [];
-
-            for (let i = 0; i < code.length; i++) {
-                if (code[i] === '[') tempStack.push(i);
-                if (code[i] === ']') {
-                    const start = tempStack.pop();
-                    jumpMap[start] = i;
-                    jumpMap[i] = start;
-                }
-            }
-
-            while (ip < code.length) {
-                const cmd = code[ip];
-                switch (cmd) {
-                    case '>': ptr++; break;
-                    case '<': ptr--; break;
-                    case '+': tape[ptr] = (tape[ptr] + 1) % 256; break;
-                    case '-': tape[ptr] = (tape[ptr] + 255) % 256; break;
-                    case '.': out += String.fromCharCode(tape[ptr]); break;
-                    case ',': tape[ptr] = inputPtr < input.length ? input.charCodeAt(inputPtr++) : 0; break;
-                    case '[': if (tape[ptr] === 0) ip = jumpMap[ip]; break;
-                    case ']': if (tape[ptr] !== 0) ip = jumpMap[ip]; break;
-                }
-                ip++;
-            }
-
-            output.textContent = out || "(no output)";
-        }
-    </script>
+    <br>
+    <br>
+    <br>
 
     <!-- Documentation -->
     <h2>📘 How to Use the Brainfuck Interpreter</h2>
@@ -230,6 +212,67 @@
         <p>💡 Tip: Use loops like <code>++++++++++[>+++++++<-]</code> to build values faster!</p>
     </div>
 
-</body>
+    <script>
+        function runBrainfuck() {
+            const code = document.getElementById("code").value;
+            const input = document.getElementById("input").value;
+            const output = document.getElementById("output");
+            const memoryDisplay = document.getElementById("memory");
 
-</html>
+            // Check for bracket mismatch
+            const openBrackets = (code.match(/\[/g) || []).length;
+            const closeBrackets = (code.match(/\]/g) || []).length;
+            if (openBrackets !== closeBrackets) {
+                alert("⚠️ Bracket mismatch: Check your '[' and ']' balance.");
+                return;
+            }
+
+            const tape = new Array(30000).fill(0);
+            let ptr = 0, ip = 0, inputPtr = 0;
+            let out = "";
+
+            const jumpMap = {};
+            const tempStack = [];
+
+            for (let i = 0; i < code.length; i++) {
+                if (code[i] === '[') tempStack.push(i);
+                if (code[i] === ']') {
+                    const start = tempStack.pop();
+                    jumpMap[start] = i;
+                    jumpMap[i] = start;
+                }
+            }
+
+            while (ip < code.length) {
+                const cmd = code[ip];
+                switch (cmd) {
+                    case '>': ptr++; break;
+                    case '<': ptr--; break;
+                    case '+': tape[ptr] = (tape[ptr] + 1) % 256; break;
+                    case '-': tape[ptr] = (tape[ptr] + 255) % 256; break;
+                    case '.': out += String.fromCharCode(tape[ptr]); break;
+                    case ',': tape[ptr] = inputPtr < input.length ? input.charCodeAt(inputPtr++) : 0; break;
+                    case '[': if (tape[ptr] === 0) ip = jumpMap[ip]; break;
+                    case ']': if (tape[ptr] !== 0) ip = jumpMap[ip]; break;
+                }
+                ip++;
+            }
+
+            output.textContent = out || "(no output)";
+            updateMemoryTape(tape, ptr);
+        }
+
+        function updateMemoryTape(tape, pointer) {
+            const memoryDiv = document.getElementById("memory");
+            memoryDiv.innerHTML = "";
+            for (let i = 0; i < 10; i++) {
+                const cell = document.createElement("span");
+                cell.textContent = tape[i];
+                if (i === pointer) cell.classList.add("pointer");
+                memoryDiv.appendChild(cell);
+            }
+        }
+    </script>
+
+    <!-- (Documentation remains same below here) -->
+    <!-- You can append the How to Use, ASCII chart, etc. from previous versions -->
