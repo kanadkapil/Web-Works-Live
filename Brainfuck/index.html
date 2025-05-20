@@ -9,7 +9,7 @@
             font-family: monospace;
             background-color: #f9f9f9;
             padding: 20px;
-            max-width: 800px;
+            max-width: 900px;
             margin: auto;
         }
 
@@ -41,6 +41,23 @@
             padding: 15px;
             border-radius: 5px;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        code {
+            background: #ddd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
     </style>
 </head>
 
@@ -60,7 +77,6 @@
     <h3>Output:</h3>
     <pre id="output">(Your output will appear here)</pre>
 
-    <!-- Interpreter Script -->
     <script>
         function runBrainfuck() {
             const code = document.getElementById("code").value;
@@ -74,7 +90,6 @@
             const jumpMap = {};
             const tempStack = [];
 
-            // Build jump map for loops
             for (let i = 0; i < code.length; i++) {
                 if (code[i] === '[') tempStack.push(i);
                 if (code[i] === ']') {
@@ -103,7 +118,7 @@
         }
     </script>
 
-    <!-- Documentation Section -->
+    <!-- Documentation -->
     <h2>📘 How to Use the Brainfuck Interpreter</h2>
     <div class="instructions">
         <ul>
@@ -114,7 +129,7 @@
         </ul>
     </div>
 
-    <h2>📚 Brainfuck Commands</h2>
+    <h2>🧠 Brainfuck Commands</h2>
     <div class="instructions">
         <table>
             <tr>
@@ -157,6 +172,62 @@
         <p><strong>Hello World in Brainfuck:</strong></p>
         <pre>++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.</pre>
         <p>This prints: <code>Hello World!</code></p>
+    </div>
+
+    <h2>🔤 How to Type Individual Characters in Brainfuck</h2>
+    <div class="instructions">
+        <p>Characters in Brainfuck are printed using their ASCII values. Use <code>+</code> to increase the value and
+            <code>.</code> to print.</p>
+        <table>
+            <tr>
+                <td><strong>Character</strong></td>
+                <td><strong>ASCII</strong></td>
+                <td><strong>Brainfuck</strong></td>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>65</td>
+                <td><code>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.</code></td>
+            </tr>
+            <tr>
+                <td>B</td>
+                <td>66</td>
+                <td><code>++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.</code></td>
+            </tr>
+            <tr>
+                <td>a</td>
+                <td>97</td>
+                <td><code>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.</code>
+                </td>
+            </tr>
+            <tr>
+                <td>z</td>
+                <td>122</td>
+                <td><code>++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++..</code>
+                </td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>48</td>
+                <td><code>++++++++++++++++++++++++++++++++++++++++++++++++.</code></td>
+            </tr>
+            <tr>
+                <td>!</td>
+                <td>33</td>
+                <td><code>+++++++++++++++++++++++++++++++++.</code></td>
+            </tr>
+            <tr>
+                <td>Space</td>
+                <td>32</td>
+                <td><code>++++++++++++++++++++++++++++++++.</code></td>
+            </tr>
+            <tr>
+                <td>Newline</td>
+                <td>10</td>
+                <td><code>++++++++++.</code></td>
+            </tr>
+        </table>
+        <p>💡 Tip: Use loops like <code>++++++++++[>+++++++<-]</code> to build values faster!</p>
     </div>
 
 </body>
