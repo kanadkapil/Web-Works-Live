@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Brainfuck Interpreter</title>
+    <style>
+        body {
+            font-family: monospace;
+            background-color: #f9f9f9;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        textarea,
+        input,
+        button,
+        pre {
+            width: 100%;
+            box-sizing: border-box;
+            font-family: monospace;
+            margin-top: 10px;
+        }
+
+        #output {
+            background: #222;
+            color: #0f0;
+            padding: 10px;
+            min-height: 50px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin-top: 30px;
+        }
+
+        .instructions {
+            background: #eef;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🧠 Brainfuck Interpreter</h1>
+
+    <label for="code"><strong>Enter Brainfuck Code:</strong></label>
+    <textarea id="code"
+        rows="10">++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.</textarea>
+
+    <label for="input"><strong>Program Input (for ',' command):</strong></label>
+    <input id="input" type="text" placeholder="Type any input characters here">
+
+    <button onclick="runBrainfuck()">Run 🏃</button>
+
+    <h3>Output:</h3>
+    <pre id="output">(Your output will appear here)</pre>
+
+    <!-- Interpreter Script -->
+    <script>
+        function runBrainfuck() {
+            const code = document.getElementById("code").value;
+            const input = document.getElementById("input").value;
+            const output = document.getElementById("output");
+
+            const tape = new Array(30000).fill(0);
+            let ptr = 0, ip = 0, inputPtr = 0;
+            let out = "";
+
+            const jumpMap = {};
+            const tempStack = [];
+
+            // Build jump map for loops
+            for (let i = 0; i < code.length; i++) {
+                if (code[i] === '[') tempStack.push(i);
+                if (code[i] === ']') {
+                    const start = tempStack.pop();
+                    jumpMap[start] = i;
+                    jumpMap[i] = start;
+                }
+            }
+
+            while (ip < code.length) {
+                const cmd = code[ip];
+                switch (cmd) {
+                    case '>': ptr++; break;
+                    case '<': ptr--; break;
+                    case '+': tape[ptr] = (tape[ptr] + 1) % 256; break;
+                    case '-': tape[ptr] = (tape[ptr] + 255) % 256; break;
+                    case '.': out += String.fromCharCode(tape[ptr]); break;
+                    case ',': tape[ptr] = inputPtr < input.length ? input.charCodeAt(inputPtr++) : 0; break;
+                    case '[': if (tape[ptr] === 0) ip = jumpMap[ip]; break;
+                    case ']': if (tape[ptr] !== 0) ip = jumpMap[ip]; break;
+                }
+                ip++;
+            }
+
+            output.textContent = out || "(no output)";
+        }
+    </script>
+
+    <!-- Documentation Section -->
+    <h2>📘 How to Use the Brainfuck Interpreter</h2>
+    <div class="instructions">
+        <ul>
+            <li><strong>Step 1:</strong> Enter your Brainfuck code in the textarea above.</li>
+            <li><strong>Step 2:</strong> If your code uses <code>,</code> for input, type the input string in the second
+                box.</li>
+            <li><strong>Step 3:</strong> Click <strong>"Run"</strong> to execute your code and see the output.</li>
+        </ul>
+    </div>
+
+    <h2>📚 Brainfuck Commands</h2>
+    <div class="instructions">
+        <table>
+            <tr>
+                <td><code>&gt;</code></td>
+                <td>Move pointer to the right</td>
+            </tr>
+            <tr>
+                <td><code>&lt;</code></td>
+                <td>Move pointer to the left</td>
+            </tr>
+            <tr>
+                <td><code>+</code></td>
+                <td>Increment value at current cell</td>
+            </tr>
+            <tr>
+                <td><code>-</code></td>
+                <td>Decrement value at current cell</td>
+            </tr>
+            <tr>
+                <td><code>.</code></td>
+                <td>Output character at current cell</td>
+            </tr>
+            <tr>
+                <td><code>,</code></td>
+                <td>Input character into current cell</td>
+            </tr>
+            <tr>
+                <td><code>[</code></td>
+                <td>Start loop (jump forward if value is 0)</td>
+            </tr>
+            <tr>
+                <td><code>]</code></td>
+                <td>End loop (jump back if value is not 0)</td>
+            </tr>
+        </table>
+    </div>
+
+    <h2>✅ Example</h2>
+    <div class="instructions">
+        <p><strong>Hello World in Brainfuck:</strong></p>
+        <pre>++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.</pre>
+        <p>This prints: <code>Hello World!</code></p>
+    </div>
+
+</body>
+
+</html>
