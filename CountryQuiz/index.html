@@ -57,106 +57,18 @@
     </div>
 
     <script>
-        // Sample data for Country Guessing Mode
-        const countriesData = [
-            {
-                name: "Egypt",
-                hints: [
-                    "This country is home to one of the most iconic rivers in the world, often considered the longest river on Earth.",
-                    "It is famous for its ancient pyramids and the Sphinx.",
-                    "The Nile River flows through this country.",
-                    "Its capital city is Cairo.",
-                    "It is located in northeastern Africa.",
-                    "It was home to Pharaohs and ancient Egyptian civilization.",
-                    "The Great Pyramid of Giza is one of its most famous landmarks."
-                ]
-            },
-            {
-                name: "South Africa",
-                hints: [
-                    "This country has the highest number of official languages in the world—11 in total.",
-                    "It is located at the southern tip of the African continent.",
-                    "It has three capital cities: Pretoria, Bloemfontein, and Cape Town.",
-                    "It is famous for its diverse cultures and wildlife.",
-                    "The apartheid system ended here in the 1990s.",
-                    "Nelson Mandela was a famous leader from this country.",
-                    "The Kruger National Park is a famous safari destination here."
-                ]
-            },
-            {
-                name: "Philippines",
-                hints: [
-                    "This country is made up of over 7,000 islands, though only about 2,000 are inhabited.",
-                    "It was a Spanish colony for over 300 years before being taken over by the United States.",
-                    "It is known for its jeepneys, colorful and uniquely decorated vehicles used for public transportation.",
-                    "Its capital city is Manila.",
-                    "It is located in Southeast Asia.",
-                    "It is famous for beautiful beaches and tropical climate.",
-                    "Filipino and English are official languages here."
-                ]
-            },
-            {
-                name: "Greenland",
-                hints: [
-                    "This country is famous for having the world’s largest island, which is not a continent.",
-                    "It is an autonomous territory within the Kingdom of Denmark.",
-                    "It is mostly covered by ice.",
-                    "Its capital is Nuuk.",
-                    "It is located between the Arctic and Atlantic Oceans.",
-                    "It has a very small population.",
-                    "It is known for its stunning glaciers and fjords."
-                ]
-            },
-            {
-                name: "Australia",
-                hints: [
-                    "This country is famous for its unique wildlife, including kangaroos and koalas.",
-                    "It is both a country and a continent.",
-                    "Its largest city is Sydney.",
-                    "The Great Barrier Reef is located off its coast.",
-                    "It is known for its vast deserts and outback.",
-                    "Its capital city is Canberra.",
-                    "It has a strong sporting culture including cricket and rugby."
-                ]
-            },
-            {
-                name: "Ethiopia",
-                hints: [
-                    "This country is landlocked and known for its breathtaking ancient rock churches carved directly into cliffs.",
-                    "It is located in the Horn of Africa.",
-                    "It is one of the oldest Christian civilizations in the world.",
-                    "Its capital city is Addis Ababa.",
-                    "Lalibela, a town famous for its monolithic rock-cut churches, is here.",
-                    "It has its own unique alphabet and calendar.",
-                    "Coffee is believed to have originated here."
-                ]
-            },
-            {
-                name: "India",
-                hints: [
-                    "This country is famous for being the world’s largest producer of a popular spice known for its strong aroma and heat.",
-                    "It is the second most populous country in the world.",
-                    "The Taj Mahal is located here.",
-                    "Its capital city is New Delhi.",
-                    "It has a rich cultural and religious history.",
-                    "Bollywood is its famous film industry.",
-                    "It is known for diverse languages and cuisines."
-                ]
-            }
-        ];
+        // Game state variables
+        let countriesData = [];
+        let capitalCountryData = [];
 
-        // Sample data for Capital-Country Mode
-        const capitalCountryData = [
-            { country: "Egypt", capital: "Cairo" },
-            { country: "South Africa", capital: "Pretoria" },
-            { country: "Philippines", capital: "Manila" },
-            { country: "Greenland", capital: "Nuuk" },
-            { country: "Australia", capital: "Canberra" },
-            { country: "Ethiopia", capital: "Addis Ababa" },
-            { country: "India", capital: "New Delhi" }
-        ];
+        let currentCountry = null;
+        let currentHintIndex = 0;
+        let strikes = 0;
 
-        // Elements for Country Guessing Mode
+        let currentQuizIndex = 0;
+        let score = 0;
+
+        // UI elements
         const countryModeDiv = document.getElementById('countryMode');
         const hintText = document.getElementById('hintText');
         const nextHintBtn = document.getElementById('nextHintBtn');
@@ -166,7 +78,6 @@
         const strikesSpan = document.getElementById('strikes');
         const hintNumberSpan = document.getElementById('hintNumber');
 
-        // Elements for Capital-Country Mode
         const capitalModeDiv = document.getElementById('capitalMode');
         const capitalQuestion = document.getElementById('capitalQuestion');
         const capitalAnswerInput = document.getElementById('capitalAnswerInput');
@@ -176,34 +87,31 @@
         const nextCapitalQuestionBtn = document.getElementById('nextCapitalQuestionBtn');
         const quizTypeSelect = document.getElementById('quizTypeSelect');
 
-        // Mode buttons
         const modeCountryBtn = document.getElementById('modeCountry');
         const modeCapitalBtn = document.getElementById('modeCapital');
 
-        // Game state variables for Country Guessing
-        let currentCountry = null;
-        let currentHintIndex = 0;
-        let strikes = 0;
+        // Fetch JSON data
+        fetch('countries_capitals.json')
+            .then(response => response.json())
+            .then(data => {
+                countriesData = data;
+                capitalCountryData = data.map(({ country, capital }) => ({ country, capital }));
+                showCountryMode(); // Show country mode after data is loaded
+            })
+            .catch(error => console.error("Failed to load data:", error));
 
-        // Game state variables for Capital Quiz
-        let currentQuizIndex = 0;
-        let score = 0;
-
-        // Show Country Mode and hide Capital Mode by default
         function showCountryMode() {
             countryModeDiv.classList.remove('hidden');
             capitalModeDiv.classList.add('hidden');
             resetCountryGame();
         }
 
-        // Show Capital Mode and hide Country Mode
         function showCapitalMode() {
             capitalModeDiv.classList.remove('hidden');
             countryModeDiv.classList.add('hidden');
             resetCapitalGame();
         }
 
-        // Reset Country Guessing Game
         function resetCountryGame() {
             strikes = 0;
             strikesSpan.textContent = strikes;
@@ -212,14 +120,16 @@
             guessInput.value = "";
             hintNumberSpan.textContent = currentHintIndex + 1;
 
-            // Randomly pick a country from the data
+            guessInput.disabled = false;
+            submitGuessBtn.disabled = false;
+            nextHintBtn.disabled = false;
+
             currentCountry = countriesData[Math.floor(Math.random() * countriesData.length)];
             hintText.textContent = currentCountry.hints[currentHintIndex];
         }
 
-        // Show next hint in Country Guessing Mode
         nextHintBtn.addEventListener('click', () => {
-            if (currentHintIndex < 6) {
+            if (currentHintIndex < currentCountry.hints.length - 1) {
                 currentHintIndex++;
                 hintText.textContent = currentCountry.hints[currentHintIndex];
                 hintNumberSpan.textContent = currentHintIndex + 1;
@@ -227,22 +137,17 @@
                 guessInput.value = "";
             } else {
                 feedback.textContent = `Out of hints! You lost! The country was ${currentCountry.name}.`;
-                guessInput.disabled = true;
-                submitGuessBtn.disabled = true;
-                nextHintBtn.disabled = true;
+                disableCountryInputs();
             }
         });
 
-        // Submit guess in Country Guessing Mode
         submitGuessBtn.addEventListener('click', () => {
             const guess = guessInput.value.trim().toLowerCase();
             if (!guess) return;
 
             if (guess === currentCountry.name.toLowerCase()) {
                 feedback.textContent = `🎉 Correct! The country is ${currentCountry.name}. You won!`;
-                guessInput.disabled = true;
-                submitGuessBtn.disabled = true;
-                nextHintBtn.disabled = true;
+                disableCountryInputs();
             } else {
                 strikes++;
                 strikesSpan.textContent = strikes;
@@ -251,14 +156,17 @@
 
                 if (strikes >= 3) {
                     feedback.textContent = `💥 You lost! The country was ${currentCountry.name}.`;
-                    guessInput.disabled = true;
-                    submitGuessBtn.disabled = true;
-                    nextHintBtn.disabled = true;
+                    disableCountryInputs();
                 }
             }
         });
 
-        // Reset Capital Quiz Game
+        function disableCountryInputs() {
+            guessInput.disabled = true;
+            submitGuessBtn.disabled = true;
+            nextHintBtn.disabled = true;
+        }
+
         function resetCapitalGame() {
             score = 0;
             capitalScoreSpan.textContent = score;
@@ -269,13 +177,13 @@
             loadCapitalQuestion();
         }
 
-        // Load a new question in Capital Quiz Mode
         function loadCapitalQuestion() {
+            if (capitalCountryData.length === 0) return;
+
             capitalAnswerInput.value = "";
             capitalFeedback.textContent = "";
-
-            // Pick a random question
             currentQuizIndex = Math.floor(Math.random() * capitalCountryData.length);
+
             const quizType = quizTypeSelect.value;
             const item = capitalCountryData[currentQuizIndex];
 
@@ -286,20 +194,13 @@
             }
         }
 
-        // Submit answer in Capital Quiz Mode
         submitCapitalAnswerBtn.addEventListener('click', () => {
             const answer = capitalAnswerInput.value.trim().toLowerCase();
             if (!answer) return;
 
             const quizType = quizTypeSelect.value;
             const item = capitalCountryData[currentQuizIndex];
-            let correctAnswer = "";
-
-            if (quizType === "countryToCapital") {
-                correctAnswer = item.capital.toLowerCase();
-            } else {
-                correctAnswer = item.country.toLowerCase();
-            }
+            let correctAnswer = quizType === "countryToCapital" ? item.capital.toLowerCase() : item.country.toLowerCase();
 
             if (answer === correctAnswer) {
                 capitalFeedback.textContent = "🎉 Correct!";
@@ -310,15 +211,10 @@
             }
         });
 
-        // Next question button
         nextCapitalQuestionBtn.addEventListener('click', loadCapitalQuestion);
 
-        // Mode buttons event listeners
         modeCountryBtn.addEventListener('click', showCountryMode);
         modeCapitalBtn.addEventListener('click', showCapitalMode);
-
-        // Start with Country Guessing Mode visible
-        showCountryMode();
     </script>
 
 </body>
