@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-100">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Geo Quiz Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="h-full flex flex-col items-center justify-center p-6">
+
+    <h1 class="text-4xl font-bold mb-6 text-gray-800">Geo Quiz Game</h1>
+
+    <div class="mb-4">
+        <button id="modeCountry" class="px-4 py-2 mr-2 bg-blue-600 text-white rounded hover:bg-blue-700">Country
+            Guessing</button>
+        <button id="modeCapital" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Capital
+            Quiz</button>
+    </div>
+
+    <div id="gameContainer" class="w-full max-w-xl bg-white p-6 rounded shadow">
+
+        <!-- Country Guessing Mode -->
+        <div id="countryMode" class="hidden">
+            <p class="mb-4 text-lg font-semibold" id="hintText">Hint will appear here</p>
+            <button id="nextHintBtn" class="mb-4 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Next Hint</button>
+            <input type="text" id="guessInput" placeholder="Type your guess here"
+                class="w-full p-2 border rounded mb-4" />
+            <button id="submitGuessBtn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Submit
+                Guess</button>
+            <p id="feedback" class="mt-4 font-semibold"></p>
+            <p class="mt-2">Strikes: <span id="strikes">0</span> / 3</p>
+            <p>Hint Number: <span id="hintNumber">1</span> / 7</p>
+        </div>
+
+        <!-- Capital Quiz Mode -->
+        <div id="capitalMode" class="hidden">
+            <p class="mb-2 text-lg font-semibold" id="capitalQuestion"></p>
+            <input type="text" id="capitalAnswerInput" placeholder="Type your answer here"
+                class="w-full p-2 border rounded mb-4" />
+            <button id="submitCapitalAnswerBtn"
+                class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Submit Answer</button>
+            <p id="capitalFeedback" class="mt-4 font-semibold"></p>
+            <p>Score: <span id="capitalScore">0</span></p>
+            <button id="nextCapitalQuestionBtn" class="mt-4 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Next
+                Question</button>
+            <div class="mt-4">
+                <label class="mr-4 font-semibold">Quiz Type:</label>
+                <select id="quizTypeSelect" class="p-2 border rounded">
+                    <option value="countryToCapital">Country → Capital</option>
+                    <option value="capitalToCountry">Capital → Country</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Sample data for Country Guessing Mode
+        const countriesData = [
+            {
+                name: "Egypt",
+                hints: [
+                    "This country is home to one of the most iconic rivers in the world, often considered the longest river on Earth.",
+                    "It is famous for its ancient pyramids and the Sphinx.",
+                    "The Nile River flows through this country.",
+                    "Its capital city is Cairo.",
+                    "It is located in northeastern Africa.",
+                    "It was home to Pharaohs and ancient Egyptian civilization.",
+                    "The Great Pyramid of Giza is one of its most famous landmarks."
+                ]
+            },
+            {
+                name: "South Africa",
+                hints: [
+                    "This country has the highest number of official languages in the world—11 in total.",
+                    "It is located at the southern tip of the African continent.",
+                    "It has three capital cities: Pretoria, Bloemfontein, and Cape Town.",
+                    "It is famous for its diverse cultures and wildlife.",
+                    "The apartheid system ended here in the 1990s.",
+                    "Nelson Mandela was a famous leader from this country.",
+                    "The Kruger National Park is a famous safari destination here."
+                ]
+            },
+            {
+                name: "Philippines",
+                hints: [
+                    "This country is made up of over 7,000 islands, though only about 2,000 are inhabited.",
+                    "It was a Spanish colony for over 300 years before being taken over by the United States.",
+                    "It is known for its jeepneys, colorful and uniquely decorated vehicles used for public transportation.",
+                    "Its capital city is Manila.",
+                    "It is located in Southeast Asia.",
+                    "It is famous for beautiful beaches and tropical climate.",
+                    "Filipino and English are official languages here."
+                ]
+            },
+            {
+                name: "Greenland",
+                hints: [
+                    "This country is famous for having the world’s largest island, which is not a continent.",
+                    "It is an autonomous territory within the Kingdom of Denmark.",
+                    "It is mostly covered by ice.",
+                    "Its capital is Nuuk.",
+                    "It is located between the Arctic and Atlantic Oceans.",
+                    "It has a very small population.",
+                    "It is known for its stunning glaciers and fjords."
+                ]
+            },
+            {
+                name: "Australia",
+                hints: [
+                    "This country is famous for its unique wildlife, including kangaroos and koalas.",
+                    "It is both a country and a continent.",
+                    "Its largest city is Sydney.",
+                    "The Great Barrier Reef is located off its coast.",
+                    "It is known for its vast deserts and outback.",
+                    "Its capital city is Canberra.",
+                    "It has a strong sporting culture including cricket and rugby."
+                ]
+            },
+            {
+                name: "Ethiopia",
+                hints: [
+                    "This country is landlocked and known for its breathtaking ancient rock churches carved directly into cliffs.",
+                    "It is located in the Horn of Africa.",
+                    "It is one of the oldest Christian civilizations in the world.",
+                    "Its capital city is Addis Ababa.",
+                    "Lalibela, a town famous for its monolithic rock-cut churches, is here.",
+                    "It has its own unique alphabet and calendar.",
+                    "Coffee is believed to have originated here."
+                ]
+            },
+            {
+                name: "India",
+                hints: [
+                    "This country is famous for being the world’s largest producer of a popular spice known for its strong aroma and heat.",
+                    "It is the second most populous country in the world.",
+                    "The Taj Mahal is located here.",
+                    "Its capital city is New Delhi.",
+                    "It has a rich cultural and religious history.",
+                    "Bollywood is its famous film industry.",
+                    "It is known for diverse languages and cuisines."
+                ]
+            }
+        ];
+
+        // Sample data for Capital-Country Mode
+        const capitalCountryData = [
+            { country: "Egypt", capital: "Cairo" },
+            { country: "South Africa", capital: "Pretoria" },
+            { country: "Philippines", capital: "Manila" },
+            { country: "Greenland", capital: "Nuuk" },
+            { country: "Australia", capital: "Canberra" },
+            { country: "Ethiopia", capital: "Addis Ababa" },
+            { country: "India", capital: "New Delhi" }
+        ];
+
+        // Elements for Country Guessing Mode
+        const countryModeDiv = document.getElementById('countryMode');
+        const hintText = document.getElementById('hintText');
+        const nextHintBtn = document.getElementById('nextHintBtn');
+        const guessInput = document.getElementById('guessInput');
+        const submitGuessBtn = document.getElementById('submitGuessBtn');
+        const feedback = document.getElementById('feedback');
+        const strikesSpan = document.getElementById('strikes');
+        const hintNumberSpan = document.getElementById('hintNumber');
+
+        // Elements for Capital-Country Mode
+        const capitalModeDiv = document.getElementById('capitalMode');
+        const capitalQuestion = document.getElementById('capitalQuestion');
+        const capitalAnswerInput = document.getElementById('capitalAnswerInput');
+        const submitCapitalAnswerBtn = document.getElementById('submitCapitalAnswerBtn');
+        const capitalFeedback = document.getElementById('capitalFeedback');
+        const capitalScoreSpan = document.getElementById('capitalScore');
+        const nextCapitalQuestionBtn = document.getElementById('nextCapitalQuestionBtn');
+        const quizTypeSelect = document.getElementById('quizTypeSelect');
+
+        // Mode buttons
+        const modeCountryBtn = document.getElementById('modeCountry');
+        const modeCapitalBtn = document.getElementById('modeCapital');
+
+        // Game state variables for Country Guessing
+        let currentCountry = null;
+        let currentHintIndex = 0;
+        let strikes = 0;
+
+        // Game state variables for Capital Quiz
+        let currentQuizIndex = 0;
+        let score = 0;
+
+        // Show Country Mode and hide Capital Mode by default
+        function showCountryMode() {
+            countryModeDiv.classList.remove('hidden');
+            capitalModeDiv.classList.add('hidden');
+            resetCountryGame();
+        }
+
+        // Show Capital Mode and hide Country Mode
+        function showCapitalMode() {
+            capitalModeDiv.classList.remove('hidden');
+            countryModeDiv.classList.add('hidden');
+            resetCapitalGame();
+        }
+
+        // Reset Country Guessing Game
+        function resetCountryGame() {
+            strikes = 0;
+            strikesSpan.textContent = strikes;
+            currentHintIndex = 0;
+            feedback.textContent = "";
+            guessInput.value = "";
+            hintNumberSpan.textContent = currentHintIndex + 1;
+
+            // Randomly pick a country from the data
+            currentCountry = countriesData[Math.floor(Math.random() * countriesData.length)];
+            hintText.textContent = currentCountry.hints[currentHintIndex];
+        }
+
+        // Show next hint in Country Guessing Mode
+        nextHintBtn.addEventListener('click', () => {
+            if (currentHintIndex < 6) {
+                currentHintIndex++;
+                hintText.textContent = currentCountry.hints[currentHintIndex];
+                hintNumberSpan.textContent = currentHintIndex + 1;
+                feedback.textContent = "";
+                guessInput.value = "";
+            } else {
+                feedback.textContent = `Out of hints! You lost! The country was ${currentCountry.name}.`;
+                guessInput.disabled = true;
+                submitGuessBtn.disabled = true;
+                nextHintBtn.disabled = true;
+            }
+        });
+
+        // Submit guess in Country Guessing Mode
+        submitGuessBtn.addEventListener('click', () => {
+            const guess = guessInput.value.trim().toLowerCase();
+            if (!guess) return;
+
+            if (guess === currentCountry.name.toLowerCase()) {
+                feedback.textContent = `🎉 Correct! The country is ${currentCountry.name}. You won!`;
+                guessInput.disabled = true;
+                submitGuessBtn.disabled = true;
+                nextHintBtn.disabled = true;
+            } else {
+                strikes++;
+                strikesSpan.textContent = strikes;
+                feedback.textContent = `❌ Wrong guess! Try again.`;
+                guessInput.value = "";
+
+                if (strikes >= 3) {
+                    feedback.textContent = `💥 You lost! The country was ${currentCountry.name}.`;
+                    guessInput.disabled = true;
+                    submitGuessBtn.disabled = true;
+                    nextHintBtn.disabled = true;
+                }
+            }
+        });
+
+        // Reset Capital Quiz Game
+        function resetCapitalGame() {
+            score = 0;
+            capitalScoreSpan.textContent = score;
+            currentQuizIndex = 0;
+            capitalAnswerInput.value = "";
+            capitalFeedback.textContent = "";
+            quizTypeSelect.value = "countryToCapital";
+            loadCapitalQuestion();
+        }
+
+        // Load a new question in Capital Quiz Mode
+        function loadCapitalQuestion() {
+            capitalAnswerInput.value = "";
+            capitalFeedback.textContent = "";
+
+            // Pick a random question
+            currentQuizIndex = Math.floor(Math.random() * capitalCountryData.length);
+            const quizType = quizTypeSelect.value;
+            const item = capitalCountryData[currentQuizIndex];
+
+            if (quizType === "countryToCapital") {
+                capitalQuestion.textContent = `What is the capital of ${item.country}?`;
+            } else {
+                capitalQuestion.textContent = `Which country has the capital city named ${item.capital}?`;
+            }
+        }
+
+        // Submit answer in Capital Quiz Mode
+        submitCapitalAnswerBtn.addEventListener('click', () => {
+            const answer = capitalAnswerInput.value.trim().toLowerCase();
+            if (!answer) return;
+
+            const quizType = quizTypeSelect.value;
+            const item = capitalCountryData[currentQuizIndex];
+            let correctAnswer = "";
+
+            if (quizType === "countryToCapital") {
+                correctAnswer = item.capital.toLowerCase();
+            } else {
+                correctAnswer = item.country.toLowerCase();
+            }
+
+            if (answer === correctAnswer) {
+                capitalFeedback.textContent = "🎉 Correct!";
+                score++;
+                capitalScoreSpan.textContent = score;
+            } else {
+                capitalFeedback.textContent = `❌ Wrong! The correct answer was "${correctAnswer}".`;
+            }
+        });
+
+        // Next question button
+        nextCapitalQuestionBtn.addEventListener('click', loadCapitalQuestion);
+
+        // Mode buttons event listeners
+        modeCountryBtn.addEventListener('click', showCountryMode);
+        modeCapitalBtn.addEventListener('click', showCapitalMode);
+
+        // Start with Country Guessing Mode visible
+        showCountryMode();
+    </script>
+
+</body>
+
+</html>
