@@ -2,97 +2,83 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chess Clock</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chess Clock</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .active-turn {
+      animation: pulse 0.3s ease-in-out;
+      transform: scale(1.05);
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        background-color: #4f46e5;
+      }
+
+      50% {
+        transform: scale(1.08);
+        background-color: #2563eb;
+      }
+
+      100% {
+        transform: scale(1.05);
+        background-color: #4f46e5;
+      }
+    }
+  </style>
 </head>
 
-<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen gap-6 p-4">
+<body class="bg-gray-900 text-white flex flex-col h-screen w-full overflow-hidden">
 
-    <div class="text-3xl font-bold">Chess Clock</div>
-
-    <!-- Time selector -->
-    <div class="flex items-center gap-2">
-        <label for="timeSelect" class="text-lg">Select Time:</label>
-        <select id="timeSelect" class="text-black p-2 rounded">
-            <option value="1">1 min</option>
-            <option value="2">2 min</option>
-            <option value="3">3 min</option>
-            <option value="5" selected>5 min</option>
-            <option value="7">7 min</option>
-            <option value="10">10 min</option>
-            <option value="15">15 min</option>
-            <option value="20">20 min</option>
-            <option value="30">30 min</option>
-            <option value="45">45 min</option>
-            <option value="60">60 min</option>
-        </select>
+  <!-- Header and Time Selector -->
+  <div class="text-center py-2">
+    <div class="text-2xl font-bold">Chess Clock</div>
+    <div class="flex justify-center items-center gap-2 mt-2">
+      <label for="timeSelect" class="text-lg">Time:</label>
+      <select id="timeSelect" class="text-black p-2 rounded">
+        <option value="1">1 min</option>
+        <option value="2">2 min</option>
+        <option value="3">3 min</option>
+        <option value="5" selected>5 min</option>
+        <option value="7">7 min</option>
+        <option value="10">10 min</option>
+        <option value="15">15 min</option>
+        <option value="20">20 min</option>
+        <option value="30">30 min</option>
+        <option value="45">45 min</option>
+        <option value="60">60 min</option>
+      </select>
     </div>
+  </div>
 
-    <!-- Clocks -->
-    <div class="flex flex-col gap-4 w-full max-w-md">
-        <div id="player1" class="bg-gray-800 p-6 rounded text-center text-4xl cursor-pointer">
-            <span id="time1">05:00</span>
-        </div>
-        <div id="player2" class="bg-gray-700 p-6 rounded text-center text-4xl cursor-pointer">
-            <span id="time2">05:00</span>
-        </div>
-    </div>
+  <!-- Player Clocks -->
+  <div id="player1"
+    class="flex-1 bg-gray-800 text-5xl md:text-6xl flex items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black">
+    <span id="time1">05:00</span>
+  </div>
 
-    <!-- Buttons -->
-    <div class="flex gap-4 mt-4">
-        <button id="startPause" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700">Start</button>
-        <button id="reset" class="bg-red-600 px-4 py-2 rounded hover:bg-red-700">Reset</button>
-    </div>
+  <div id="player2"
+    class="flex-1 bg-gray-700 text-5xl md:text-6xl flex items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black">
+    <span id="time2">05:00</span>
+  </div>
 
-<style>
-    .active-turn {
-        animation: pulse 0.3s ease-in-out;
-        transform: scale(1.05);
-    }
+  <!-- Control Buttons -->
+  <div class="h-[10%] min-h-[60px] flex justify-center gap-4 items-center bg-gray-900 mt-2 py-2">
+    <button id="startPause"
+      class="bg-blue-600 px-6 py-2 rounded text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-900 active:shadow-inner active:translate-y-[1px]">
+      Start
+    </button>
+    <button id="reset"
+      class="bg-red-600 px-6 py-2 rounded text-lg hover:bg-red-700 transition shadow-xl shadow-red-900 active:shadow-inner active:translate-y-[1px]">
+      Reset
+    </button>
+  </div>
 
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-            background-color: #4f46e5; /* indigo-600 */
-        }
-        50% {
-            transform: scale(1.08);
-            background-color: #2563eb; /* blue-600 */
-        }
-        100% {
-            transform: scale(1.05);
-            background-color: #4f46e5; /* indigo-600 */
-        }
-    }
-</style>
-
-
-
-<style>
-    .active-turn {
-        animation: pulse 0.3s ease-in-out;
-        transform: scale(1.05);
-    }
-
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-            background-color: #4f46e5; /* indigo-600 */
-        }
-        50% {
-            transform: scale(1.08);
-            background-color: #2563eb; /* blue-600 */
-        }
-        100% {
-            transform: scale(1.05);
-            background-color: #4f46e5; /* indigo-600 */
-        }
-    }
-</style>
-
-<script>
+  <!-- JavaScript -->
+  <script>
     let baseMinutes = 5;
     let time1, time2;
     let activePlayer = null;
@@ -108,99 +94,97 @@
     const resetBtn = document.getElementById("reset");
 
     function formatTime(seconds) {
-        const m = String(Math.floor(seconds / 60)).padStart(2, "0");
-        const s = String(seconds % 60).padStart(2, "0");
-        return `${m}:${s}`;
+      const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+      const s = String(seconds % 60).padStart(2, "0");
+      return `${m}:${s}`;
     }
 
     function updateDisplays() {
-        display1.textContent = formatTime(time1);
-        display2.textContent = formatTime(time2);
+      display1.textContent = formatTime(time1);
+      display2.textContent = formatTime(time2);
     }
 
     function switchTurn() {
-        if (!isRunning) return;
+      if (!isRunning) return;
 
-        activePlayer = activePlayer === "player1" ? "player2" : "player1";
-        animatePlayer(activePlayer);
+      activePlayer = activePlayer === "player1" ? "player2" : "player1";
+      animatePlayer(activePlayer);
     }
 
     function animatePlayer(player) {
-        player1Div.classList.remove("bg-blue-600", "bg-green-600", "active-turn");
-        player2Div.classList.remove("bg-blue-600", "bg-green-600", "active-turn");
+      player1Div.classList.remove("bg-blue-600", "bg-green-600", "active-turn");
+      player2Div.classList.remove("bg-blue-600", "bg-green-600", "active-turn");
 
-        if (player === "player1") {
-            player1Div.classList.add("bg-blue-600", "active-turn");
-            player2Div.classList.add("bg-gray-700");
-            player2Div.classList.remove("bg-green-600");
-        } else {
-            player2Div.classList.add("bg-green-600", "active-turn");
-            player1Div.classList.add("bg-gray-800");
-            player1Div.classList.remove("bg-blue-600");
-        }
+      if (player === "player1") {
+        player1Div.classList.add("bg-blue-600", "active-turn");
+        player2Div.classList.remove("bg-green-600");
+        player2Div.classList.add("bg-gray-700");
+      } else {
+        player2Div.classList.add("bg-green-600", "active-turn");
+        player1Div.classList.remove("bg-blue-600");
+        player1Div.classList.add("bg-gray-800");
+      }
     }
 
     function tick() {
-        if (activePlayer === "player1" && time1 > 0) {
-            time1--;
-        } else if (activePlayer === "player2" && time2 > 0) {
-            time2--;
-        }
+      if (activePlayer === "player1" && time1 > 0) {
+        time1--;
+      } else if (activePlayer === "player2" && time2 > 0) {
+        time2--;
+      }
 
-        updateDisplays();
+      updateDisplays();
 
-        if (time1 === 0 || time2 === 0) {
-            clearInterval(timer);
-            isRunning = false;
-            startPauseBtn.textContent = "Start";
-            alert(`${time1 === 0 ? "Player 1" : "Player 2"} ran out of time!`);
-        }
+      if (time1 === 0 || time2 === 0) {
+        clearInterval(timer);
+        isRunning = false;
+        startPauseBtn.textContent = "Start";
+        alert(`${time1 === 0 ? "Player 1" : "Player 2"} ran out of time!`);
+      }
     }
 
     function startClock() {
-        if (!isRunning) {
-            isRunning = true;
-            activePlayer = activePlayer || "player1";
-            animatePlayer(activePlayer);
-            timer = setInterval(tick, 1000);
-            startPauseBtn.textContent = "Pause";
-        } else {
-            isRunning = false;
-            clearInterval(timer);
-            startPauseBtn.textContent = "Start";
-        }
+      if (!isRunning) {
+        isRunning = true;
+        activePlayer = activePlayer || "player1";
+        animatePlayer(activePlayer);
+        timer = setInterval(tick, 1000);
+        startPauseBtn.textContent = "Pause";
+      } else {
+        isRunning = false;
+        clearInterval(timer);
+        startPauseBtn.textContent = "Start";
+      }
     }
 
     function resetClock() {
-        clearInterval(timer);
-        baseMinutes = parseInt(timeSelect.value);
-        time1 = time2 = baseMinutes * 60;
-        activePlayer = null;
-        isRunning = false;
-        updateDisplays();
-        startPauseBtn.textContent = "Start";
+      clearInterval(timer);
+      baseMinutes = parseInt(timeSelect.value);
+      time1 = time2 = baseMinutes * 60;
+      activePlayer = null;
+      isRunning = false;
+      updateDisplays();
+      startPauseBtn.textContent = "Start";
 
-        player1Div.className = "bg-gray-800 p-6 rounded text-center text-4xl cursor-pointer";
-        player2Div.className = "bg-gray-700 p-6 rounded text-center text-4xl cursor-pointer";
+      // Reset styles
+      player1Div.className = "flex-1 bg-gray-800 text-5xl md:text-6xl flex items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black";
+      player2Div.className = "flex-1 bg-gray-700 text-5xl md:text-6xl flex items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black";
     }
 
     // Event Listeners
     startPauseBtn.addEventListener("click", startClock);
     resetBtn.addEventListener("click", resetClock);
     player1Div.addEventListener("click", () => {
-        if (activePlayer === "player1") switchTurn();
+      if (activePlayer === "player1") switchTurn();
     });
     player2Div.addEventListener("click", () => {
-        if (activePlayer === "player2") switchTurn();
+      if (activePlayer === "player2") switchTurn();
     });
     timeSelect.addEventListener("change", resetClock);
 
     // Initial Setup
     resetClock();
-</script>
-
-
-
+  </script>
 
 </body>
 
