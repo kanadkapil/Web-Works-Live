@@ -66,13 +66,13 @@
 
     <!-- Player Clocks -->
     <div id="player1"
-        class="flex-1 bg-gray-800 text-5xl md:text-6xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black">
+        class="my-5 flex-1 bg-gray-700 text-5xl md:text-6xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black">
         <span id="time1">05:00</span>
         <span class="text-sm mt-1">Moves: <span id="moves1">0</span></span>
     </div>
 
     <div id="player2"
-        class="flex-1 bg-gray-700 text-5xl md:text-6xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black">
+        class="my-5 flex-1 bg-gray-700 text-5xl md:text-6xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black">
         <span id="time2">05:00</span>
         <span class="text-sm mt-1">Moves: <span id="moves2">0</span></span>
     </div>
@@ -145,18 +145,21 @@
             if (navigator.vibrate) navigator.vibrate(50);
         }
 
+
         function animatePlayer(player) {
             player1Div.classList.remove("bg-blue-600", "bg-green-600", "active-turn");
             player2Div.classList.remove("bg-blue-600", "bg-green-600", "active-turn");
 
             if (player === "player1") {
-                player1Div.classList.add("bg-blue-600", "active-turn");
+                player1Div.classList.add("bg-green-600", "active-turn");
                 player2Div.classList.add("bg-gray-700");
             } else {
                 player2Div.classList.add("bg-green-600", "active-turn");
-                player1Div.classList.add("bg-gray-800");
+                player1Div.classList.add("bg-gray-700");
             }
         }
+
+
 
         function tick() {
             if (activePlayer === "player1" && time1 > 0) time1--;
@@ -200,7 +203,7 @@
             isRunning = false;
             updateDisplays();
             startPauseBtn.textContent = "Start";
-            player1Div.className = "flex-1 bg-gray-800 text-5xl md:text-6xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black";
+            player1Div.className = "flex-1 bg-gray-700 text-5xl md:text-6xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black";
             player2Div.className = "flex-1 bg-gray-700 text-5xl md:text-6xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black";
             localStorage.setItem("lastTime", baseMinutes);
             localStorage.setItem("lastIncrement", increment);
