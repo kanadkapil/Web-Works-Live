@@ -1,190 +1,235 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chess Clock</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .active-turn {
-      animation: pulse 0.3s ease-in-out;
-      transform: scale(1.05);
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chess Clock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        };
+    </script>
+    <style>
+        .active-turn {
+            animation: pulse 0.3s ease-in-out;
+            transform: scale(1.05);
+        }
 
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-        background-color: #4f46e5;
-      }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                background-color: #4f46e5;
+            }
 
-      50% {
-        transform: scale(1.08);
-        background-color: #2563eb;
-      }
+            50% {
+                transform: scale(1.08);
+                background-color: #2563eb;
+            }
 
-      100% {
-        transform: scale(1.05);
-        background-color: #4f46e5;
-      }
-    }
-  </style>
+            100% {
+                transform: scale(1.05);
+                background-color: #4f46e5;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-gray-900 text-white flex flex-col h-screen w-full overflow-hidden">
+<body class="bg-gray-900 text-white dark:bg-gray-900 dark:text-white flex flex-col h-screen w-full overflow-hidden">
 
-  <!-- Header and Time Selector -->
-  <div class="text-center py-2">
-    <div class="text-2xl font-bold">Chess Clock</div>
-    <div class="flex justify-center items-center gap-2 mt-2">
-      <label for="timeSelect" class="text-lg">Time:</label>
-      <select id="timeSelect" class="text-black p-2 rounded">
-        <option value="1">1 min</option>
-        <option value="2">2 min</option>
-        <option value="3">3 min</option>
-        <option value="5" selected>5 min</option>
-        <option value="7">7 min</option>
-        <option value="10">10 min</option>
-        <option value="15">15 min</option>
-        <option value="20">20 min</option>
-        <option value="30">30 min</option>
-        <option value="45">45 min</option>
-        <option value="60">60 min</option>
-      </select>
+    <!-- Header -->
+    <div class="text-center py-2">
+        <div class="text-2xl font-bold">Chess Clock</div>
+        <div class="flex justify-center items-center gap-2 mt-2">
+            <label for="timeSelect" class="text-lg">Time:</label>
+            <select id="timeSelect" class="text-black p-2 rounded">
+                <option value="1">1 min</option>
+                <option value="2">2 min</option>
+                <option value="3">3 min</option>
+                <option value="5">5 min</option>
+                <option value="7">7 min</option>
+                <option value="10">10 min</option>
+                <option value="15">15 min</option>
+                <option value="20">20 min</option>
+                <option value="30">30 min</option>
+                <option value="45">45 min</option>
+                <option value="60">60 min</option>
+            </select>
+            <label class="ml-4">Increment:</label>
+            <input type="number" id="incrementInput" value="0" class="w-16 p-2 rounded text-black" min="0" />
+            <button id="toggleTheme"
+                class="ml-4 px-3 py-1 text-sm bg-gray-300 text-black rounded dark:bg-white dark:text-black">Toggle
+                Theme</button>
+        </div>
     </div>
-  </div>
 
-  <!-- Player Clocks -->
-  <div id="player1"
-    class="flex-1 bg-gray-800 text-5xl md:text-6xl flex items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black">
-    <span id="time1">05:00</span>
-  </div>
+    <!-- Player Clocks -->
+    <div id="player1"
+        class="flex-1 bg-gray-800 text-5xl md:text-6xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black">
+        <span id="time1">05:00</span>
+        <span class="text-sm mt-1">Moves: <span id="moves1">0</span></span>
+    </div>
 
-  <div id="player2"
-    class="flex-1 bg-gray-700 text-5xl md:text-6xl flex items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black">
-    <span id="time2">05:00</span>
-  </div>
+    <div id="player2"
+        class="flex-1 bg-gray-700 text-5xl md:text-6xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black">
+        <span id="time2">05:00</span>
+        <span class="text-sm mt-1">Moves: <span id="moves2">0</span></span>
+    </div>
 
-  <!-- Control Buttons -->
-  <div class="h-[10%] min-h-[60px] flex justify-center gap-4 items-center bg-gray-900 mt-2 py-2">
-    <button id="startPause"
-      class="bg-blue-600 px-6 py-2 rounded text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-900 active:shadow-inner active:translate-y-[1px]">
-      Start
-    </button>
-    <button id="reset"
-      class="bg-red-600 px-6 py-2 rounded text-lg hover:bg-red-700 transition shadow-xl shadow-red-900 active:shadow-inner active:translate-y-[1px]">
-      Reset
-    </button>
-  </div>
+    <!-- Control Buttons -->
+    <div class="h-[10%] min-h-[60px] flex justify-center gap-4 items-center bg-gray-900 mt-2 py-2">
+        <button id="startPause"
+            class="bg-blue-600 px-6 py-2 rounded text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-900 active:shadow-inner active:translate-y-[1px]">
+            Start
+        </button>
+        <button id="reset"
+            class="bg-red-600 px-6 py-2 rounded text-lg hover:bg-red-700 transition shadow-xl shadow-red-900 active:shadow-inner active:translate-y-[1px]">
+            Reset
+        </button>
+    </div>
 
-  <!-- JavaScript -->
-  <script>
-    let baseMinutes = 5;
-    let time1, time2;
-    let activePlayer = null;
-    let timer = null;
-    let isRunning = false;
+    <!-- JavaScript -->
+    <script>
+        let baseMinutes = 5;
+        let increment = 0;
+        let time1, time2;
+        let moves1 = 0, moves2 = 0;
+        let activePlayer = null;
+        let timer = null;
+        let isRunning = false;
 
-    const timeSelect = document.getElementById("timeSelect");
-    const display1 = document.getElementById("time1");
-    const display2 = document.getElementById("time2");
-    const player1Div = document.getElementById("player1");
-    const player2Div = document.getElementById("player2");
-    const startPauseBtn = document.getElementById("startPause");
-    const resetBtn = document.getElementById("reset");
+        const timeSelect = document.getElementById("timeSelect");
+        const incrementInput = document.getElementById("incrementInput");
+        const display1 = document.getElementById("time1");
+        const display2 = document.getElementById("time2");
+        const player1Div = document.getElementById("player1");
+        const player2Div = document.getElementById("player2");
+        const startPauseBtn = document.getElementById("startPause");
+        const resetBtn = document.getElementById("reset");
+        const moves1Display = document.getElementById("moves1");
+        const moves2Display = document.getElementById("moves2");
+        const toggleThemeBtn = document.getElementById("toggleTheme");
 
-    function formatTime(seconds) {
-      const m = String(Math.floor(seconds / 60)).padStart(2, "0");
-      const s = String(seconds % 60).padStart(2, "0");
-      return `${m}:${s}`;
-    }
+        const tickSound = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+        const buzzerSound = new Audio("https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg");
 
-    function updateDisplays() {
-      display1.textContent = formatTime(time1);
-      display2.textContent = formatTime(time2);
-    }
+        function formatTime(seconds) {
+            const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+            const s = String(seconds % 60).padStart(2, "0");
+            return `${m}:${s}`;
+        }
 
-    function switchTurn() {
-      if (!isRunning) return;
+        function updateDisplays() {
+            display1.textContent = formatTime(time1);
+            display2.textContent = formatTime(time2);
+            moves1Display.textContent = moves1;
+            moves2Display.textContent = moves2;
+        }
 
-      activePlayer = activePlayer === "player1" ? "player2" : "player1";
-      animatePlayer(activePlayer);
-    }
+        function switchTurn() {
+            if (!isRunning) return;
 
-    function animatePlayer(player) {
-      player1Div.classList.remove("bg-blue-600", "bg-green-600", "active-turn");
-      player2Div.classList.remove("bg-blue-600", "bg-green-600", "active-turn");
+            if (activePlayer === "player1") {
+                time1 += increment;
+                moves1++;
+            } else {
+                time2 += increment;
+                moves2++;
+            }
 
-      if (player === "player1") {
-        player1Div.classList.add("bg-blue-600", "active-turn");
-        player2Div.classList.remove("bg-green-600");
-        player2Div.classList.add("bg-gray-700");
-      } else {
-        player2Div.classList.add("bg-green-600", "active-turn");
-        player1Div.classList.remove("bg-blue-600");
-        player1Div.classList.add("bg-gray-800");
-      }
-    }
+            activePlayer = activePlayer === "player1" ? "player2" : "player1";
+            animatePlayer(activePlayer);
+            updateDisplays();
 
-    function tick() {
-      if (activePlayer === "player1" && time1 > 0) {
-        time1--;
-      } else if (activePlayer === "player2" && time2 > 0) {
-        time2--;
-      }
+            if (navigator.vibrate) navigator.vibrate(50);
+        }
 
-      updateDisplays();
+        function animatePlayer(player) {
+            player1Div.classList.remove("bg-blue-600", "bg-green-600", "active-turn");
+            player2Div.classList.remove("bg-blue-600", "bg-green-600", "active-turn");
 
-      if (time1 === 0 || time2 === 0) {
-        clearInterval(timer);
-        isRunning = false;
-        startPauseBtn.textContent = "Start";
-        alert(`${time1 === 0 ? "Player 1" : "Player 2"} ran out of time!`);
-      }
-    }
+            if (player === "player1") {
+                player1Div.classList.add("bg-blue-600", "active-turn");
+                player2Div.classList.add("bg-gray-700");
+            } else {
+                player2Div.classList.add("bg-green-600", "active-turn");
+                player1Div.classList.add("bg-gray-800");
+            }
+        }
 
-    function startClock() {
-      if (!isRunning) {
-        isRunning = true;
-        activePlayer = activePlayer || "player1";
-        animatePlayer(activePlayer);
-        timer = setInterval(tick, 1000);
-        startPauseBtn.textContent = "Pause";
-      } else {
-        isRunning = false;
-        clearInterval(timer);
-        startPauseBtn.textContent = "Start";
-      }
-    }
+        function tick() {
+            if (activePlayer === "player1" && time1 > 0) time1--;
+            else if (activePlayer === "player2" && time2 > 0) time2--;
 
-    function resetClock() {
-      clearInterval(timer);
-      baseMinutes = parseInt(timeSelect.value);
-      time1 = time2 = baseMinutes * 60;
-      activePlayer = null;
-      isRunning = false;
-      updateDisplays();
-      startPauseBtn.textContent = "Start";
+            updateDisplays();
 
-      // Reset styles
-      player1Div.className = "flex-1 bg-gray-800 text-5xl md:text-6xl flex items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black";
-      player2Div.className = "flex-1 bg-gray-700 text-5xl md:text-6xl flex items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black";
-    }
+            tickSound.volume = 0.2;
+            tickSound.play().catch(() => { });
 
-    // Event Listeners
-    startPauseBtn.addEventListener("click", startClock);
-    resetBtn.addEventListener("click", resetClock);
-    player1Div.addEventListener("click", () => {
-      if (activePlayer === "player1") switchTurn();
-    });
-    player2Div.addEventListener("click", () => {
-      if (activePlayer === "player2") switchTurn();
-    });
-    timeSelect.addEventListener("change", resetClock);
+            if (time1 === 0 || time2 === 0) {
+                clearInterval(timer);
+                isRunning = false;
+                startPauseBtn.textContent = "Start";
+                buzzerSound.play();
+                alert(`${time1 === 0 ? "Player 1" : "Player 2"} ran out of time!`);
+            }
+        }
 
-    // Initial Setup
-    resetClock();
-  </script>
+        function startClock() {
+            if (!isRunning) {
+                isRunning = true;
+                activePlayer = activePlayer || "player1";
+                animatePlayer(activePlayer);
+                timer = setInterval(tick, 1000);
+                startPauseBtn.textContent = "Pause";
+            } else {
+                isRunning = false;
+                clearInterval(timer);
+                startPauseBtn.textContent = "Start";
+            }
+        }
+
+        function resetClock() {
+            clearInterval(timer);
+            baseMinutes = parseInt(timeSelect.value);
+            increment = parseInt(incrementInput.value);
+            time1 = time2 = baseMinutes * 60;
+            moves1 = moves2 = 0;
+            activePlayer = null;
+            isRunning = false;
+            updateDisplays();
+            startPauseBtn.textContent = "Start";
+            player1Div.className = "flex-1 bg-gray-800 text-5xl md:text-6xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black";
+            player2Div.className = "flex-1 bg-gray-700 text-5xl md:text-6xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 shadow-inner shadow-black";
+            localStorage.setItem("lastTime", baseMinutes);
+            localStorage.setItem("lastIncrement", increment);
+        }
+
+        toggleThemeBtn.addEventListener("click", () => {
+            document.documentElement.classList.toggle("dark");
+        });
+
+        startPauseBtn.addEventListener("click", startClock);
+        resetBtn.addEventListener("click", resetClock);
+        player1Div.addEventListener("click", () => {
+            if (activePlayer === "player1") switchTurn();
+        });
+        player2Div.addEventListener("click", () => {
+            if (activePlayer === "player2") switchTurn();
+        });
+        timeSelect.addEventListener("change", resetClock);
+        incrementInput.addEventListener("input", resetClock);
+
+        // Restore saved settings
+        window.addEventListener("DOMContentLoaded", () => {
+            const savedTime = localStorage.getItem("lastTime");
+            const savedInc = localStorage.getItem("lastIncrement");
+            if (savedTime) timeSelect.value = savedTime;
+            if (savedInc) incrementInput.value = savedInc;
+            resetClock();
+        });
+    </script>
 
 </body>
 
