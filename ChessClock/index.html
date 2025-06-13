@@ -46,91 +46,161 @@
         <button id="reset" class="bg-red-600 px-4 py-2 rounded hover:bg-red-700">Reset</button>
     </div>
 
-    <script>
-        let baseMinutes = 5;
-        let time1, time2;
-        let activePlayer = null;
-        let timer = null;
-        let isRunning = false;
+<style>
+    .active-turn {
+        animation: pulse 0.3s ease-in-out;
+        transform: scale(1.05);
+    }
 
-        const timeSelect = document.getElementById("timeSelect");
-        const display1 = document.getElementById("time1");
-        const display2 = document.getElementById("time2");
-        const player1Div = document.getElementById("player1");
-        const player2Div = document.getElementById("player2");
-        const startPauseBtn = document.getElementById("startPause");
-        const resetBtn = document.getElementById("reset");
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            background-color: #4f46e5; /* indigo-600 */
+        }
+        50% {
+            transform: scale(1.08);
+            background-color: #2563eb; /* blue-600 */
+        }
+        100% {
+            transform: scale(1.05);
+            background-color: #4f46e5; /* indigo-600 */
+        }
+    }
+</style>
 
-        function formatTime(seconds) {
-            const m = String(Math.floor(seconds / 60)).padStart(2, "0");
-            const s = String(seconds % 60).padStart(2, "0");
-            return `${m}:${s}`;
+
+
+<style>
+    .active-turn {
+        animation: pulse 0.3s ease-in-out;
+        transform: scale(1.05);
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            background-color: #4f46e5; /* indigo-600 */
+        }
+        50% {
+            transform: scale(1.08);
+            background-color: #2563eb; /* blue-600 */
+        }
+        100% {
+            transform: scale(1.05);
+            background-color: #4f46e5; /* indigo-600 */
+        }
+    }
+</style>
+
+<script>
+    let baseMinutes = 5;
+    let time1, time2;
+    let activePlayer = null;
+    let timer = null;
+    let isRunning = false;
+
+    const timeSelect = document.getElementById("timeSelect");
+    const display1 = document.getElementById("time1");
+    const display2 = document.getElementById("time2");
+    const player1Div = document.getElementById("player1");
+    const player2Div = document.getElementById("player2");
+    const startPauseBtn = document.getElementById("startPause");
+    const resetBtn = document.getElementById("reset");
+
+    function formatTime(seconds) {
+        const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+        const s = String(seconds % 60).padStart(2, "0");
+        return `${m}:${s}`;
+    }
+
+    function updateDisplays() {
+        display1.textContent = formatTime(time1);
+        display2.textContent = formatTime(time2);
+    }
+
+    function switchTurn() {
+        if (!isRunning) return;
+
+        activePlayer = activePlayer === "player1" ? "player2" : "player1";
+        animatePlayer(activePlayer);
+    }
+
+    function animatePlayer(player) {
+        player1Div.classList.remove("bg-blue-600", "bg-green-600", "active-turn");
+        player2Div.classList.remove("bg-blue-600", "bg-green-600", "active-turn");
+
+        if (player === "player1") {
+            player1Div.classList.add("bg-blue-600", "active-turn");
+            player2Div.classList.add("bg-gray-700");
+            player2Div.classList.remove("bg-green-600");
+        } else {
+            player2Div.classList.add("bg-green-600", "active-turn");
+            player1Div.classList.add("bg-gray-800");
+            player1Div.classList.remove("bg-blue-600");
+        }
+    }
+
+    function tick() {
+        if (activePlayer === "player1" && time1 > 0) {
+            time1--;
+        } else if (activePlayer === "player2" && time2 > 0) {
+            time2--;
         }
 
-        function updateDisplays() {
-            display1.textContent = formatTime(time1);
-            display2.textContent = formatTime(time2);
-        }
+        updateDisplays();
 
-        function switchTurn() {
-            if (!isRunning) return;
-            activePlayer = activePlayer === "player1" ? "player2" : "player1";
-        }
-
-        function tick() {
-            if (activePlayer === "player1" && time1 > 0) {
-                time1--;
-            } else if (activePlayer === "player2" && time2 > 0) {
-                time2--;
-            }
-
-            updateDisplays();
-
-            if (time1 === 0 || time2 === 0) {
-                clearInterval(timer);
-                isRunning = false;
-                startPauseBtn.textContent = "Start";
-                alert(`${time1 === 0 ? "Player 1" : "Player 2"} ran out of time!`);
-            }
-        }
-
-        function startClock() {
-            if (!isRunning) {
-                isRunning = true;
-                activePlayer = activePlayer || "player1";
-                timer = setInterval(tick, 1000);
-                startPauseBtn.textContent = "Pause";
-            } else {
-                isRunning = false;
-                clearInterval(timer);
-                startPauseBtn.textContent = "Start";
-            }
-        }
-
-        function resetClock() {
+        if (time1 === 0 || time2 === 0) {
             clearInterval(timer);
-            baseMinutes = parseInt(timeSelect.value);
-            time1 = time2 = baseMinutes * 60;
-            activePlayer = null;
             isRunning = false;
-            updateDisplays();
+            startPauseBtn.textContent = "Start";
+            alert(`${time1 === 0 ? "Player 1" : "Player 2"} ran out of time!`);
+        }
+    }
+
+    function startClock() {
+        if (!isRunning) {
+            isRunning = true;
+            activePlayer = activePlayer || "player1";
+            animatePlayer(activePlayer);
+            timer = setInterval(tick, 1000);
+            startPauseBtn.textContent = "Pause";
+        } else {
+            isRunning = false;
+            clearInterval(timer);
             startPauseBtn.textContent = "Start";
         }
+    }
 
-        // Event Listeners
-        startPauseBtn.addEventListener("click", startClock);
-        resetBtn.addEventListener("click", resetClock);
-        player1Div.addEventListener("click", () => {
-            if (activePlayer === "player1") switchTurn();
-        });
-        player2Div.addEventListener("click", () => {
-            if (activePlayer === "player2") switchTurn();
-        });
-        timeSelect.addEventListener("change", resetClock);
+    function resetClock() {
+        clearInterval(timer);
+        baseMinutes = parseInt(timeSelect.value);
+        time1 = time2 = baseMinutes * 60;
+        activePlayer = null;
+        isRunning = false;
+        updateDisplays();
+        startPauseBtn.textContent = "Start";
 
-        // Initial Setup
-        resetClock();
-    </script>
+        player1Div.className = "bg-gray-800 p-6 rounded text-center text-4xl cursor-pointer";
+        player2Div.className = "bg-gray-700 p-6 rounded text-center text-4xl cursor-pointer";
+    }
+
+    // Event Listeners
+    startPauseBtn.addEventListener("click", startClock);
+    resetBtn.addEventListener("click", resetClock);
+    player1Div.addEventListener("click", () => {
+        if (activePlayer === "player1") switchTurn();
+    });
+    player2Div.addEventListener("click", () => {
+        if (activePlayer === "player2") switchTurn();
+    });
+    timeSelect.addEventListener("change", resetClock);
+
+    // Initial Setup
+    resetClock();
+</script>
+
+
+
 
 </body>
 
