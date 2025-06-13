@@ -5,14 +5,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chess Clock</title>
-    <script src="script.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-900 text-white flex flex-col items-center justify-center h-screen gap-4">
+<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen gap-6 p-4">
 
     <div class="text-3xl font-bold">Chess Clock</div>
 
+    <!-- Time selector -->
+    <div class="flex items-center gap-2">
+        <label for="timeSelect" class="text-lg">Select Time:</label>
+        <select id="timeSelect" class="text-black p-2 rounded">
+            <option value="1">1 min</option>
+            <option value="2">2 min</option>
+            <option value="3">3 min</option>
+            <option value="5" selected>5 min</option>
+            <option value="7">7 min</option>
+            <option value="10">10 min</option>
+            <option value="15">15 min</option>
+            <option value="20">20 min</option>
+            <option value="30">30 min</option>
+            <option value="45">45 min</option>
+            <option value="60">60 min</option>
+        </select>
+    </div>
+
+    <!-- Clocks -->
     <div class="flex flex-col gap-4 w-full max-w-md">
         <div id="player1" class="bg-gray-800 p-6 rounded text-center text-4xl cursor-pointer">
             <span id="time1">05:00</span>
@@ -22,18 +40,20 @@
         </div>
     </div>
 
-    <div class="flex gap-4 mt-6">
+    <!-- Buttons -->
+    <div class="flex gap-4 mt-4">
         <button id="startPause" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700">Start</button>
         <button id="reset" class="bg-red-600 px-4 py-2 rounded hover:bg-red-700">Reset</button>
     </div>
 
     <script>
-        let time1 = 5 * 60;
-        let time2 = 5 * 60;
+        let baseMinutes = 5;
+        let time1, time2;
         let activePlayer = null;
         let timer = null;
         let isRunning = false;
 
+        const timeSelect = document.getElementById("timeSelect");
         const display1 = document.getElementById("time1");
         const display2 = document.getElementById("time2");
         const player1Div = document.getElementById("player1");
@@ -58,12 +78,14 @@
         }
 
         function tick() {
-            if (activePlayer === "player1") {
-                if (time1 > 0) time1--;
-            } else if (activePlayer === "player2") {
-                if (time2 > 0) time2--;
+            if (activePlayer === "player1" && time1 > 0) {
+                time1--;
+            } else if (activePlayer === "player2" && time2 > 0) {
+                time2--;
             }
+
             updateDisplays();
+
             if (time1 === 0 || time2 === 0) {
                 clearInterval(timer);
                 isRunning = false;
@@ -72,19 +94,7 @@
             }
         }
 
-        player1Div.addEventListener("click", () => {
-            if (activePlayer === "player1") {
-                switchTurn();
-            }
-        });
-
-        player2Div.addEventListener("click", () => {
-            if (activePlayer === "player2") {
-                switchTurn();
-            }
-        });
-
-        startPauseBtn.addEventListener("click", () => {
+        function startClock() {
             if (!isRunning) {
                 isRunning = true;
                 activePlayer = activePlayer || "player1";
@@ -95,20 +105,33 @@
                 clearInterval(timer);
                 startPauseBtn.textContent = "Start";
             }
-        });
+        }
 
-        resetBtn.addEventListener("click", () => {
+        function resetClock() {
             clearInterval(timer);
-            time1 = time2 = 5 * 60;
+            baseMinutes = parseInt(timeSelect.value);
+            time1 = time2 = baseMinutes * 60;
             activePlayer = null;
             isRunning = false;
             updateDisplays();
             startPauseBtn.textContent = "Start";
+        }
+
+        // Event Listeners
+        startPauseBtn.addEventListener("click", startClock);
+        resetBtn.addEventListener("click", resetClock);
+        player1Div.addEventListener("click", () => {
+            if (activePlayer === "player1") switchTurn();
         });
+        player2Div.addEventListener("click", () => {
+            if (activePlayer === "player2") switchTurn();
+        });
+        timeSelect.addEventListener("change", resetClock);
 
-        updateDisplays();
-
+        // Initial Setup
+        resetClock();
     </script>
+
 </body>
 
 </html>
