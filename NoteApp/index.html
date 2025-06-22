@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+    <title>Note App</title>
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            plugins: [tailwind.plugin(require('daisyui'))],
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@3.8.0"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/bf520e6492.js" crossorigin="anonymous"></script>
+
+    <style>
+        textarea {
+            resize: none;
+        }
+    </style>
+</head>
+
+<body class="bg-base-200 min-h-screen p-6">
+
+    <!-- Header and Add Button -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-primary">Note Taking App</h1>
+        <button id="addBtn" class="btn btn-primary gap-2">
+            <i class="fas fa-plus"></i> Add Note
+        </button>
+    </div>
+
+    <!-- Notes Grid -->
+    <div id="main" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Notes will be dynamically added here -->
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        const addBtn = document.querySelector("#addBtn");
+        const main = document.querySelector("#main");
+
+        addBtn.addEventListener("click", function () {
+            addNote();
+        });
+
+        const saveNotes = () => {
+            const notes = document.querySelectorAll(".note .content");
+            const titles = document.querySelectorAll(".note .title");
+            const data = [];
+
+            notes.forEach((note, index) => {
+                const content = note.value.trim();
+                const title = titles[index].value.trim();
+                if (content !== "") {
+                    data.push({ title, content });
+                }
+            });
+
+            localStorage.setItem("notes", JSON.stringify(data));
+        };
+
+        const addNote = (text = "", title = "") => {
+            const note = document.createElement("div");
+            note.classList.add("card", "bg-base-100", "shadow-xl", "p-4", "note");
+
+            note.innerHTML = `
+        <div class="flex justify-between mb-2">
+          <button class="btn btn-sm btn-outline btn-success save" title="Save">
+            <i class="fas fa-save"></i>
+          </button>
+          <button class="btn btn-sm btn-outline btn-error trash" title="Delete">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+        <textarea class="title textarea textarea-bordered w-full mb-2" rows="1"
+            placeholder="Title...">${title}</textarea>
+        <textarea class="content textarea textarea-bordered w-full" rows="4"
+            placeholder="Your note...">${text}</textarea>
+      `;
+
+            const delBtn = note.querySelector(".trash");
+            const saveButton = note.querySelector(".save");
+
+            delBtn.addEventListener("click", () => {
+                note.remove();
+                saveNotes();
+            });
+
+            saveButton.addEventListener("click", saveNotes);
+
+            main.appendChild(note);
+            saveNotes();
+        };
+
+        const loadNotes = () => {
+            const data = JSON.parse(localStorage.getItem("notes")) || [];
+            data.forEach(item => {
+                addNote(item.content, item.title);
+            });
+        };
+
+        loadNotes();
+    </script>
+</body>
+
+</html>
