@@ -1,5 +1,117 @@
 [
   {
+    "name": "Kanad Kapil Portfolio",
+    "path": "https://kanadkapil.vercel.app/",
+    "description": "Professional portfolio showcasing full-stack development skills, projects, and achievements.",
+    "tech": ["React", "Tailwind CSS", "DaisyUI", "Vercel"],
+    "isExternal": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Protein Sequence Viz",
+    "path": "https://eda-viz-protein-sequence-analysis.vercel.app/",
+    "description": "Computational prediction and visualization of protein functional classes using Deep Learning.",
+    "tech": ["TensorFlow", "React", "Python", "EDA"],
+    "isExternal": true,
+    "isFeatured": true
+  },
+  {
+    "name": "AlgoViz",
+    "path": "https://algoviz-eta.vercel.app/",
+    "description": "Master algorithms through interactive visualization of sorting and pathfinding.",
+    "tech": ["React", "JavaScript", "Tailwind CSS", "Algorithms"],
+    "isExternal": true,
+    "isFeatured": true
+  },
+  {
+    "name": "NoteNest",
+    "path": "https://react-note-card.vercel.app/",
+    "description": "A streamlined, colorful React-powered note-taking app for organizing ideas effortlessly.",
+    "tech": ["React", "Tailwind CSS", "DaisyUI", "Frontend"],
+    "isExternal": true,
+    "isFeatured": true
+  },
+  {
+    "name": "The Minion Times",
+    "path": "https://kanadkapil.github.io/Web-Works-Live/Magazine/",
+    "description": "A visually appealing CSS-based magazine layout themed around the iconic Minions.",
+    "tech": ["HTML", "CSS", "Layout Design"],
+    "isExternal": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Terminal Portfolio",
+    "path": "https://kanadkapil.github.io/Portfolio_terminal/",
+    "description": "An innovative terminal-inspired portfolio website for developers who love CLI.",
+    "tech": ["JavaScript", "Terminal", "CSS", "Interactive"],
+    "isExternal": true,
+    "isFeatured": true
+  },
+  {
+    "name": "CardPro Designer",
+    "path": "https://kanadkapil.github.io/Web-Works-Live/Card/index.html",
+    "description": "Generate and customize professional business cards with various templates and themes.",
+    "tech": ["JavaScript", "Tailwind CSS", "HTML Canvas"],
+    "isExternal": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Flip Match Memory",
+    "path": "https://kanadkapil.github.io/Web-Works-Live/FlipCards/index.html",
+    "description": "Challenge your memory with this interactive card-matching game built for the web.",
+    "tech": ["JavaScript", "CSS Transitions", "Game Dev"],
+    "isExternal": true,
+    "isFeatured": true
+  },
+  {
+    "name": "IPL 2025 Bowler Stats",
+    "path": "https://ipl-2025-bowler-stats.streamlit.app/",
+    "description": "Detailed analysis and visualization of bowler performance in the IPL 2025 season.",
+    "tech": ["Streamlit", "Python", "Pandas", "Data Science"],
+    "isExternal": true,
+    "isFeatured": true
+  },
+  {
+    "name": "MorseCode WebApp",
+    "path": "https://kanadkapil.github.io/MorseCode-WebApp/",
+    "description": "Encode and decode Morse code easily with this interactive web-based utility.",
+    "tech": ["JavaScript", "HTML", "CSS", "Tooling"],
+    "isExternal": true,
+    "isFeatured": true
+  },
+  {
+    "name": "MERN Stack Blog",
+    "path": "https://github.com/kanadkapil/Mern_Blog",
+    "description": "A robust blogging platform with user authentication, SEO, and full CRUD capabilities.",
+    "tech": ["MongoDB", "Express.js", "React", "Node.js"],
+    "isExternal": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Ultimate Base Converter",
+    "path": "https://kanadkapil.github.io/Web-Works-Live/BaseConv/index.html",
+    "description": "Fast and reliable tool for converting numbers between binary, decimal, and more.",
+    "tech": ["JavaScript", "Tailwind CSS", "Math Tools"],
+    "isExternal": true,
+    "isFeatured": true
+  },
+  {
+    "name": "DX-Ball Web Clone",
+    "path": "https://kanadkapil.github.io/Web-Works-Live/DxBall/index.html",
+    "description": "Experience the classic DX-Ball brick-breaker game directly in your browser.",
+    "tech": ["JavaScript", "Canvas API", "Game Engine"],
+    "isExternal": true,
+    "isFeatured": true
+  },
+  {
+    "name": "Tournament Fixture Pro",
+    "path": "https://kanadkapil.github.io/Web-Works-Live/FixtureApp/index.html",
+    "description": "Automatically generate tournament match schedules and league brackets with ease.",
+    "tech": ["JavaScript", "Tailwind CSS", "Algorithm"],
+    "isExternal": true,
+    "isFeatured": true
+  },
+  {
     "name": "Age Calculator",
     "path": "AgeCalc",
     "description": "Modern web application created with love.",
