@@ -1,0 +1,562 @@
+[
+  {
+    "name": "Age Calculator",
+    "path": "AgeCalc",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI",
+      "FontAwesome"
+    ]
+  },
+  {
+    "name": "Free AI Image Generator",
+    "path": "AiImgGen",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "Interactive Base Converter",
+    "path": "BaseConv",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "Brainfuck Interpreter",
+    "path": "Brainfuck",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "Clock App",
+    "path": "BsClock",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "HTML/CSS/JS"
+    ]
+  },
+  {
+    "name": "Budget Planner",
+    "path": "budgetPlanner",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI",
+      "Chart.js",
+      "FontAwesome"
+    ]
+  },
+  {
+    "name": "Simple Calculator",
+    "path": "Calc1",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "HTML/CSS/JS"
+    ]
+  },
+  {
+    "name": "Calculator",
+    "path": "Calc2",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "HTML/CSS/JS"
+    ]
+  },
+  {
+    "name": "Business Card Maker",
+    "path": "Card",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Chaotic Balls Simulation",
+    "path": "ChaosBalls",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Dynamic Chart App",
+    "path": "ChartJs",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI",
+      "Chart.js"
+    ]
+  },
+  {
+    "name": "Chess Clock",
+    "path": "ChessClock",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "Clock App with Animations and Theme Selector",
+    "path": "Clock",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Emoji Encoder/Decoder",
+    "path": "CodeLanguage",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Coin Flip",
+    "path": "CoinFlip",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI",
+      "FontAwesome"
+    ]
+  },
+  {
+    "name": "Guess the Color Game",
+    "path": "ColorGuessGame",
+    "description": "Guess the color based on the RGB value below!",
+    "tech": [
+      "Tailwind",
+      "DaisyUI",
+      "FontAwesome"
+    ]
+  },
+  {
+    "name": "Color Palette Generator",
+    "path": "ColorPicker",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "Geo Quiz Game",
+    "path": "CountryQuiz",
+    "description": "Hint will appear here",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "Cricket Stats App",
+    "path": "CricX",
+    "description": "All your cricket stats in one place",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Css Variable try",
+    "path": "CssComponents",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "HTML/CSS/JS"
+    ]
+  },
+  {
+    "name": "Date to Day App",
+    "path": "DateApp",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Digital Clock",
+    "path": "DigitalClock",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "Drag & Drop File Upload",
+    "path": "DragAndDrop",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "FontAwesome"
+    ]
+  },
+  {
+    "name": "Drawing App",
+    "path": "Draw",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "HTML/CSS/JS"
+    ]
+  },
+  {
+    "name": "DX Ball Game",
+    "path": "DxBall",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Animated Eyes",
+    "path": "Eye",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "HTML/CSS/JS"
+    ]
+  },
+  {
+    "name": "Fighter Jets",
+    "path": "FighterJets",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI",
+      "FontAwesome"
+    ]
+  },
+  {
+    "name": "Match Fixture App",
+    "path": "FixtureApp",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Memory Game",
+    "path": "FlipCards",
+    "description": "Score : <span id=\"score\">0</span>",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Gen Z Decoder",
+    "path": "GenZdecoder",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI",
+      "FontAwesome"
+    ]
+  },
+  {
+    "name": "Whack-a-Mole Game",
+    "path": "HammerGame",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "Enhanced Photo Gallery",
+    "path": "ImageGallery",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "HTML/CSS/JS"
+    ]
+  },
+  {
+    "name": "it's just a joke",
+    "path": "JokesGenerator",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "Love Calculator",
+    "path": "LoveCalc",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI",
+      "FontAwesome"
+    ]
+  },
+  {
+    "name": "Layout",
+    "path": "Magazine",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Male Personality Types",
+    "path": "MaleType",
+    "description": "The classification of male personality types is often debated, but some common archetypes include Al...",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "Maze Game",
+    "path": "MazeGame",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "HTML/CSS/JS"
+    ]
+  },
+  {
+    "name": "Drum Machine",
+    "path": "MusicKit",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Detect Internet Speed",
+    "path": "NetSpeed",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "Note App",
+    "path": "NoteApp",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Palindrome Checker",
+    "path": "PalindromeApp",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Password Strength Checker",
+    "path": "passStrength",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI",
+      "FontAwesome"
+    ]
+  },
+  {
+    "name": "Password Generator",
+    "path": "PasswordGenerator",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Proposal App",
+    "path": "prop",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "HTML/CSS/JS"
+    ]
+  },
+  {
+    "name": "Do You Love Me?",
+    "path": "ProposeApp",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Customizable Cafe Menu",
+    "path": "ResturantMenu",
+    "description": "Design your own",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Rock Paper Scissor Game",
+    "path": "RockPaperScissors",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "FontAwesome"
+    ]
+  },
+  {
+    "name": "Roman Numeral Converter",
+    "path": "RomanNumber",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "69 Flipper",
+    "path": "SixNine",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Drawing App",
+    "path": "sketch",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI",
+      "FontAwesome"
+    ]
+  },
+  {
+    "name": "Snake Game",
+    "path": "SnakeGame",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "HTML/CSS/JS"
+    ]
+  },
+  {
+    "name": "Interactive Spinning Wheel App",
+    "path": "SpinningWheel",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Command Reference",
+    "path": "TerminalCmd",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI",
+      "FontAwesome"
+    ]
+  },
+  {
+    "name": "Multilingual Text to Speech",
+    "path": "Text2Speech",
+    "description": "",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Tic-Tac-Toe Game",
+    "path": "Tictactoe",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "To-Do List",
+    "path": "ToDoList",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "HTML/CSS/JS"
+    ]
+  },
+  {
+    "name": "Save Text to File",
+    "path": "Txt2File",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI",
+      "FontAwesome"
+    ]
+  },
+  {
+    "name": "Key Blaze",
+    "path": "TypingTest",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Virtual Doctor",
+    "path": "VirtualDoctor",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI"
+    ]
+  },
+  {
+    "name": "Virtual Keyboard",
+    "path": "VirtualKeyboard",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "Voice To-Do List",
+    "path": "VoiceTodo",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "Wallpapers",
+    "path": "WallpaperApp",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "HTML/CSS/JS"
+    ]
+  },
+  {
+    "name": "Whiteboard & Blackboard App",
+    "path": "WhiteNBlackBoard",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind"
+    ]
+  },
+  {
+    "name": "Index",
+    "path": "WordCounter",
+    "description": "Modern web application created with love.",
+    "tech": [
+      "Tailwind",
+      "DaisyUI",
+      "FontAwesome"
+    ]
+  }
+]
