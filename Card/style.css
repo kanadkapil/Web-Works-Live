@@ -1,8 +1,14 @@
 /* Core Reset */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Force compatibility with html2canvas (suppress oklch on root) */
+html, body {
+    background-color: #f8fafc !important;
+    color: #1e293b !important;
 }
 
 /* Card Geometry (Standard Business Card Ratio 1.75:1) */
@@ -141,4 +147,15 @@
     transform-origin: center;
     margin: -90px 0;
   }
+}
+
+/* Fix for html2canvas (suppress oklch colors which crash the library) */
+#cardCapture, #cardCapture * {
+    scrollbar-color: auto !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+#cardCapture ::-webkit-scrollbar {
+    display: none !important;
 }

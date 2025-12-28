@@ -130,10 +130,27 @@ async function downloadCard() {
   btn.disabled = true;
 
   try {
+    // html2canvas fails on modern oklch() colors.
+    // We use onclone to sanitize the document before capture.
     const canvas = await html2canvas(cardCapture, {
       scale: 3, // High scale for HQ print
       backgroundColor: null,
       useCORS: true,
+      logging: false,
+      onclone: (clonedDoc) => {
+        // Force standardize global colors to avoid oklch crash
+        const html = clonedDoc.documentElement;
+        html.style.backgroundColor = "#ffffff";
+        html.style.color = "#000000";
+
+        // Strip oklch from any problematic properties in the capture area
+        const elements = clonedDoc
+          .getElementById("cardCapture")
+          .querySelectorAll("*");
+        elements.forEach((el) => {
+          el.style.scrollbarColor = "auto";
+        });
+      },
     });
 
     const link = document.createElement("a");
@@ -144,6 +161,9 @@ async function downloadCard() {
     link.click();
   } catch (err) {
     console.error("Export failed:", err);
+    alert(
+      "Export failed due to modern browser styles. Try again or use a different browser."
+    );
   } finally {
     btn.innerHTML = originalText;
     btn.disabled = false;
