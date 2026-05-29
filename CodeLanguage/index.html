@@ -105,6 +105,13 @@
             i
           </button>
 
+          <button
+            id="installBtn"
+            class="btn rounded-none neo-btn bg-cyan-300 text-black hidden"
+          >
+            Install App
+          </button>
+
         </div>
 
       </div>
@@ -250,6 +257,10 @@
 
         <li>
           Special characters are also supported.
+        </li>
+
+        <li>
+          Install app to save it in your phone drawer.
         </li>
 
       </ul>
@@ -466,6 +477,11 @@
     const infoModal =
       document.getElementById(
         "infoModal"
+      );
+
+    const installBtn =
+      document.getElementById(
+        "installBtn"
       );
 
     // =========================
@@ -769,6 +785,179 @@
     );
 
     updateStats();
+
+    // =========================
+    // PWA INSTALL
+    // =========================
+
+    let deferredPrompt;
+
+    // MANIFEST
+
+    const manifestData = {
+
+      name: "EmojiCipher",
+
+      short_name: "EmojiCipher",
+
+      start_url: ".",
+
+      display: "standalone",
+
+      background_color: "#fef08a",
+
+      theme_color: "#000000",
+
+      orientation: "portrait",
+
+      icons: [
+
+        {
+          src:
+            "https://cdn-icons-png.flaticon.com/512/3523/3523063.png",
+
+          sizes: "192x192",
+
+          type: "image/png"
+        },
+
+        {
+          src:
+            "https://cdn-icons-png.flaticon.com/512/3523/3523063.png",
+
+          sizes: "512x512",
+
+          type: "image/png"
+        }
+
+      ]
+
+    };
+
+    const manifestBlob =
+      new Blob(
+        [
+          JSON.stringify(
+            manifestData
+          )
+        ],
+        {
+          type:
+            "application/json"
+        }
+      );
+
+    const manifestURL =
+      URL.createObjectURL(
+        manifestBlob
+      );
+
+    const manifestLink =
+      document.createElement(
+        "link"
+      );
+
+    manifestLink.rel =
+      "manifest";
+
+    manifestLink.href =
+      manifestURL;
+
+    document.head.appendChild(
+      manifestLink
+    );
+
+    // SERVICE WORKER
+
+    if(
+      "serviceWorker"
+      in navigator
+    ){
+
+      const swCode = `
+
+        self.addEventListener(
+          'install',
+          event => {
+
+            self.skipWaiting();
+
+          }
+        );
+
+        self.addEventListener(
+          'fetch',
+          event => {}
+        );
+
+      `;
+
+      const swBlob =
+        new Blob(
+          [swCode],
+          {
+            type:
+              "application/javascript"
+          }
+        );
+
+      const swURL =
+        URL.createObjectURL(
+          swBlob
+        );
+
+      navigator
+        .serviceWorker
+        .register(swURL);
+
+    }
+
+    // INSTALL PROMPT
+
+    window.addEventListener(
+      "beforeinstallprompt",
+      (e)=>{
+
+        e.preventDefault();
+
+        deferredPrompt = e;
+
+        installBtn.classList.remove(
+          "hidden"
+        );
+
+      }
+    );
+
+    // INSTALL APP
+
+    installBtn.addEventListener(
+      "click",
+      async ()=>{
+
+        if(deferredPrompt){
+
+          deferredPrompt.prompt();
+
+          const choice =
+            await deferredPrompt.userChoice;
+
+          if(
+            choice.outcome
+            === "accepted"
+          ){
+
+            installBtn.innerText =
+              "Installed 😄";
+
+          }
+
+          deferredPrompt = null;
+
+        }
+
+      }
+    );
 
   </script>
 
