@@ -1,19 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <title>EmojiCipher</title>
 
-  <!-- PWA -->
-  <meta name="theme-color" content="#000000" />
+  <meta
+    name="theme-color"
+    content="#000000"
+  />
 
   <!-- Tailwind -->
+
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- DaisyUI -->
+
   <link
     href="https://cdn.jsdelivr.net/npm/daisyui@5"
     rel="stylesheet"
@@ -63,6 +72,7 @@
   <div class="max-w-7xl mx-auto">
 
     <!-- HEADER -->
+
     <div class="neo bg-pink-300 p-5 mb-8">
 
       <div class="flex flex-col lg:flex-row gap-5 justify-between items-start lg:items-center">
@@ -74,7 +84,7 @@
           </h1>
 
           <p class="font-bold mt-2 text-lg">
-            Encode and decode secret emoji messages.
+            Secret Emoji Language Converter.
           </p>
 
         </div>
@@ -85,14 +95,14 @@
             id="themeBtn"
             class="btn rounded-none neo-btn bg-black text-white"
           >
-            Toggle Theme
+            Theme
           </button>
 
           <button
-            id="installBtn"
-            class="btn rounded-none neo-btn bg-cyan-300 text-black hidden"
+            id="infoBtn"
+            class="btn rounded-none neo-btn bg-white text-black"
           >
-            Install App
+            i
           </button>
 
         </div>
@@ -101,10 +111,12 @@
 
     </div>
 
-    <!-- GRID -->
+    <!-- MAIN GRID -->
+
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
       <!-- INPUT -->
+
       <div class="neo bg-white p-5">
 
         <div class="flex flex-wrap gap-3 mb-5">
@@ -148,8 +160,8 @@
 
         <textarea
           id="inputText"
-          placeholder="Write your secret message..."
-          class="w-full h-[400px] p-5 border-[4px] border-black outline-none text-lg"
+          placeholder="Write text or emoji code..."
+          class="w-full h-[400px] p-5 border-[4px] border-black outline-none text-lg bg-white"
         ></textarea>
 
         <div class="mt-4 flex justify-between font-black">
@@ -167,6 +179,7 @@
       </div>
 
       <!-- OUTPUT -->
+
       <div class="neo bg-cyan-200 p-5">
 
         <div class="flex flex-wrap gap-3 mb-5">
@@ -200,6 +213,65 @@
 
   </div>
 
+  <!-- INFO MODAL -->
+
+  <dialog
+    id="infoModal"
+    class="modal"
+  >
+
+    <div class="modal-box rounded-none border-[4px] border-black">
+
+      <h3 class="font-black text-3xl mb-4">
+        How To Use 😄
+      </h3>
+
+      <ul class="list-disc pl-5 space-y-2 font-bold">
+
+        <li>
+          Write normal text in the input area.
+        </li>
+
+        <li>
+          Click Encode to convert text into emojis.
+        </li>
+
+        <li>
+          Click Decode to convert emojis back into text.
+        </li>
+
+        <li>
+          Use Copy and Paste buttons for fast usage.
+        </li>
+
+        <li>
+          Uppercase and lowercase letters use different emojis.
+        </li>
+
+        <li>
+          Special characters are also supported.
+        </li>
+
+      </ul>
+
+      <div class="modal-action">
+
+        <form method="dialog">
+
+          <button
+            class="btn rounded-none neo-btn bg-black text-white"
+          >
+            Close
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </dialog>
+
   <script>
 
     // =========================
@@ -207,6 +279,8 @@
     // =========================
 
     const emojiMap = {
+
+      // LOWERCASE
 
       a:"🍎",
       b:"🦋",
@@ -235,7 +309,36 @@
       y:"🧠",
       z:"⚡",
 
-      " ":"⬜",
+      // UPPERCASE
+
+      A:"🅰️",
+      B:"🅱️",
+      C:"🌜",
+      D:"🐉",
+      E:"💥",
+      F:"🦊",
+      G:"👻",
+      H:"🏠",
+      I:"🍦",
+      J:"🕹️",
+      K:"🔑",
+      L:"🦁",
+      M:"🗻",
+      N:"🎶",
+      O:"🦉",
+      P:"🥞",
+      Q:"❓",
+      R:"🚀",
+      S:"☀️",
+      T:"🌪️",
+      U:"🦄",
+      V:"🎤",
+      W:"🍉",
+      X:"✖️",
+      Y:"🪀",
+      Z:"⚡⚡",
+
+      // NUMBERS
 
       "0":"0️⃣",
       "1":"1️⃣",
@@ -246,47 +349,137 @@
       "6":"6️⃣",
       "7":"7️⃣",
       "8":"8️⃣",
-      "9":"9️⃣"
+      "9":"9️⃣",
+
+      // SPACE
+
+      " ":"⬜",
+
+      // SPECIALS
+
+      ".":"🔵",
+      ",":"🟠",
+      "!":"❗",
+      "?":"❓",
+      "@":"📧",
+      "#":"#️⃣",
+      "$":"💲",
+      "%":"📊",
+      "^":"🪄",
+      "&":"🤝",
+      "*":"⭐",
+      "(":"🫲",
+      ")":"🫱",
+      "-":"➖",
+      "_":"⬛",
+      "+":"➕",
+      "=":"🟰",
+      "/":"📏",
+      ":":"🔸",
+      ";":"🔹",
+      "\"":"💬",
+      "'":"🗨️",
+      "<":"⬅️",
+      ">":"➡️"
 
     };
 
     // REVERSE MAP
+
     const reverseMap = {};
 
     for(let key in emojiMap){
-      reverseMap[emojiMap[key]] = key;
+
+      reverseMap[
+        emojiMap[key]
+      ] = key;
+
     }
 
     // ELEMENTS
-    const inputText = document.getElementById("inputText");
-    const outputText = document.getElementById("outputText");
 
-    const encodeBtn = document.getElementById("encodeBtn");
-    const decodeBtn = document.getElementById("decodeBtn");
+    const inputText =
+      document.getElementById(
+        "inputText"
+      );
 
-    const copyInputBtn = document.getElementById("copyInputBtn");
-    const copyOutputBtn = document.getElementById("copyOutputBtn");
+    const outputText =
+      document.getElementById(
+        "outputText"
+      );
 
-    const pasteBtn = document.getElementById("pasteBtn");
-    const clearBtn = document.getElementById("clearBtn");
+    const encodeBtn =
+      document.getElementById(
+        "encodeBtn"
+      );
 
-    const downloadBtn = document.getElementById("downloadBtn");
+    const decodeBtn =
+      document.getElementById(
+        "decodeBtn"
+      );
 
-    const charCount = document.getElementById("charCount");
-    const wordCount = document.getElementById("wordCount");
+    const copyInputBtn =
+      document.getElementById(
+        "copyInputBtn"
+      );
 
-    const themeBtn = document.getElementById("themeBtn");
+    const copyOutputBtn =
+      document.getElementById(
+        "copyOutputBtn"
+      );
+
+    const pasteBtn =
+      document.getElementById(
+        "pasteBtn"
+      );
+
+    const clearBtn =
+      document.getElementById(
+        "clearBtn"
+      );
+
+    const downloadBtn =
+      document.getElementById(
+        "downloadBtn"
+      );
+
+    const charCount =
+      document.getElementById(
+        "charCount"
+      );
+
+    const wordCount =
+      document.getElementById(
+        "wordCount"
+      );
+
+    const themeBtn =
+      document.getElementById(
+        "themeBtn"
+      );
+
+    const infoBtn =
+      document.getElementById(
+        "infoBtn"
+      );
+
+    const infoModal =
+      document.getElementById(
+        "infoModal"
+      );
 
     // =========================
-    // UPDATE STATS
+    // STATS
     // =========================
 
     function updateStats(){
 
-      const text = inputText.value;
+      const text =
+        inputText.value;
 
       charCount.innerText =
-        "Characters: " + text.length;
+        "Characters: " +
+        text.length;
 
       wordCount.innerText =
         "Words: " +
@@ -305,18 +498,22 @@
     function encodeText(){
 
       const text =
-        inputText.value.toLowerCase();
+        inputText.value;
 
       let encoded = "";
 
       for(let char of text){
 
         encoded +=
-          (emojiMap[char] || char) + " ";
+          (
+            emojiMap[char]
+            || char
+          ) + " ";
 
       }
 
-      outputText.value = encoded;
+      outputText.value =
+        encoded;
 
       localStorage.setItem(
         "emojiCipherInput",
@@ -339,11 +536,13 @@
       emojis.forEach((emoji)=>{
 
         decoded +=
-          reverseMap[emoji] || emoji;
+          reverseMap[emoji]
+          || emoji;
 
       });
 
-      outputText.value = decoded;
+      outputText.value =
+        decoded;
 
     }
 
@@ -355,7 +554,9 @@
 
       try{
 
-        await navigator.clipboard.writeText(text);
+        await navigator
+          .clipboard
+          .writeText(text);
 
       }
       catch(err){
@@ -367,7 +568,7 @@
     }
 
     // =========================
-    // BUTTON EVENTS
+    // BUTTONS
     // =========================
 
     encodeBtn.addEventListener(
@@ -384,7 +585,9 @@
       "click",
       ()=>{
 
-        copyText(inputText.value);
+        copyText(
+          inputText.value
+        );
 
         copyInputBtn.innerText =
           "Copied!";
@@ -403,7 +606,9 @@
       "click",
       ()=>{
 
-        copyText(outputText.value);
+        copyText(
+          outputText.value
+        );
 
         copyOutputBtn.innerText =
           "Copied!";
@@ -425,9 +630,12 @@
         try{
 
           const text =
-            await navigator.clipboard.readText();
+            await navigator
+            .clipboard
+            .readText();
 
-          inputText.value = text;
+          inputText.value =
+            text;
 
           updateStats();
 
@@ -461,10 +669,13 @@
       "click",
       ()=>{
 
-        const blob = new Blob(
-          [outputText.value],
-          {type:"text/plain"}
-        );
+        const blob =
+          new Blob(
+            [outputText.value],
+            {
+              type:"text/plain"
+            }
+          );
 
         const a =
           document.createElement("a");
@@ -481,35 +692,7 @@
     );
 
     // =========================
-    // LOCAL STORAGE
-    // =========================
-
-    if(
-      localStorage.getItem(
-        "emojiCipherInput"
-      )
-    ){
-
-      inputText.value =
-        localStorage.getItem(
-          "emojiCipherInput"
-        );
-
-    }
-
-    // =========================
-    // LIVE STATS
-    // =========================
-
-    inputText.addEventListener(
-      "input",
-      updateStats
-    );
-
-    updateStats();
-
-    // =========================
-    // THEME TOGGLE
+    // THEME
     // =========================
 
     let dark = false;
@@ -547,77 +730,45 @@
     );
 
     // =========================
-    // PWA
+    // INFO MODAL
     // =========================
 
-    // SERVICE WORKER
-    if("serviceWorker" in navigator){
+    infoBtn.addEventListener(
+      "click",
+      ()=>{
 
-      const sw = `
-        self.addEventListener(
-          'install',
-          event => {
-            self.skipWaiting();
-          }
+        infoModal.showModal();
+
+      }
+    );
+
+    // =========================
+    // LOCAL STORAGE
+    // =========================
+
+    if(
+      localStorage.getItem(
+        "emojiCipherInput"
+      )
+    ){
+
+      inputText.value =
+        localStorage.getItem(
+          "emojiCipherInput"
         );
-
-        self.addEventListener(
-          'fetch',
-          event => {}
-        );
-      `;
-
-      const blob =
-        new Blob([sw],{
-          type:'application/javascript'
-        });
-
-      const swURL =
-        URL.createObjectURL(blob);
-
-      navigator.serviceWorker.register(
-        swURL
-      );
 
     }
 
-    // INSTALL PROMPT
-    let deferredPrompt;
+    // =========================
+    // LIVE STATS
+    // =========================
 
-    const installBtn =
-      document.getElementById(
-        "installBtn"
-      );
-
-    window.addEventListener(
-      "beforeinstallprompt",
-      (e)=>{
-
-        e.preventDefault();
-
-        deferredPrompt = e;
-
-        installBtn.classList.remove(
-          "hidden"
-        );
-
-      }
+    inputText.addEventListener(
+      "input",
+      updateStats
     );
 
-    installBtn.addEventListener(
-      "click",
-      async ()=>{
-
-        if(deferredPrompt){
-
-          deferredPrompt.prompt();
-
-          deferredPrompt = null;
-
-        }
-
-      }
-    );
+    updateStats();
 
   </script>
 
