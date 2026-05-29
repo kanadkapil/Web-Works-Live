@@ -263,6 +263,10 @@
           Install app to save it in your phone drawer.
         </li>
 
+        <li>
+          App works offline after first visit.
+        </li>
+
       </ul>
 
       <div class="modal-action">
@@ -395,7 +399,9 @@
 
     };
 
+    // =========================
     // REVERSE MAP
+    // =========================
 
     const reverseMap = {};
 
@@ -407,7 +413,9 @@
 
     }
 
+    // =========================
     // ELEMENTS
+    // =========================
 
     const inputText =
       document.getElementById(
@@ -787,7 +795,7 @@
     updateStats();
 
     // =========================
-    // PWA INSTALL
+    // PWA
     // =========================
 
     let deferredPrompt;
@@ -876,18 +884,56 @@
 
       const swCode = `
 
+        const CACHE_NAME =
+          'emoji-cipher-cache-v1';
+
+        const urlsToCache = [
+          './'
+        ];
+
         self.addEventListener(
           'install',
           event => {
 
-            self.skipWaiting();
+            event.waitUntil(
+
+              caches.open(
+                CACHE_NAME
+              ).then(cache => {
+
+                return cache.addAll(
+                  urlsToCache
+                );
+
+              })
+
+            );
 
           }
         );
 
         self.addEventListener(
           'fetch',
-          event => {}
+          event => {
+
+            event.respondWith(
+
+              caches.match(
+                event.request
+              ).then(response => {
+
+                return (
+                  response
+                  || fetch(
+                    event.request
+                  )
+                );
+
+              })
+
+            );
+
+          }
         );
 
       `;
