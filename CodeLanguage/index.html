@@ -1,36 +1,625 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="coffee">
+<html lang="en" data-theme="light">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emoji Encoder/Decoder</title>
-    <script src="https://cdn.tailwindcss.com" defer></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>EmojiCipher</title>
+
+  <!-- PWA -->
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- DaisyUI -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/daisyui@5"
+    rel="stylesheet"
+    type="text/css"
+  />
+
+  <style>
+
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .neo{
+      border:4px solid black;
+      box-shadow:8px 8px 0px black;
+    }
+
+    .neo-btn{
+      border:3px solid black;
+      box-shadow:4px 4px 0px black;
+      transition:0.2s;
+    }
+
+    .neo-btn:hover{
+      transform:translate(4px,4px);
+      box-shadow:0px 0px 0px black;
+    }
+
+    textarea{
+      resize:none;
+    }
+
+    ::-webkit-scrollbar{
+      width:10px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:black;
+    }
+
+  </style>
+
 </head>
 
-<body class="flex items-center justify-center min-h-screen bg-black p-4">
+<body class="bg-yellow-200 min-h-screen p-4 md:p-8">
 
-    <div class="max-w-6xl w-full p-6 bg-gray-50 rounded-lg shadow-lg">
-        <h1 class="text-3xl text-gray-800 font-bold my-10 text-center">Emoji Encoder/Decoder</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Encoder Section -->
-            <div class="p-4 bg-sky-200 rounded-lg shadow-2xl">
-                <h2 class="text-xl text-gray-800 font-semibold mb-2">Text to Emoji</h2>
-                <textarea id="textInput" class="textarea text-3xl textarea-bordered w-full h-48 mb-4" placeholder="Enter text here"></textarea>
-                <button id="encodeButton" class="btn btn-primary w-full">Encode to Emoji</button>
-                <div id="encodedText" class="mt-4 p-4 text-3xl bg-gray-200 rounded-lg h-48 overflow-auto"></div>
-            </div>
-            <!-- Decoder Section -->
-            <div class="p-4 bg-lime-200 rounded-lg shadow-2xl">
-                <h2 class="text-xl text-gray-800 font-semibold mb-2">Emoji to Text</h2>
-                <textarea id="emojiInput" class="textarea text-3xl textarea-bordered w-full h-48 mb-4" placeholder="Enter emojis here"></textarea>
-                <button id="decodeButton" class="btn btn-primary w-full">Decode to Text</button>
-                <div id="decodedText" class="mt-4 p-4 text-3xl bg-gray-200 text-black rounded-lg h-48 overflow-auto"></div>
-            </div>
+  <div class="max-w-7xl mx-auto">
+
+    <!-- HEADER -->
+    <div class="neo bg-pink-300 p-5 mb-8">
+
+      <div class="flex flex-col lg:flex-row gap-5 justify-between items-start lg:items-center">
+
+        <div>
+
+          <h1 class="text-4xl md:text-6xl font-black uppercase">
+            EmojiCipher 😎
+          </h1>
+
+          <p class="font-bold mt-2 text-lg">
+            Encode and decode secret emoji messages.
+          </p>
+
         </div>
+
+        <div class="flex flex-wrap gap-3">
+
+          <button
+            id="themeBtn"
+            class="btn rounded-none neo-btn bg-black text-white"
+          >
+            Toggle Theme
+          </button>
+
+          <button
+            id="installBtn"
+            class="btn rounded-none neo-btn bg-cyan-300 text-black hidden"
+          >
+            Install App
+          </button>
+
+        </div>
+
+      </div>
+
     </div>
 
-    <script src="app.js"></script>
+    <!-- GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+      <!-- INPUT -->
+      <div class="neo bg-white p-5">
+
+        <div class="flex flex-wrap gap-3 mb-5">
+
+          <button
+            id="encodeBtn"
+            class="btn rounded-none neo-btn bg-yellow-300 text-black"
+          >
+            Encode
+          </button>
+
+          <button
+            id="decodeBtn"
+            class="btn rounded-none neo-btn bg-green-300 text-black"
+          >
+            Decode
+          </button>
+
+          <button
+            id="copyInputBtn"
+            class="btn rounded-none neo-btn bg-cyan-300 text-black"
+          >
+            Copy
+          </button>
+
+          <button
+            id="pasteBtn"
+            class="btn rounded-none neo-btn bg-pink-300 text-black"
+          >
+            Paste
+          </button>
+
+          <button
+            id="clearBtn"
+            class="btn rounded-none neo-btn bg-red-300 text-black"
+          >
+            Clear
+          </button>
+
+        </div>
+
+        <textarea
+          id="inputText"
+          placeholder="Write your secret message..."
+          class="w-full h-[400px] p-5 border-[4px] border-black outline-none text-lg"
+        ></textarea>
+
+        <div class="mt-4 flex justify-between font-black">
+
+          <span id="charCount">
+            Characters: 0
+          </span>
+
+          <span id="wordCount">
+            Words: 0
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- OUTPUT -->
+      <div class="neo bg-cyan-200 p-5">
+
+        <div class="flex flex-wrap gap-3 mb-5">
+
+          <button
+            id="copyOutputBtn"
+            class="btn rounded-none neo-btn bg-black text-white"
+          >
+            Copy Output
+          </button>
+
+          <button
+            id="downloadBtn"
+            class="btn rounded-none neo-btn bg-lime-300 text-black"
+          >
+            Download
+          </button>
+
+        </div>
+
+        <textarea
+          id="outputText"
+          readonly
+          placeholder="Output appears here..."
+          class="w-full h-[400px] p-5 border-[4px] border-black outline-none text-lg bg-white"
+        ></textarea>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    // =========================
+    // EMOJI MAP
+    // =========================
+
+    const emojiMap = {
+
+      a:"🍎",
+      b:"🦋",
+      c:"🌊",
+      d:"🐬",
+      e:"🔥",
+      f:"🌸",
+      g:"🎮",
+      h:"🍔",
+      i:"🎈",
+      j:"🧃",
+      k:"🪁",
+      l:"🍋",
+      m:"🌙",
+      n:"🎵",
+      o:"🐙",
+      p:"🍕",
+      q:"👑",
+      r:"🤖",
+      s:"⭐",
+      t:"🌴",
+      u:"☂️",
+      v:"🎻",
+      w:"🌍",
+      x:"❌",
+      y:"🧠",
+      z:"⚡",
+
+      " ":"⬜",
+
+      "0":"0️⃣",
+      "1":"1️⃣",
+      "2":"2️⃣",
+      "3":"3️⃣",
+      "4":"4️⃣",
+      "5":"5️⃣",
+      "6":"6️⃣",
+      "7":"7️⃣",
+      "8":"8️⃣",
+      "9":"9️⃣"
+
+    };
+
+    // REVERSE MAP
+    const reverseMap = {};
+
+    for(let key in emojiMap){
+      reverseMap[emojiMap[key]] = key;
+    }
+
+    // ELEMENTS
+    const inputText = document.getElementById("inputText");
+    const outputText = document.getElementById("outputText");
+
+    const encodeBtn = document.getElementById("encodeBtn");
+    const decodeBtn = document.getElementById("decodeBtn");
+
+    const copyInputBtn = document.getElementById("copyInputBtn");
+    const copyOutputBtn = document.getElementById("copyOutputBtn");
+
+    const pasteBtn = document.getElementById("pasteBtn");
+    const clearBtn = document.getElementById("clearBtn");
+
+    const downloadBtn = document.getElementById("downloadBtn");
+
+    const charCount = document.getElementById("charCount");
+    const wordCount = document.getElementById("wordCount");
+
+    const themeBtn = document.getElementById("themeBtn");
+
+    // =========================
+    // UPDATE STATS
+    // =========================
+
+    function updateStats(){
+
+      const text = inputText.value;
+
+      charCount.innerText =
+        "Characters: " + text.length;
+
+      wordCount.innerText =
+        "Words: " +
+        (
+          text.trim() === ""
+          ? 0
+          : text.trim().split(/\s+/).length
+        );
+
+    }
+
+    // =========================
+    // ENCODE
+    // =========================
+
+    function encodeText(){
+
+      const text =
+        inputText.value.toLowerCase();
+
+      let encoded = "";
+
+      for(let char of text){
+
+        encoded +=
+          (emojiMap[char] || char) + " ";
+
+      }
+
+      outputText.value = encoded;
+
+      localStorage.setItem(
+        "emojiCipherInput",
+        inputText.value
+      );
+
+    }
+
+    // =========================
+    // DECODE
+    // =========================
+
+    function decodeText(){
+
+      const emojis =
+        inputText.value.split(" ");
+
+      let decoded = "";
+
+      emojis.forEach((emoji)=>{
+
+        decoded +=
+          reverseMap[emoji] || emoji;
+
+      });
+
+      outputText.value = decoded;
+
+    }
+
+    // =========================
+    // COPY
+    // =========================
+
+    async function copyText(text){
+
+      try{
+
+        await navigator.clipboard.writeText(text);
+
+      }
+      catch(err){
+
+        alert("Copy failed");
+
+      }
+
+    }
+
+    // =========================
+    // BUTTON EVENTS
+    // =========================
+
+    encodeBtn.addEventListener(
+      "click",
+      encodeText
+    );
+
+    decodeBtn.addEventListener(
+      "click",
+      decodeText
+    );
+
+    copyInputBtn.addEventListener(
+      "click",
+      ()=>{
+
+        copyText(inputText.value);
+
+        copyInputBtn.innerText =
+          "Copied!";
+
+        setTimeout(()=>{
+
+          copyInputBtn.innerText =
+            "Copy";
+
+        },1500);
+
+      }
+    );
+
+    copyOutputBtn.addEventListener(
+      "click",
+      ()=>{
+
+        copyText(outputText.value);
+
+        copyOutputBtn.innerText =
+          "Copied!";
+
+        setTimeout(()=>{
+
+          copyOutputBtn.innerText =
+            "Copy Output";
+
+        },1500);
+
+      }
+    );
+
+    pasteBtn.addEventListener(
+      "click",
+      async ()=>{
+
+        try{
+
+          const text =
+            await navigator.clipboard.readText();
+
+          inputText.value = text;
+
+          updateStats();
+
+        }
+        catch(err){
+
+          alert("Paste failed");
+
+        }
+
+      }
+    );
+
+    clearBtn.addEventListener(
+      "click",
+      ()=>{
+
+        inputText.value = "";
+        outputText.value = "";
+
+        updateStats();
+
+      }
+    );
+
+    // =========================
+    // DOWNLOAD
+    // =========================
+
+    downloadBtn.addEventListener(
+      "click",
+      ()=>{
+
+        const blob = new Blob(
+          [outputText.value],
+          {type:"text/plain"}
+        );
+
+        const a =
+          document.createElement("a");
+
+        a.href =
+          URL.createObjectURL(blob);
+
+        a.download =
+          "emoji-message.txt";
+
+        a.click();
+
+      }
+    );
+
+    // =========================
+    // LOCAL STORAGE
+    // =========================
+
+    if(
+      localStorage.getItem(
+        "emojiCipherInput"
+      )
+    ){
+
+      inputText.value =
+        localStorage.getItem(
+          "emojiCipherInput"
+        );
+
+    }
+
+    // =========================
+    // LIVE STATS
+    // =========================
+
+    inputText.addEventListener(
+      "input",
+      updateStats
+    );
+
+    updateStats();
+
+    // =========================
+    // THEME TOGGLE
+    // =========================
+
+    let dark = false;
+
+    themeBtn.addEventListener(
+      "click",
+      ()=>{
+
+        dark = !dark;
+
+        if(dark){
+
+          document.body.classList.remove(
+            "bg-yellow-200"
+          );
+
+          document.body.classList.add(
+            "bg-zinc-900"
+          );
+
+        }
+        else{
+
+          document.body.classList.remove(
+            "bg-zinc-900"
+          );
+
+          document.body.classList.add(
+            "bg-yellow-200"
+          );
+
+        }
+
+      }
+    );
+
+    // =========================
+    // PWA
+    // =========================
+
+    // SERVICE WORKER
+    if("serviceWorker" in navigator){
+
+      const sw = `
+        self.addEventListener(
+          'install',
+          event => {
+            self.skipWaiting();
+          }
+        );
+
+        self.addEventListener(
+          'fetch',
+          event => {}
+        );
+      `;
+
+      const blob =
+        new Blob([sw],{
+          type:'application/javascript'
+        });
+
+      const swURL =
+        URL.createObjectURL(blob);
+
+      navigator.serviceWorker.register(
+        swURL
+      );
+
+    }
+
+    // INSTALL PROMPT
+    let deferredPrompt;
+
+    const installBtn =
+      document.getElementById(
+        "installBtn"
+      );
+
+    window.addEventListener(
+      "beforeinstallprompt",
+      (e)=>{
+
+        e.preventDefault();
+
+        deferredPrompt = e;
+
+        installBtn.classList.remove(
+          "hidden"
+        );
+
+      }
+    );
+
+    installBtn.addEventListener(
+      "click",
+      async ()=>{
+
+        if(deferredPrompt){
+
+          deferredPrompt.prompt();
+
+          deferredPrompt = null;
+
+        }
+
+      }
+    );
+
+  </script>
+
 </body>
 </html>
