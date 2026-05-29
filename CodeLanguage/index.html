@@ -17,6 +17,11 @@
     content="#000000"
   />
 
+  <link
+    rel="manifest"
+    href="manifest.json"
+  />
+
   <!-- Tailwind -->
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -84,7 +89,7 @@
           </h1>
 
           <p class="font-bold mt-2 text-lg">
-            Secret Emoji Language Converter.
+            Secret Emoji Language Converter
           </p>
 
         </div>
@@ -118,7 +123,7 @@
 
     </div>
 
-    <!-- MAIN GRID -->
+    <!-- MAIN -->
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
@@ -220,7 +225,7 @@
 
   </div>
 
-  <!-- INFO MODAL -->
+  <!-- MODAL -->
 
   <dialog
     id="infoModal"
@@ -236,35 +241,19 @@
       <ul class="list-disc pl-5 space-y-2 font-bold">
 
         <li>
-          Write normal text in the input area.
+          Write text in the input area
         </li>
 
         <li>
-          Click Encode to convert text into emojis.
+          Encode converts text to emojis
         </li>
 
         <li>
-          Click Decode to convert emojis back into text.
+          Decode converts emojis to text
         </li>
 
         <li>
-          Use Copy and Paste buttons for fast usage.
-        </li>
-
-        <li>
-          Uppercase and lowercase letters use different emojis.
-        </li>
-
-        <li>
-          Special characters are also supported.
-        </li>
-
-        <li>
-          Install app to save it in your phone drawer.
-        </li>
-
-        <li>
-          App works offline after first visit.
+          Install app for offline use
         </li>
 
       </ul>
@@ -295,8 +284,6 @@
 
     const emojiMap = {
 
-      // LOWERCASE
-
       a:"🍎",
       b:"🦋",
       c:"🌊",
@@ -323,8 +310,6 @@
       x:"❌",
       y:"🧠",
       z:"⚡",
-
-      // UPPERCASE
 
       A:"🅰️",
       B:"🅱️",
@@ -353,49 +338,11 @@
       Y:"🪀",
       Z:"⚡⚡",
 
-      // NUMBERS
-
-      "0":"0️⃣",
-      "1":"1️⃣",
-      "2":"2️⃣",
-      "3":"3️⃣",
-      "4":"4️⃣",
-      "5":"5️⃣",
-      "6":"6️⃣",
-      "7":"7️⃣",
-      "8":"8️⃣",
-      "9":"9️⃣",
-
-      // SPACE
-
       " ":"⬜",
-
-      // SPECIALS
-
       ".":"🔵",
       ",":"🟠",
       "!":"❗",
-      "?":"❓",
-      "@":"📧",
-      "#":"#️⃣",
-      "$":"💲",
-      "%":"📊",
-      "^":"🪄",
-      "&":"🤝",
-      "*":"⭐",
-      "(":"🫲",
-      ")":"🫱",
-      "-":"➖",
-      "_":"⬛",
-      "+":"➕",
-      "=":"🟰",
-      "/":"📏",
-      ":":"🔸",
-      ";":"🔹",
-      "\"":"💬",
-      "'":"🗨️",
-      "<":"⬅️",
-      ">":"➡️"
+      "?":"❓"
 
     };
 
@@ -493,7 +440,7 @@
       );
 
     // =========================
-    // STATS
+    // UPDATE STATS
     // =========================
 
     function updateStats(){
@@ -540,7 +487,7 @@
         encoded;
 
       localStorage.setItem(
-        "emojiCipherInput",
+        "emojiInput",
         inputText.value
       );
 
@@ -576,23 +523,14 @@
 
     async function copyText(text){
 
-      try{
-
-        await navigator
-          .clipboard
-          .writeText(text);
-
-      }
-      catch(err){
-
-        alert("Copy failed");
-
-      }
+      await navigator
+        .clipboard
+        .writeText(text);
 
     }
 
     // =========================
-    // BUTTONS
+    // EVENTS
     // =========================
 
     encodeBtn.addEventListener(
@@ -613,16 +551,6 @@
           inputText.value
         );
 
-        copyInputBtn.innerText =
-          "Copied!";
-
-        setTimeout(()=>{
-
-          copyInputBtn.innerText =
-            "Copy";
-
-        },1500);
-
       }
     );
 
@@ -634,16 +562,6 @@
           outputText.value
         );
 
-        copyOutputBtn.innerText =
-          "Copied!";
-
-        setTimeout(()=>{
-
-          copyOutputBtn.innerText =
-            "Copy Output";
-
-        },1500);
-
       }
     );
 
@@ -651,24 +569,15 @@
       "click",
       async ()=>{
 
-        try{
+        const text =
+          await navigator
+          .clipboard
+          .readText();
 
-          const text =
-            await navigator
-            .clipboard
-            .readText();
+        inputText.value =
+          text;
 
-          inputText.value =
-            text;
-
-          updateStats();
-
-        }
-        catch(err){
-
-          alert("Paste failed");
-
-        }
+        updateStats();
 
       }
     );
@@ -684,10 +593,6 @@
 
       }
     );
-
-    // =========================
-    // DOWNLOAD
-    // =========================
 
     downloadBtn.addEventListener(
       "click",
@@ -754,7 +659,7 @@
     );
 
     // =========================
-    // INFO MODAL
+    // MODAL
     // =========================
 
     infoBtn.addEventListener(
@@ -772,13 +677,13 @@
 
     if(
       localStorage.getItem(
-        "emojiCipherInput"
+        "emojiInput"
       )
     ){
 
       inputText.value =
         localStorage.getItem(
-          "emojiCipherInput"
+          "emojiInput"
         );
 
     }
@@ -795,170 +700,10 @@
     updateStats();
 
     // =========================
-    // PWA
+    // INSTALL APP
     // =========================
 
     let deferredPrompt;
-
-    // MANIFEST
-
-    const manifestData = {
-
-      name: "EmojiCipher",
-
-      short_name: "EmojiCipher",
-
-      start_url: ".",
-
-      display: "standalone",
-
-      background_color: "#fef08a",
-
-      theme_color: "#000000",
-
-      orientation: "portrait",
-
-      icons: [
-
-        {
-          src:
-            "https://cdn-icons-png.flaticon.com/512/3523/3523063.png",
-
-          sizes: "192x192",
-
-          type: "image/png"
-        },
-
-        {
-          src:
-            "https://cdn-icons-png.flaticon.com/512/3523/3523063.png",
-
-          sizes: "512x512",
-
-          type: "image/png"
-        }
-
-      ]
-
-    };
-
-    const manifestBlob =
-      new Blob(
-        [
-          JSON.stringify(
-            manifestData
-          )
-        ],
-        {
-          type:
-            "application/json"
-        }
-      );
-
-    const manifestURL =
-      URL.createObjectURL(
-        manifestBlob
-      );
-
-    const manifestLink =
-      document.createElement(
-        "link"
-      );
-
-    manifestLink.rel =
-      "manifest";
-
-    manifestLink.href =
-      manifestURL;
-
-    document.head.appendChild(
-      manifestLink
-    );
-
-    // SERVICE WORKER
-
-    if(
-      "serviceWorker"
-      in navigator
-    ){
-
-      const swCode = `
-
-        const CACHE_NAME =
-          'emoji-cipher-cache-v1';
-
-        const urlsToCache = [
-          './'
-        ];
-
-        self.addEventListener(
-          'install',
-          event => {
-
-            event.waitUntil(
-
-              caches.open(
-                CACHE_NAME
-              ).then(cache => {
-
-                return cache.addAll(
-                  urlsToCache
-                );
-
-              })
-
-            );
-
-          }
-        );
-
-        self.addEventListener(
-          'fetch',
-          event => {
-
-            event.respondWith(
-
-              caches.match(
-                event.request
-              ).then(response => {
-
-                return (
-                  response
-                  || fetch(
-                    event.request
-                  )
-                );
-
-              })
-
-            );
-
-          }
-        );
-
-      `;
-
-      const swBlob =
-        new Blob(
-          [swCode],
-          {
-            type:
-              "application/javascript"
-          }
-        );
-
-      const swURL =
-        URL.createObjectURL(
-          swBlob
-        );
-
-      navigator
-        .serviceWorker
-        .register(swURL);
-
-    }
-
-    // INSTALL PROMPT
 
     window.addEventListener(
       "beforeinstallprompt",
@@ -975,8 +720,6 @@
       }
     );
 
-    // INSTALL APP
-
     installBtn.addEventListener(
       "click",
       async ()=>{
@@ -985,27 +728,32 @@
 
           deferredPrompt.prompt();
 
-          const choice =
-            await deferredPrompt.userChoice;
-
-          if(
-            choice.outcome
-            === "accepted"
-          ){
-
-            installBtn.innerText =
-              "Installed 😄";
-
-          }
-
-          deferredPrompt = null;
+          await deferredPrompt.userChoice;
 
         }
 
       }
     );
 
+    // =========================
+    // SERVICE WORKER
+    // =========================
+
+    if(
+      "serviceWorker"
+      in navigator
+    ){
+
+      navigator
+        .serviceWorker
+        .register(
+          "./sw.js"
+        );
+
+    }
+
   </script>
 
 </body>
+
 </html>
